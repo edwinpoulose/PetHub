@@ -1,0 +1,58 @@
+/*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
+/*=============================================================================
+	File Name:	ELNC6011EPLab2.c  
+	Author:		Edwin Poulose
+	Date:		28/05/2024
+	Modified:	None
+	� Fanshawe College, 2024
+
+	Description: A program that samples multiple sensors at regular intervals.
+				 Average of these samples are printed to screen.
+=============================================================================*/
+
+#ifndef TYPES
+#define TYPES
+#include "PetHub_Defines.h"
+
+
+// Global Variables  ==========================================================
+typedef int sensor_t;
+
+typedef struct
+{
+	sensor_t samples[SAMPSIZE];
+	sensor_t avg;
+	sensor_t lLimit;
+	sensor_t hLimit;
+	char  	 insert;
+	char 	 avgRdy;
+} sensorCh_t;
+
+typedef struct
+{
+	char pbState;
+	char pbLastState;
+}pbs_t;
+
+typedef struct
+{
+	char currentPattern;
+	char patternCounter;
+	char currentPosition;
+	char setPosition;
+	char isMoving;
+}stepper_t;
+
+/*Structure to save current status of system*/
+typedef struct
+{
+	char mode;
+	char shedule;
+	char portion;
+	char hour;
+	char min;
+	char temp;
+}system_t;
+
+
+#endif
