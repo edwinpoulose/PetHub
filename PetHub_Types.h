@@ -52,7 +52,18 @@ typedef struct
 	char hour;
 	char min;
 	char temp;
+	char statusChange;
 }system_t;
+
+typedef struct
+{
+	char shedules[MAXSHEDULES];
+	char sheduleSelect;
+	char sheduleIndex;
+
+}shedules_t;
+
+
 
 
 #endif

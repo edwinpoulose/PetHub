@@ -172,7 +172,11 @@ void systemInitialization(void)
 
 	initStepper(&vent);
 	initPbs(&pbs);
+	initStatus(&newStatus);
 	initStatus(&currentStatus);
+	initShedule(&newShedule);
+	initShedule(&currentShedule);
+
 	
 	
 } // eo systemInitialization::
@@ -210,14 +214,23 @@ Returns:	None
  ============================================================================*/
 void displayData()
 {
+	int i;
 	printf("\033[2J\033[HPetHub Status\n\r");
 
-	printf("\n\rMode: %3i",currentStatus.mode);
-	printf("\n\rShedule: %3i",currentStatus.shedule);
-	printf("\n\rPortion: %3i",currentStatus.portion);
-	printf("\n\rHour: %3i",currentStatus.hour);
-	printf("\n\rMin: %3i",currentStatus.min);
-	printf("\n\rTemp: %3i",currentStatus.temp);
+	printf("\n\rMode: %3i",newStatus.mode);
+	printf("\n\rShedule: %3i\n\r",newStatus.shedule);
+	for (i=0;i<newStatus.shedule;i++)
+	{
+		if(newShedule.sheduleSelect && newShedule.sheduleIndex==i)
+		{
+			printf("Setting ");
+		}
+		printf("Shedule_%i: %3i\n\r",i+1,newShedule.shedules[i]);
+	}
+	printf("Portion: %3i",newStatus.portion);
+	printf("\n\rHour: %3i",newStatus.hour);
+	printf("\n\rMin: %3i",newStatus.min);
+	printf("\n\rTemp: %3i",newStatus.temp);
 } // eo displayData::
 
 /*>>> initPbs: ===========================================================
@@ -271,6 +284,27 @@ void initStatus(system_t *status)
 
 } // eo initStepper::
 
+/*>>> initShedule: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		
+Input: 		motor, pointer to stepper motor data structure
+Returns:	None	
+ ============================================================================*/
+void initShedule(shedules_t *shedule)
+{
+	int i;
+	shedule->sheduleIndex=TRUE;
+	shedule->sheduleSelect=FALSE;
+	for(i=0;i<MAXSHEDULES;i++)
+	{
+		shedule->shedules[i]=FALSE;
+	}
+
+
+} // eo initShedule::
+
 /*>>> changeMode: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
@@ -281,10 +315,50 @@ Returns:	None
  ============================================================================*/
 void changeMode()
 {
-	currentStatus.mode++;
-	if(currentStatus.mode>TOTALMODES)
+	/*
+	 if in shedule mode,when change mode pressed, it runs through each shedule
+	 setting incrementing shedule index until it reaches max shedule limit 
+	 previously set.
+	 */
+	if(newStatus.mode==2)
 	{
-		currentStatus.mode=TRUE;
+		newShedule.sheduleIndex++;
+		if(newShedule.sheduleIndex<newStatus.shedule)
+		{
+			newShedule.sheduleSelect=TRUE;
+		}
+		else
+		{
+			newShedule.sheduleSelect=FALSE;
+			newStatus.mode++;
+		}
+	}
+	else
+	{
+		newStatus.mode++;
+		if(newStatus.mode>TOTALMODES)
+		{
+			newStatus.mode=TRUE;
+		}
+		// When set to run mode new system setup initialted
+		if(newStatus.mode==TRUE)
+		{
+			currentStatus.mode=newStatus.mode;
+			currentStatus.shedule=newStatus.shedule;
+			currentStatus.portion=newStatus.portion;
+			currentStatus.hour=newStatus.hour;
+			currentStatus.min=newStatus.min;
+			currentStatus.temp=newStatus.temp;
+			newStatus.statusChange=TRUE;
+			for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<newStatus.shedule
+							;currentShedule.sheduleIndex++)
+				{
+					currentShedule.shedules[currentShedule.sheduleIndex]=
+								newShedule.shedules[currentShedule.sheduleIndex];
+				}
+			newShedule.sheduleIndex=-1;
+
+		}
 	}
 } // eo changeMode::
 
@@ -313,49 +387,63 @@ Returns:	None
  ============================================================================*/
 void inc()
 {
-	switch(currentStatus.mode)
+
+	if(newShedule.sheduleSelect)
 	{
-		case 2:
-			currentStatus.shedule++;
-			if(currentStatus.shedule>5)
-			{
-				currentStatus.shedule=1;
-			}
-			break;
+		newShedule.shedules[newShedule.sheduleIndex]++;
+		if(newShedule.shedules[newShedule.sheduleIndex]>23)
+		{
+			newShedule.shedules[newShedule.sheduleIndex]=0;
+		}
 
-		case 3:
-			currentStatus.portion++;
-			if(currentStatus.portion>5)
-			{
-				currentStatus.portion=1;
-			}
-			break;
-
-		case 4:
-			currentStatus.hour++;
-			if(currentStatus.hour>23)
-			{
-				currentStatus.hour=0;
-			}
-			break;
-		case 5:
-			currentStatus.min++;
-			if(currentStatus.min>59)
-			{
-				currentStatus.min=0;
-			}
-			break;
-
-		case 6:
-			currentStatus.temp++;
-			if(currentStatus.temp>25)
-			{
-				currentStatus.temp=18;
-			}
-			break;
-		default:
-			break;
 	}
+	else
+	{
+		switch(newStatus.mode)
+		{
+			case 2:
+				newStatus.shedule++;
+				if(newStatus.shedule>MAXSHEDULES)
+				{
+					newStatus.shedule=1;
+				}
+				break;
+
+			case 3:
+				newStatus.portion++;
+				if(newStatus.portion>5)
+				{
+					newStatus.portion=1;
+				}
+				break;
+
+			case 4:
+				newStatus.hour++;
+				if(newStatus.hour>23)
+				{
+					newStatus.hour=0;
+				}
+				break;
+			case 5:
+				newStatus.min++;
+				if(newStatus.min>59)
+				{
+					newStatus.min=0;
+				}
+				break;
+
+			case 6:
+				newStatus.temp++;
+				if(newStatus.temp>25)
+				{
+					newStatus.temp=18;
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
 } // eo inc::
 
 /*>>> decLimit: ===========================================================
@@ -369,47 +457,58 @@ Returns:	None
  ============================================================================*/
 void dec()
 {
-	switch(currentStatus.mode)
+	if(newShedule.sheduleSelect)
 	{
-		case 2:
-			currentStatus.shedule--;
-			if(currentStatus.shedule<1)
-			{
-				currentStatus.shedule=5;
-			}
-			break;
+		newShedule.shedules[newShedule.sheduleIndex]--;
+		if(newShedule.shedules[newShedule.sheduleIndex]<0)
+		{
+			newShedule.shedules[newShedule.sheduleIndex]=23;
+		}
+	}
+	else
+	{
+		switch(newStatus.mode)
+		{
+			case 2:
+				newStatus.shedule--;
+				if(newStatus.shedule<1)
+				{
+					newStatus.shedule=MAXSHEDULES;
+				}
+				break;
 
-		case 3:
-			currentStatus.portion--;
-			if(currentStatus.portion<1)
-			{
-				currentStatus.portion=5;
-			}
-			break;
+			case 3:
+				newStatus.portion--;
+				if(newStatus.portion<1)
+				{
+					newStatus.portion=5;
+				}
+				break;
 
-		case 4:
-			currentStatus.hour--;
-			if(currentStatus.hour<0)
-			{
-				currentStatus.hour=23;
-			}
-			break;
-		case 5:
-			currentStatus.min--;
-			if(currentStatus.min<0)
-			{
-				currentStatus.min=59;
-			}
-			break;
+			case 4:
+				newStatus.hour--;
+				if(newStatus.hour<0)
+				{
+					newStatus.hour=23;
+				}
+				break;
+			case 5:
+				newStatus.min--;
+				if(newStatus.min<0)
+				{
+					newStatus.min=59;
+				}
+				break;
 
-		case 6:
-			currentStatus.temp--;
-			if(currentStatus.temp<18)
-			{
-				currentStatus.temp=25;
-			}
-			break;
-		default:
-			break;
+			case 6:
+				newStatus.temp--;
+				if(newStatus.temp<18)
+				{
+					newStatus.temp=25;
+				}
+				break;
+			default:
+				break;
+		}
 	}
 } // eo dec::

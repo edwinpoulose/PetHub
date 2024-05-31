@@ -24,6 +24,11 @@ sensorCh_t sensors[SENCOUNT];
 pbs_t pbs;
 stepper_t vent;
 system_t currentStatus;
+system_t newStatus;
+shedules_t newShedule;
+shedules_t currentShedule;
+
+
 char patternArray[4]={0x01,0x02,0x04,0x08};
 sensor_t maxLimits[SENCOUNT]={450,100,6000};
 sensor_t minLimits[SENCOUNT]={-50,0,1190};

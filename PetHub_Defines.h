@@ -56,4 +56,6 @@
 #define NOPRESS			  0xF0
 
 #define TOTALMODES		  6
+#define MAXSHEDULES		  10
+
 #endif

@@ -44,7 +44,7 @@ void main( void )
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
-		if(pbs.pbState!=pbs.pbLastState)
+		if(pbs.pbState!=pbs.pbLastState && pbs.pbState!=NOPRESS)
 		{
 			pbs.pbLastState=pbs.pbState;
 			switch(pbs.pbState)
@@ -65,11 +65,11 @@ void main( void )
 					break;
 			}
 		}
-		if(pbs.pbState==NOPRESS)
+		else if(pbs.pbState==NOPRESS)
 		{
 			pbs.pbLastState=NOPRESS;
 		}
-		
+				
 		// When timer overflows reset timer, increment counter
 		if(TIMERFLAG)
 		{

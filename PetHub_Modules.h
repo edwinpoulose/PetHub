@@ -27,7 +27,10 @@ extern sensor_t maxLimits[SENCOUNT];
 extern sensor_t minLimits[SENCOUNT];
 extern sensor_t initHL[SENCOUNT];
 extern sensor_t initLL[SENCOUNT];
-extern system_t currentStatus,newStatus;
+extern system_t currentStatus;
+extern system_t newStatus;
+extern shedules_t newShedule;
+extern shedules_t currentShedule;
 
 // Functions  =================================================================
 
@@ -45,6 +48,7 @@ void displayData();
 void initPbs(pbs_t *button);
 void initStepper(stepper_t *motor);
 void initStatus(system_t *status);
+void initShedule(shedules_t *shedule);
 void changeMode();
 void overrideSel();
 void inc();
