@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "PetHub_Types.h"
+#include "PetHub_Modules.h"
 
 
 #ifndef PETHUB
@@ -28,7 +29,8 @@ system_t newStatus;
 shedules_t newShedule;
 shedules_t currentShedule;
 
-
+// Prototypes  ----------------------------------------------------------------
+void isr();
 char patternArray[4]={0x01,0x02,0x04,0x08};
 sensor_t maxLimits[SENCOUNT]={450,100,6000};
 sensor_t minLimits[SENCOUNT]={-50,0,1190};
@@ -36,6 +38,7 @@ sensor_t minLimits[SENCOUNT]={-50,0,1190};
 
 sensor_t initHL[SENCOUNT]={35,60,1200};
 sensor_t initLL[SENCOUNT]={15,40,800};
+
 
 
 #endif

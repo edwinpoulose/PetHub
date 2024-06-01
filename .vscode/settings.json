@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "pethub_types.h": "c",
+        "pethub_modules.h": "c",
+        "pethub_defines.h": "c",
+        "pethub_interrupts.h": "c"
+    }
+}

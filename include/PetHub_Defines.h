@@ -54,6 +54,8 @@
 #define DECPRESS		  0xB0
 #define MANUAL			  0x70
 #define NOPRESS			  0xF0
+#define RC1FLAG	  	  	  PIR1bits.RC1IF
+#define INTGON			  0xC0
 
 #define TOTALMODES		  6
 #define MAXSHEDULES		  10

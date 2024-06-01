@@ -125,6 +125,35 @@ void configureADC(void)
 	ADCON2=ADCON2SETTING;
 } // eo configureADC::
 
+/*>>> configureInterrupt: -----------------------------------------------------------
+Author:		Edwin Poulose
+Date:		14/11/2023
+Modified:	None
+Desc:		Configure interrupts, TMR0 and USART1 interrupts enabled, 
+			Global interrupts ON, no priority levels.
+Returns:	None
+ ----------------------------------------------------------------------------*/
+void configureInterrupt(void)
+{
+	//TMR0
+	INTCON2bits.TMR0IP=FALSE;
+	TIMERFLAG=FALSE;
+	INTCONbits.TMR0IE=TRUE;
+	
+	// USART1 RECEIVER
+	IPR1bits.RC1IP=FALSE;
+	RC1FLAG=FALSE;
+	PIE1bits.RC1IE=TRUE;
+	
+	// INTERRUPT PRIORITY LEVEL
+	RCONbits.IPEN=FALSE;
+	
+	// GLOBAL INTERRUPT ENABLE
+	INTCON |=INTGON;
+
+} // eo configureInterrupt::
+
+
 /*>>> initSensorCh: ==================================================
 Author:		Edwin Poulose
 Date:		14/05/2024
@@ -163,6 +192,7 @@ void systemInitialization(void)
 	setTimer(HUNDREADMSEC);
 	setSerialPort();
 	configureADC();
+	configureInterrupt();
 	for(index=0;index<SENCOUNT;index++)
 	{
 		initSensorCh(&sensors[index]);

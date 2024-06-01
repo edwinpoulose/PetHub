@@ -26,20 +26,19 @@
 #pragma config LVP		= OFF
 #pragma config MCLRE	= EXTMCLR
 
+
+
 // Libraries ==================================================================
 
 #include "PetHub.h"
-#include "PetHub_Modules.h"
+
+
+
 
 /*=== MAIN: FUNCTION ==========================================================
  ============================================================================*/
 void main( void )
 {
-	char timeCount=FALSE;
-	char chID=FALSE;
-	long sum=FALSE;
-	int index=FALSE;
-	float volts=FALSE;
 	systemInitialization();
 	while(TRUE)
 	{
@@ -73,56 +72,7 @@ void main( void )
 		// When timer overflows reset timer, increment counter
 		if(TIMERFLAG)
 		{
-			resetTimer(HUNDREADMSEC);
-			timeCount++;
-			// when it reaches one second, sample the data.
-			if(timeCount>=ONESEC)
-			{
-				timeCount=FALSE;
-				for(chID=FALSE;chID<SENCOUNT;chID++)
-				{
-					sensors[chID].samples[sensors[chID].insert]=startADCConversion(chID);
-					sensors[chID].insert++;
-					// reset insert point when it reaches sample size
-					if(sensors[chID].insert>=SAMPSIZE)
-					{
-						sensors[chID].insert=FALSE;
-						sensors[chID].avgRdy=TRUE;
-					}
-					// calculate average when average ready flag sets
-					if(sensors[chID].avgRdy)
-					{
-						volts=FALSE;
-						for(sum=FALSE,index=FALSE;index<SAMPSIZE;index++)
-						{
-							sum+=sensors[chID].samples[index];
-						}
-						sensors[chID].avg=sum/SAMPSIZE;
-						volts=sensors[chID].avg*ADCRES;
-						switch(chID)
-						{
-							case TEMP:
-								volts-=TEMPB;
-								sensors[chID].avg=volts/TEMPM;
-								break;
-							case HUMID:
-								sensors[chID].avg=volts/HUMIDM;
-								break;
-							case CO2:
-								sensors[chID].avg=volts/CO2M;
-								break;
-							default:
-								break;
-						}
-					}//eo if(sensors[chID].avgRdy)
-				}// eo for(chID=FALSE;chID<SENCOUNT;chID++)
-				// Call display function to display sensor data
-				displayData();
-			}// eo if(timeCount>=ONESEC)
-			else
-			{
-				/* Do nothing*/
-			}
+
 		}// eo if(TIMERFLAG)
 	}// eo while(TRUE)
 } // eo main::

@@ -1,5 +1,4 @@
-Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\PetHub.c 53 : call of function without prototype
-Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\PetHub.c 56 : call of function without prototype
-Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\PetHub.c 59 : call of function without prototype
-Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\PetHub.c 62 : call of function without prototype
-Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\PetHub.c 120 : call of function without prototype
+Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c 52 : call of function without prototype
+Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c 55 : call of function without prototype
+Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c 58 : call of function without prototype
+Warning[2058] C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c 61 : call of function without prototype
