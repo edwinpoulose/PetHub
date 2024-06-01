@@ -5,8 +5,8 @@ device=PIC18F45K22
 [PATH_INFO]
 BuildDirPolicy=BuildDirIsProjectDir
 dir_src=
-dir_bin=
-dir_tmp=
+dir_bin=.\out
+dir_tmp=.\out
 dir_sin=
 dir_inc=.\src;.\include
 dir_lib=C:\Program Files (x86)\Microchip\mplabc18\v3.47\lib
