@@ -49,11 +49,18 @@ typedef struct
 	char mode;
 	char shedule;
 	char portion;
-	char hour;
-	char min;
 	char temp;
 	char statusChange;
 }system_t;
+
+
+/*Structure to save current status of system*/
+typedef struct
+{
+	char hour;
+	char min;
+	char second;
+}time_t;
 
 typedef struct
 {

@@ -28,6 +28,8 @@ system_t currentStatus;
 system_t newStatus;
 shedules_t newShedule;
 shedules_t currentShedule;
+time_t systemTime;
+
 
 // Prototypes  ----------------------------------------------------------------
 void isr();
@@ -38,6 +40,8 @@ sensor_t minLimits[SENCOUNT]={-50,0,1190};
 
 sensor_t initHL[SENCOUNT]={35,60,1200};
 sensor_t initLL[SENCOUNT]={15,40,800};
+char displayFlag=FALSE;
+char dispenseCheckFlag=TRUE;
 
 
 

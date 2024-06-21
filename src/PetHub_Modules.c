@@ -15,68 +15,6 @@
 
 // Functions  =================================================================
 
-/*>>> setFrequency: ===========================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Set the oscillator frequency to 4 Mhz and wait until oscillator
-			frequency becomes stable
-Input: 		None
-Returns:	None
- ============================================================================*/
-void setFrequency(void)
-{
-	OSCCON = OSCCONSETTING;
-	while(!(OSCCONbits.HFIOFS));	
-} // eo setFrequency::
-
-/*>>> setPort: ============================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Set PORTA, PORTB and PORTC
-Input: 		None
-Returns:	None
- ============================================================================*/
-void setPort(void)
-{
-	// Configure PORTA pins for ADC and PBs
-	ANSELA=0x00;
-	LATA=0x00;
-	TRISA=0xFF;
-
-	// Configure PORTC pins for USART and LEDS
-	ANSELC=0x00;
-	LATC=0x00;
-	TRISC=0xF0;
-
-	// Configure PORTB pins for EXHAUST LEDS
-	ANSELB=0x00;
-	LATB=0x00;
-	TRISB=0xF0;
-
-} // eo setPort::
-
-/*>>> setSerialPort: ===========================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Configure USART, serial port on, Tx and Rx enabled, Async Mode, 
-			8Bit mode, 9600 Baud rate
-Returns:	None
- ============================================================================*/
-void setSerialPort(void)
-{
-	// BRG16:0
-	BAUDCON1=BAUDCON1SETTING;
-	// TXEN:1,BRGH:1,SYNC:0
-	TXSTA1=TXSTA1SETTING;
-	// SPEN:1,CREN:1
-	RCSTA1=RCSTA1SETTING;
-	// SPBRGH1:SPBRG1=25
-	SPBRG1=SPBRG1SETTING;
-	SPBRGH1=SPBRGH1SETTING;
-} // eo setSerialPort::
 
 /*>>> resetTimer: ===========================================================
 Author:		Edwin Poulose
@@ -93,65 +31,6 @@ void resetTimer(int preset)
 	TMR0H=preset>>BYTESIZE;
 	TMR0L=preset;
 } // eo resetTimer::
-
-/*>>> setTimer: ===========================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Reset the timer0, set the timer0 to on, select internal clock 
-			source and set pre scaler to 2.
-Input: 		preset, preset value of timer0 to set desired rollover time. 
-Returns:	None
- ============================================================================*/
-void setTimer(int preset)
-{
-	resetTimer(preset);
-	T0CON=T0CONSETTING;
-} // eo setTimer::
-
-/*>>> configureADC: ===========================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Configure the ADC for 12 TAD, Fosc/8, right justified, standard 
-			voltage references and ADC module ON
-Input: 		None
-Returns:	None
- ============================================================================*/
-void configureADC(void)
-{
-	ADCON0=ADCON0SETTING;
-	ADCON1=ADCON1SETTING;
-	ADCON2=ADCON2SETTING;
-} // eo configureADC::
-
-/*>>> configureInterrupt: -----------------------------------------------------------
-Author:		Edwin Poulose
-Date:		14/11/2023
-Modified:	None
-Desc:		Configure interrupts, TMR0 and USART1 interrupts enabled, 
-			Global interrupts ON, no priority levels.
-Returns:	None
- ----------------------------------------------------------------------------*/
-void configureInterrupt(void)
-{
-	//TMR0
-	INTCON2bits.TMR0IP=FALSE;
-	TIMERFLAG=FALSE;
-	INTCONbits.TMR0IE=TRUE;
-	
-	// USART1 RECEIVER
-	IPR1bits.RC1IP=FALSE;
-	RC1FLAG=FALSE;
-	PIE1bits.RC1IE=TRUE;
-	
-	// INTERRUPT PRIORITY LEVEL
-	RCONbits.IPEN=FALSE;
-	
-	// GLOBAL INTERRUPT ENABLE
-	INTCON |=INTGON;
-
-} // eo configureInterrupt::
 
 
 /*>>> initSensorCh: ==================================================
@@ -187,18 +66,75 @@ Returns:	None
 void systemInitialization(void)
 {
 	int index=0;
-	setFrequency();
-	setPort();
-	setTimer(HUNDREADMSEC);
-	setSerialPort();
-	configureADC();
-	configureInterrupt();
-	for(index=0;index<SENCOUNT;index++)
+	
+	// set Frequency
+	OSCCON = OSCCONSETTING;
+	while(!(OSCCONbits.HFIOFS));
+	
+	//set Port
+	
+	// Configure PORTA pins for ADC and PBs
+	ANSELA=0x00;
+	LATA=0x00;
+	TRISA=0xFF;
+
+	// Configure PORTC pins for USART and LEDS
+	ANSELC=0x00;
+	LATC=0x00;
+	TRISC=0xF0;
+
+	// Configure PORTB pins for EXHAUST LEDS
+	ANSELB=0x00;
+	LATB=0x00;
+	TRISB=0xF0;
+	
+	
+	// set Timer
+	resetTimer(ONESEC);
+	T0CON=T0CONSETTING;
+	
+	
+	//set SerialPort
+	
+	// BRG16:0
+	BAUDCON1=BAUDCON1SETTING;
+	// TXEN:1,BRGH:1,SYNC:0
+	TXSTA1=TXSTA1SETTING;
+	// SPEN:1,CREN:1
+	RCSTA1=RCSTA1SETTING;
+	// SPBRGH1:SPBRG1=25
+	SPBRG1=SPBRG1SETTING;
+	SPBRGH1=SPBRGH1SETTING;
+	
+	// configure ADC	
+	
+	ADCON0=ADCON0SETTING;
+	ADCON1=ADCON1SETTING;
+	ADCON2=ADCON2SETTING;
+	
+	//configureInterrupt
+	//TMR0
+	INTCON2bits.TMR0IP=FALSE;
+	TIMERFLAG=FALSE;
+	INTCONbits.TMR0IE=TRUE;
+	
+	// USART1 RECEIVER
+	IPR1bits.RC1IP=FALSE;
+	RC1FLAG=FALSE;
+	PIE1bits.RC1IE=TRUE;
+	
+	// INTERRUPT PRIORITY LEVEL
+	RCONbits.IPEN=FALSE;
+	
+	// GLOBAL INTERRUPT ENABLE
+	INTCON |=INTGON;
+	
+/* 	for(index=0;index<SENCOUNT;index++)
 	{
 		initSensorCh(&sensors[index]);
 		sensors[index].lLimit=initLL[index];
 		sensors[index].hLimit=initHL[index];
-	}
+	} */
 
 	initStepper(&vent);
 	initPbs(&pbs);
@@ -206,6 +142,7 @@ void systemInitialization(void)
 	initStatus(&currentStatus);
 	initShedule(&newShedule);
 	initShedule(&currentShedule);
+	initTime(&systemTime);
 
 	
 	
@@ -246,8 +183,33 @@ void displayData()
 {
 	int i;
 	printf("\033[2J\033[HPetHub Status\n\r");
+	printf("\n\rCurrent Time: %02i:%02i:%02i",systemTime.hour,systemTime.min,systemTime.second);
 
-	printf("\n\rMode: %3i",newStatus.mode);
+	printf("\n\r\n\rMode:");
+
+		switch(newStatus.mode)
+		{
+			case 1:
+				printf("Running");
+				break;
+			case 2:
+				printf("Schedule");
+				break;
+			case 3:
+				printf("Portion");
+				break;
+			case 4:
+				printf("Hour");
+				break;
+			case 5:
+				printf("Minute");
+				break;
+			case 6:
+				printf("Teperature");
+				break;
+			default:
+				break;
+		}
 	printf("\n\rShedule: %3i\n\r",newStatus.shedule);
 	for (i=0;i<newStatus.shedule;i++)
 	{
@@ -258,8 +220,8 @@ void displayData()
 		printf("Shedule_%i: %3i\n\r",i+1,newShedule.shedules[i]);
 	}
 	printf("Portion: %3i",newStatus.portion);
-	printf("\n\rHour: %3i",newStatus.hour);
-	printf("\n\rMin: %3i",newStatus.min);
+	printf("\n\rHour: %3i",systemTime.hour);
+	printf("\n\rMin: %3i",systemTime.min);
 	printf("\n\rTemp: %3i",newStatus.temp);
 } // eo displayData::
 
@@ -308,9 +270,24 @@ void initStatus(system_t *status)
 	status->mode=TRUE;
 	status->shedule=2;
 	status->portion=3;
-	status->hour=FALSE;
-	status->min=FALSE;
 	status->temp=20;
+	status->statusChange=FALSE;
+
+} // eo initStepper::
+
+/*>>> initStepper: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		
+Input: 		motor, pointer to stepper motor data structure
+Returns:	None	
+ ============================================================================*/
+void initTime(time_t *time)
+{
+	time->hour=FALSE;
+	time->min=FALSE;
+	time->second=FALSE;
 
 } // eo initStepper::
 
@@ -325,7 +302,7 @@ Returns:	None
 void initShedule(shedules_t *shedule)
 {
 	int i;
-	shedule->sheduleIndex=TRUE;
+	shedule->sheduleIndex=-1;
 	shedule->sheduleSelect=FALSE;
 	for(i=0;i<MAXSHEDULES;i++)
 	{
@@ -334,6 +311,45 @@ void initShedule(shedules_t *shedule)
 
 
 } // eo initShedule::
+
+/*>>> initShedule: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		
+Input: 		motor, pointer to stepper motor data structure
+Returns:	None	
+ ============================================================================*/
+void transmitToESP(char control)
+{
+	int i;
+	if(control==1)
+	{
+		printf("\033[15;0H$1,%02i,%02i,%02i#",currentStatus.shedule,currentStatus.portion,currentStatus.temp);
+		printf("\r\n$2");
+		for (i=0;i<newStatus.shedule;i++)
+		{
+			printf(",%02i",currentShedule.shedules[i]);
+		}
+		printf("#");
+	}
+	
+} // eo initShedule::
+
+/*>>> initShedule: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		
+Input: 		motor, pointer to stepper motor data structure
+Returns:	None	
+ ============================================================================*/
+void dispenseFood()
+{
+	// check the current portion size and dispence accordigly
+	
+} // eo initShedule::
+
 
 /*>>> changeMode: ===========================================================
 Author:		Edwin Poulose
@@ -376,10 +392,8 @@ void changeMode()
 			currentStatus.mode=newStatus.mode;
 			currentStatus.shedule=newStatus.shedule;
 			currentStatus.portion=newStatus.portion;
-			currentStatus.hour=newStatus.hour;
-			currentStatus.min=newStatus.min;
 			currentStatus.temp=newStatus.temp;
-			newStatus.statusChange=TRUE;
+			currentStatus.statusChange=TRUE;
 			for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<newStatus.shedule
 							;currentShedule.sheduleIndex++)
 				{
@@ -392,19 +406,6 @@ void changeMode()
 	}
 } // eo changeMode::
 
-/*>>> overrideSel: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		
-Input: 		button, pointer to button data structure
-Returns:	None	
- ============================================================================*/
-void overrideSel()
-{
-
-
-} // eo overrideSel::
 
 /*>>> inc: ===========================================================
 Author:		Edwin Poulose
@@ -448,17 +449,17 @@ void inc()
 				break;
 
 			case 4:
-				newStatus.hour++;
-				if(newStatus.hour>23)
+				systemTime.hour++;
+				if(systemTime.hour>23)
 				{
-					newStatus.hour=0;
+					systemTime.hour=0;
 				}
 				break;
 			case 5:
-				newStatus.min++;
-				if(newStatus.min>59)
+				systemTime.min++;
+				if(systemTime.min>59)
 				{
-					newStatus.min=0;
+					systemTime.min=0;
 				}
 				break;
 
@@ -516,17 +517,17 @@ void dec()
 				break;
 
 			case 4:
-				newStatus.hour--;
-				if(newStatus.hour<0)
+				systemTime.hour--;
+				if(systemTime.hour<0)
 				{
-					newStatus.hour=23;
+					systemTime.hour=23;
 				}
 				break;
 			case 5:
-				newStatus.min--;
-				if(newStatus.min<0)
+				systemTime.min--;
+				if(systemTime.min<0)
 				{
-					newStatus.min=59;
+					systemTime.min=59;
 				}
 				break;
 

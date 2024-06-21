@@ -40,60 +40,29 @@ void isr()
 {
 	if(TIMERFLAG)
 	{
-		resetTimer(HUNDREADMSEC);
-		timeCount++;
-		// when it reaches one second, sample the data.
-		if(timeCount>=ONESEC)
-		{
-			timeCount=FALSE;
-			for(chID=FALSE;chID<SENCOUNT;chID++)
+		resetTimer(ONESEC);
+			systemTime.second++;
+			if (MINUTE<=systemTime.second)
 			{
-				sensors[chID].samples[sensors[chID].insert]=startADCConversion(chID);
-				sensors[chID].insert++;
-				// reset insert point when it reaches sample size
-				if(sensors[chID].insert>=SAMPSIZE)
+				systemTime.second=0;
+				systemTime.min++;
+				if (HOUR<=systemTime.min)
 				{
-					sensors[chID].insert=FALSE;
-					sensors[chID].avgRdy=TRUE;
+					systemTime.min=0;
+					systemTime.hour++;
+					// check to dispense food
+					dispenseCheckFlag=TRUE;
+					if (DAY<=systemTime.hour)
+					{
+						systemTime.hour=0;
+					}
 				}
-				// calculate average when average ready flag sets
-				if(sensors[chID].avgRdy)
-				{
-					volts=FALSE;
-					for(sum=FALSE,index=FALSE;index<SAMPSIZE;index++)
-					{
-						sum+=sensors[chID].samples[index];
-					}
-					sensors[chID].avg=sum/SAMPSIZE;
-					volts=sensors[chID].avg*ADCRES;
-					switch(chID)
-					{
-						case TEMP:
-							volts-=TEMPB;
-							sensors[chID].avg=volts/TEMPM;
-							break;
-						case HUMID:
-							sensors[chID].avg=volts/HUMIDM;
-							break;
-						case CO2:
-							sensors[chID].avg=volts/CO2M;
-							break;
-						default:
-							break;
-					}
-				}//eo if(sensors[chID].avgRdy)
-			}// eo for(chID=FALSE;chID<SENCOUNT;chID++)
-			// Call display function to display sensor data
-			displayData();
-		}// eo if(timeCount>=ONESEC)
-		else
-		{
-			/* Do nothing*/
-		}	
+			}
+		displayFlag=TRUE;
 	}
 	if(RC1FLAG)
 	{
-		
+		// For future updates if serial reception is used
 	}
 	INTCON |=INTGON;
 } //eo isr

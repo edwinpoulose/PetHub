@@ -31,6 +31,9 @@ extern system_t currentStatus;
 extern system_t newStatus;
 extern shedules_t newShedule;
 extern shedules_t currentShedule;
+extern time_t systemTime;
+extern char displayFlag;
+extern char dispenseCheckFlag;
 
 // Functions  =================================================================
 
@@ -53,4 +56,7 @@ void changeMode();
 void overrideSel();
 void inc();
 void dec();
+void initTime(time_t *time);
+void transmitToESP(char control);
+void dispenseFood();
 #endif

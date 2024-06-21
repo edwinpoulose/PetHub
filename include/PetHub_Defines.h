@@ -28,9 +28,8 @@
 #define	ADCON2SETTING 	  0xA9
 #define TIMERFLAG	  	  INTCONbits.TMR0IF
 #define BYTESIZE    	  0x08
-#define T0CONSETTING      0x90
-#define HUNDREADMSEC	  0x3CB0
-#define ONESEC			  5
+#define T0CONSETTING      0x93
+#define ONESEC			  0x0BDC
 #define SAMPSIZE		  10
 #define SENCOUNT		  3
 #define ADCRES 			  5.0/1024
@@ -56,6 +55,9 @@
 #define NOPRESS			  0xF0
 #define RC1FLAG	  	  	  PIR1bits.RC1IF
 #define INTGON			  0xC0
+#define MINUTE		  	  60
+#define HOUR		  	  60
+#define DAY			  	  24
 
 #define TOTALMODES		  6
 #define MAXSHEDULES		  10

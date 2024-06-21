@@ -39,11 +39,12 @@
  ============================================================================*/
 void main( void )
 {
+	int index=0;
 	systemInitialization();
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
-		if(pbs.pbState!=pbs.pbLastState && pbs.pbState!=NOPRESS)
+		if(pbs.pbState!=pbs.pbLastState)
 		{
 			pbs.pbLastState=pbs.pbState;
 			switch(pbs.pbState)
@@ -58,21 +59,43 @@ void main( void )
 					dec();
 					break;
 				case MANUAL:
-					overrideSel();
+					dispenseFood();
 					break;
 				default:
 					break;
 			}
 		}
-		else if(pbs.pbState==NOPRESS)
+		if(pbs.pbState==NOPRESS)
 		{
 			pbs.pbLastState=NOPRESS;
 		}
-				
-		// When timer overflows reset timer, increment counter
-		if(TIMERFLAG)
+		// if any status has changed 
+		if(currentStatus.statusChange)
 		{
+			// send new status to ESP
+			transmitToESP(1);
 
-		}// eo if(TIMERFLAG)
+			currentStatus.statusChange=FALSE;
+		}	
+		if(displayFlag)
+		{
+			displayData();
+			displayFlag=FALSE;
+		}	
+		// dispence food at shedules
+		if(dispenseCheckFlag)
+		{
+			//check if its scheduled to dispence at this hour
+			for(index=0;index<currentStatus.shedule;index++)
+			{
+				if(currentShedule.shedules[index]==systemTime.hour)
+				{
+					dispenseFood();
+				}
+			}
+			dispenseCheckFlag=FALSE;
+		}
+		
+
 	}// eo while(TRUE)
 } // eo main::
