@@ -4,10 +4,9 @@
 	Author:		Edwin Poulose
 	Date:		28/05/2024
 	Modified:	None
-	ï¿½ Fanshawe College, 2024
+	© Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: A program that handles timer0 interrupts
 =============================================================================*/
 
 

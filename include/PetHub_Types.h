@@ -6,8 +6,7 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This File defines all the types.
 =============================================================================*/
 
 #ifndef TYPES

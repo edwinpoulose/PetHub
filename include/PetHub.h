@@ -6,8 +6,7 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This File holds all the global and status variables.
 =============================================================================*/
 
 

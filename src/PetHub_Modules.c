@@ -6,8 +6,7 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This program contains all the submodules used by the main function
 =============================================================================*/
 
 // Includes ==================================================================
@@ -143,6 +142,7 @@ void systemInitialization(void)
 	initShedule(&newShedule);
 	initShedule(&currentShedule);
 	initTime(&systemTime);
+	I2C_Init(); 
 
 	
 	
@@ -229,7 +229,7 @@ void displayData()
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
+Desc:		Initialize pushbutton data stucture
 Input: 		button, pointer to button data structure
 Returns:	None	
  ============================================================================*/
@@ -243,7 +243,7 @@ void initPbs(pbs_t *button)
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
+Desc:		Initialize stepper motor data stucture
 Input: 		motor, pointer to stepper motor data structure
 Returns:	None	
  ============================================================================*/
@@ -257,12 +257,12 @@ void initStepper(stepper_t *motor)
 } // eo initStepper::
 
 
-/*>>> initStepper: ===========================================================
+/*>>> initStatus: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		motor, pointer to stepper motor data structure
+Desc:		Initialize status data strucure
+Input: 		status, pointer to status data structure
 Returns:	None	
  ============================================================================*/
 void initStatus(system_t *status)
@@ -273,14 +273,14 @@ void initStatus(system_t *status)
 	status->temp=20;
 	status->statusChange=FALSE;
 
-} // eo initStepper::
+} // eo initStatus::
 
-/*>>> initStepper: ===========================================================
+/*>>> initTime: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		motor, pointer to stepper motor data structure
+Desc:		Initialize time data stucture
+Input: 		time, pointer to time data structure
 Returns:	None	
  ============================================================================*/
 void initTime(time_t *time)
@@ -295,8 +295,8 @@ void initTime(time_t *time)
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		motor, pointer to stepper motor data structure
+Desc:		Initialize shedule data stucture
+Input: 		motor, pointer to shedule data structure
 Returns:	None	
  ============================================================================*/
 void initShedule(shedules_t *shedule)
@@ -312,12 +312,12 @@ void initShedule(shedules_t *shedule)
 
 } // eo initShedule::
 
-/*>>> initShedule: ===========================================================
+/*>>> transmitToESP: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		motor, pointer to stepper motor data structure
+Desc:		Transmit data to ESP module over USART
+Input: 		control, control variabl that specify kind of message is transmitted.
 Returns:	None	
  ============================================================================*/
 void transmitToESP(char control)
@@ -336,26 +336,26 @@ void transmitToESP(char control)
 	
 } // eo initShedule::
 
-/*>>> initShedule: ===========================================================
+/*>>> dispenseFood: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		motor, pointer to stepper motor data structure
+Desc:		Dispense food according to set portion size
+Input: 		None
 Returns:	None	
  ============================================================================*/
 void dispenseFood()
 {
 	// check the current portion size and dispence accordigly
 	
-} // eo initShedule::
+} // eo dispenseFood::
 
 
 /*>>> changeMode: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
+Desc:		Change current mode
 Input: 		button, pointer to button data structure
 Returns:	None	
  ============================================================================*/
@@ -411,9 +411,8 @@ void changeMode()
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		channel, current channel selection
-			mode, upper or lower limit mode
+Desc:		Increment data based on mode selected
+Input: 		None
 Returns:	None	
  ============================================================================*/
 void inc()
@@ -477,13 +476,12 @@ void inc()
 
 } // eo inc::
 
-/*>>> decLimit: ===========================================================
+/*>>> dec: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		
-Input: 		channel, current channel selection
-			mode, upper or lower limit mode
+Desc:		Decrement data based on mode selected
+Input: 		None
 Returns:	None	
  ============================================================================*/
 void dec()

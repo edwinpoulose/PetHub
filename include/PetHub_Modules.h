@@ -6,8 +6,7 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This File holds all the sub module prototypes.
 =============================================================================*/
 
 #include "PetHub_Types.h"
@@ -17,7 +16,7 @@
 
 #ifndef MODULES
 #define MODULES
-// Libraries ==================================================================
+// Extern Global Varibles======================================================
 
 extern sensorCh_t sensors[SENCOUNT];
 extern pbs_t pbs;
@@ -35,7 +34,7 @@ extern time_t systemTime;
 extern char displayFlag;
 extern char dispenseCheckFlag;
 
-// Functions  =================================================================
+// Functions Prototypes=================================================================
 
 
 void setFrequency(void);

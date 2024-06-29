@@ -1,13 +1,14 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
+	File Name:	PetHub.c  
 	Author:		Edwin Poulose
 	Date:		28/05/2024
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: A program that updates the system status through pushbuttons
+				 dispense food as per shedule, sample sensor data and send 
+				 critical informations to ESP module.
 =============================================================================*/
 
 
@@ -31,7 +32,7 @@
 // Libraries ==================================================================
 
 #include "PetHub.h"
-
+#include <delays.h>
 
 
 
@@ -39,8 +40,16 @@
  ============================================================================*/
 void main( void )
 {
+	char buffer[25];
 	int index=0;
 	systemInitialization();
+
+	oledInit(); // Initialize the OLED display
+	displayClear(0);  
+
+
+    sprintf(buffer, "Welcome");
+	oledPrintString(0,0,buffer);
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
@@ -64,11 +73,9 @@ void main( void )
 				default:
 					break;
 			}
+			Delay10KTCYx(2);//10ms
 		}
-		if(pbs.pbState==NOPRESS)
-		{
-			pbs.pbLastState=NOPRESS;
-		}
+
 		// if any status has changed 
 		if(currentStatus.statusChange)
 		{

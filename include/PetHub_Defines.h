@@ -1,13 +1,12 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
+	File Name:	PetHub_Defines.c  
 	Author:		Edwin Poulose
 	Date:		28/05/2024
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This File holds all the defines
 =============================================================================*/
 
 #ifndef DEFINES

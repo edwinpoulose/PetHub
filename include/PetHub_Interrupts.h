@@ -6,8 +6,7 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that samples multiple sensors at regular intervals.
-				 Average of these samples are printed to screen.
+	Description: This File holds all the prototypes used by interrupts.
 =============================================================================*/
 
 #include "PetHub_Types.h"
@@ -21,11 +20,5 @@
 
 // Prototypes  ----------------------------------------------------------------
 void isr();
-
-char timeCount=FALSE;
-char chID=FALSE;
-long sum=FALSE;
-int index=FALSE;
-float volts=FALSE;
 
 #endif
