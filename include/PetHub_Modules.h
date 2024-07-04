@@ -31,9 +31,11 @@ extern system_t newStatus;
 extern shedules_t newShedule;
 extern shedules_t currentShedule;
 extern time_t systemTime;
+extern time_t newSystemTime;
 extern char displayFlag;
 extern char dispenseCheckFlag;
-
+extern char buffer[25];
+extern char modeSelect[6][15];
 // Functions Prototypes=================================================================
 
 

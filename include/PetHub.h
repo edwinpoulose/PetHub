@@ -28,7 +28,7 @@ system_t newStatus;
 shedules_t newShedule;
 shedules_t currentShedule;
 time_t systemTime;
-
+time_t newSystemTime;
 
 // Prototypes  ----------------------------------------------------------------
 void isr();
@@ -41,7 +41,7 @@ sensor_t initHL[SENCOUNT]={35,60,1200};
 sensor_t initLL[SENCOUNT]={15,40,800};
 char displayFlag=FALSE;
 char dispenseCheckFlag=TRUE;
-
-
+char buffer[25];
+char modeSelect[6][15]={"SET","Shedules","Portion","Time (Hour)","Time (Min)","Temperature"};
 
 #endif

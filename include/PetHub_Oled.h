@@ -11,7 +11,7 @@
 
 
 #include <p18f45k22.h>
-#include <i2c.h>
+#include <spi.h>
 #include <delays.h>
 #include <stdio.h>
 

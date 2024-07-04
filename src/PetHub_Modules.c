@@ -142,7 +142,8 @@ void systemInitialization(void)
 	initShedule(&newShedule);
 	initShedule(&currentShedule);
 	initTime(&systemTime);
-	I2C_Init(); 
+	initTime(&newSystemTime);
+	SPIInit(); 
 
 	
 	
@@ -372,21 +373,40 @@ void changeMode()
 		if(newShedule.sheduleIndex<newStatus.shedule)
 		{
 			newShedule.sheduleSelect=TRUE;
+			displayShedule();
 		}
 		else
 		{
 			newShedule.sheduleSelect=FALSE;
 			newStatus.mode++;
+			displayMode();
 		}
 	}
 	else
 	{
+		if(newStatus.mode==TRUE)
+		{
+		    // on first entry to menu, clear all lines
+			lineClear(3);
+			lineClear(4);
+			lineClear(5);
+			lineClear(6);	
+		}
 		newStatus.mode++;
-		if(newStatus.mode>TOTALMODES)
+		if(newStatus.mode==4)
+		{
+			// time changing
+			newSystemTime.hour=systemTime.hour;
+		}
+		else if(newStatus.mode==5)
+		{
+			// time changing
+			newSystemTime.min=systemTime.min;
+		}	
+		else if(newStatus.mode>TOTALMODES)
 		{
 			newStatus.mode=TRUE;
 		}
-		// When set to run mode new system setup initialted
 		if(newStatus.mode==TRUE)
 		{
 			currentStatus.mode=newStatus.mode;
@@ -401,9 +421,16 @@ void changeMode()
 								newShedule.shedules[currentShedule.sheduleIndex];
 				}
 			newShedule.sheduleIndex=-1;
-
+			systemTime.hour=newSystemTime.hour;
+			systemTime.min=newSystemTime.min;
+			displayMenu();
+		}
+		else
+		{
+			displayMode();
 		}
 	}
+
 } // eo changeMode::
 
 
@@ -424,7 +451,10 @@ void inc()
 		if(newShedule.shedules[newShedule.sheduleIndex]>23)
 		{
 			newShedule.shedules[newShedule.sheduleIndex]=0;
+
 		}
+    	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
+
 
 	}
 	else
@@ -437,6 +467,8 @@ void inc()
 				{
 					newStatus.shedule=1;
 				}
+				sprintf(buffer, "%2i",newStatus.shedule);
+				oledPrintString(12,4,buffer);
 				break;
 
 			case 3:
@@ -445,21 +477,26 @@ void inc()
 				{
 					newStatus.portion=1;
 				}
+				sprintf(buffer, "%2i",newStatus.portion);
+				oledPrintString(12,4,buffer);
 				break;
 
 			case 4:
-				systemTime.hour++;
-				if(systemTime.hour>23)
+				newSystemTime.hour++;
+				if(newSystemTime.hour>23)
 				{
-					systemTime.hour=0;
+					newSystemTime.hour=0;
 				}
+				displayTime12Hr(12,4,newSystemTime.hour);
 				break;
 			case 5:
-				systemTime.min++;
-				if(systemTime.min>59)
+				newSystemTime.min++;
+				if(newSystemTime.min>59)
 				{
-					systemTime.min=0;
+					newSystemTime.min=0;
 				}
+				sprintf(buffer, "%2i",newSystemTime.min);
+            	oledPrintString(12,4,buffer);
 				break;
 
 			case 6:
@@ -468,6 +505,8 @@ void inc()
 				{
 					newStatus.temp=18;
 				}
+				sprintf(buffer, "%2i",newStatus.temp);
+            	oledPrintString(12,4,buffer);
 				break;
 			default:
 				break;
@@ -493,6 +532,7 @@ void dec()
 		{
 			newShedule.shedules[newShedule.sheduleIndex]=23;
 		}
+    	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
 	}
 	else
 	{
@@ -504,6 +544,8 @@ void dec()
 				{
 					newStatus.shedule=MAXSHEDULES;
 				}
+				sprintf(buffer, "%2i",newStatus.shedule);
+				oledPrintString(12,4,buffer);
 				break;
 
 			case 3:
@@ -512,21 +554,26 @@ void dec()
 				{
 					newStatus.portion=5;
 				}
+				sprintf(buffer, "%2i",newStatus.portion);
+				oledPrintString(12,4,buffer);
 				break;
 
 			case 4:
-				systemTime.hour--;
-				if(systemTime.hour<0)
+				newSystemTime.hour--;
+				if(newSystemTime.hour<0)
 				{
-					systemTime.hour=23;
+					newSystemTime.hour=23;
 				}
+				displayTime12Hr(12,4,newSystemTime.hour);
 				break;
 			case 5:
-				systemTime.min--;
-				if(systemTime.min<0)
+				newSystemTime.min--;
+				if(newSystemTime.min<0)
 				{
-					systemTime.min=59;
+					newSystemTime.min=59;
 				}
+				sprintf(buffer, "%2i",newSystemTime.min);
+				oledPrintString(12,4,buffer);
 				break;
 
 			case 6:
@@ -535,6 +582,8 @@ void dec()
 				{
 					newStatus.temp=25;
 				}
+				sprintf(buffer, "%2i",newStatus.temp);
+            	oledPrintString(12,4,buffer);
 				break;
 			default:
 				break;

@@ -3,79 +3,78 @@
 
 
 // I2C initialization function
-void I2C_Init(void) {
+void SPIInit(void) {
+    ANSELBbits.ANSB0 = 0;
+    ANSELBbits.ANSB1 = 0;
+    ANSELBbits.ANSB2 = 0;
+
+    TRISBbits.TRISB0 = 0;
+    TRISBbits.TRISB1 = 0;
+    TRISBbits.TRISB2 = 0;
+
+    LATBbits.LATB0 = 1; // Chip Select pin 33
+    LATBbits.LATB1 = 0; // Data/Command pin 34
+    LATBbits.LATB2 = 1; // Reset pin 35
+
     ANSELCbits.ANSC3 = 0;
-    ANSELCbits.ANSC4 = 0;
+    ANSELCbits.ANSC5 = 0;
     LATCbits.LATC3 = 0;
-    LATCbits.LATC4 = 0;
-    TRISCbits.RC3 = 1;           
-    TRISCbits.RC4 = 1; 
-    OpenI2C1(MASTER, SLEW_OFF); // Initialize I2C as Master with slew rate control off
-    SSP1ADD = 0x09; // Set I2C clock frequency to 100kHz
+    LATCbits.LATC5 = 0;
+    TRISCbits.RC3 = 0;           
+    TRISCbits.RC5 = 0; 
+
+    OpenSPI(SPI_FOSC_4, MODE_00, SMPEND);
 }
 
-// I2C communication functions
-void I2C_Start(void) {
-    StartI2C1(); // Initiate start condition
-}
-
-void I2C_Stop(void) {
-    StopI2C1(); // Initiate stop condition
-}
-
-void I2C_Write(unsigned char data) {
-    WriteI2C1(data); // Write data to I2C bus
+void SPIWrite(unsigned char data) {
+    LATBbits.LATB0 = 0;           // Select the OLED
+    WriteSPI(data);           // Send data
+    while (!SSP1STATbits.BF);    // Wait until the data is sent
+    LATBbits.LATB0 = 1; 
 }
 
 // OLED command function
 void oledCommand(unsigned char command) {
-    I2C_Start();
-    I2C_Write(SH1106_I2C_ADDRESS << 1); // Send address with write bit
-    I2C_Write(0x00); // Co = 0, D/C# = 0
-    I2C_Write(command);
-    I2C_Stop();
+    LATBbits.LATB1 = 0; // Command mode
+    SPIWrite(command);
+}
+
+
+// Function to send data to OLED
+void oledData(unsigned char data) {
+    LATBbits.LATB1 = 1; // Data mode
+    SPIWrite(data);
 }
 
 // OLED initialization function
 void oledInit(void) {
-    Delay10KTCYx(10); // Wait for the OLED to power up
+    // Reset the display
+    LATBbits.LATB2 = 0;
+    Delay10KTCYx(1);
+    LATBbits.LATB2 = 1;
 
-    oledCommand(0xAE); // Display off
-    oledCommand(0xD5); // Set display clock divide ratio/oscillator frequency
-    oledCommand(0x80); // Default setting for display clock divide ratio/oscillator frequency
-    oledCommand(0xA8); // Set multiplex ratio
+    // Initialization sequence for SSD1309
+    oledCommand(0xAE); // Display Off
+    oledCommand(0xA8); // Set Multiplex Ratio
     oledCommand(0x3F); // 1/64 duty
-    oledCommand(0xD3); // Set display offset
-    oledCommand(0x00); // No offset
-    oledCommand(0x40); // Set start line address
-    oledCommand(0x8D); // Enable charge pump
-    oledCommand(0x14); // Enable charge pump
-    oledCommand(0x20); // Set Memory Addressing Mode
-    oledCommand(0x00); // Horizontal addressing mode
-    oledCommand(0xA1); // Set segment re-map 0 to 127
+    oledCommand(0xD3); // Set Display Offset
+    oledCommand(0x00); // 0 offset
+    oledCommand(0x40); // Set Display Start Line
+    oledCommand(0xA1); // Set Segment Re-map
     oledCommand(0xC8); // Set COM Output Scan Direction
     oledCommand(0xDA); // Set COM Pins hardware configuration
     oledCommand(0x12); // Alternative COM pin configuration, disable COM left/right remap
-    oledCommand(0x81); // Set contrast control
-    oledCommand(0xCF); // Set contrast value
-    oledCommand(0xD9); // Set pre-charge period
-    oledCommand(0xF1); // Set pre-charge period (default is 0x22)
-    oledCommand(0xDB); // Set VCOMH deselect level
-    oledCommand(0x40); // Set VCOMH deselect level
-    oledCommand(0xA4); // Enable display outputs according to the GDDRAM contents
-    oledCommand(0xA6); // Set normal display mode (not inverted)
-    oledCommand(0x2E); // Deactivate scroll
-    oledCommand(0xAF); // Display ON in normal mode
+    oledCommand(0x81); // Set Contrast Control
+    oledCommand(0x7F); // Medium brightness
+    oledCommand(0xA4); // Disable Entire Display On
+    oledCommand(0xA6); // Set Normal Display
+    oledCommand(0xD5); // Set Oscillator Frequency
+    oledCommand(0x80); // Default frequency
+    oledCommand(0x8D); // Enable charge pump regulator
+    oledCommand(0x14); // Enable
+    oledCommand(0xAF); // Display On
 }
 
-// Function to send data to OLED
-void oledData(unsigned char data) {
-    I2C_Start();
-    I2C_Write(SH1106_I2C_ADDRESS << 1); // Send address with write bit
-    I2C_Write(0x40); // Co = 0, D/C# = 1
-    I2C_Write(data);
-    I2C_Stop();
-}
 
 
 // Function to set cursor position on OLED
@@ -113,7 +112,6 @@ void lineClear(char i){
 			oledPrintChar(n, i, 0);     
         }
 }
-
 
 void oledPrintSpecialChar(char column, char page, char c) {
     char i;

@@ -40,16 +40,11 @@
  ============================================================================*/
 void main( void )
 {
-	char buffer[25];
 	int index=0;
 	systemInitialization();
 
 	oledInit(); // Initialize the OLED display
-	displayClear(0);  
-
-
-    sprintf(buffer, "Welcome");
-	oledPrintString(0,0,buffer);
+	displayMenu();
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
@@ -86,8 +81,7 @@ void main( void )
 		}	
 		if(displayFlag)
 		{
-			displayData();
-			displayFlag=FALSE;
+			displayTime();
 		}	
 		// dispence food at shedules
 		if(dispenseCheckFlag)
