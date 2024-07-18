@@ -77,17 +77,18 @@ void systemInitialization(void)
 	LATA=0x00;
 	TRISA=0xFF;
 
-	// Configure PORTC pins for USART and LEDS
+	// Configure PORTC(7,6) pins for USART 
 	ANSELC=0x00;
 	LATC=0x00;
-	TRISC=0xF0;
+	TRISC=0xC0;
 
-	// Configure PORTB pins for EXHAUST LEDS
+	// Configure PORTB(5-2) pins for STEPPER CONTROL
 	ANSELB=0x00;
 	LATB=0x00;
-	TRISB=0xF0;
-	
-	
+	TRISB=0xC3;
+		
+		
+
 	// set Timer
 	resetTimer(ONESEC);
 	T0CON=T0CONSETTING;
@@ -105,11 +106,6 @@ void systemInitialization(void)
 	SPBRG1=SPBRG1SETTING;
 	SPBRGH1=SPBRGH1SETTING;
 	
-	// configure ADC	
-	
-	ADCON0=ADCON0SETTING;
-	ADCON1=ADCON1SETTING;
-	ADCON2=ADCON2SETTING;
 	
 	//configureInterrupt
 	//TMR0
@@ -128,12 +124,6 @@ void systemInitialization(void)
 	// GLOBAL INTERRUPT ENABLE
 	INTCON |=INTGON;
 	
-/* 	for(index=0;index<SENCOUNT;index++)
-	{
-		initSensorCh(&sensors[index]);
-		sensors[index].lLimit=initLL[index];
-		sensors[index].hLimit=initHL[index];
-	} */
 
 	initStepper(&vent);
 	initPbs(&pbs);
@@ -144,9 +134,8 @@ void systemInitialization(void)
 	initTime(&systemTime);
 	initTime(&newSystemTime);
 	SPIInit(); 
+	initSensor();
 
-	
-	
 } // eo systemInitialization::
 
 
@@ -321,20 +310,36 @@ Desc:		Transmit data to ESP module over USART
 Input: 		control, control variabl that specify kind of message is transmitted.
 Returns:	None	
  ============================================================================*/
-void transmitToESP(char control)
+void transmitToESP(char control,int value)
 {
 	int i;
-	if(control==1)
+	if(control==1)// current settings
 	{
-		printf("\033[15;0H$1,%02i,%02i,%02i#",currentStatus.shedule,currentStatus.portion,currentStatus.temp);
-		printf("\r\n$2");
+		printf("$1,%02i,%02i#\r\n",currentStatus.portion,currentStatus.temp);
+		printf("$2");
 		for (i=0;i<newStatus.shedule;i++)
 		{
 			printf(",%02i",currentShedule.shedules[i]);
 		}
-		printf("#");
+		printf("#\r\n");
 	}
-	
+
+	if(control==2)// Temp
+	{
+		printf("$3,01,%02i#\r\n",value);
+	}
+	if(control==3)// odour
+	{
+		printf("$3,02,%04i#\r\n",value);
+	}
+	if(control==4)// water
+	{
+		printf("$3,03,%02i#\r\n",value);
+	}
+	if(control==5)// food
+	{
+		printf("$3,04,%02i#\r\n",value);
+	}
 } // eo initShedule::
 
 /*>>> dispenseFood: ===========================================================
@@ -363,8 +368,8 @@ Returns:	None
 void changeMode()
 {
 	/*
-	 if in shedule mode,when change mode pressed, it runs through each shedule
-	 setting incrementing shedule index until it reaches max shedule limit 
+	 if in schedule mode,when change mode pressed, it runs through each shedule
+	 setting incrementing schedule index until it reaches max shedule limit 
 	 previously set.
 	 */
 	if(newStatus.mode==2)
@@ -389,8 +394,7 @@ void changeMode()
 		    // on first entry to menu, clear all lines
 			lineClear(3);
 			lineClear(4);
-			lineClear(5);
-			lineClear(6);	
+			lineClear(5);	
 		}
 		newStatus.mode++;
 		if(newStatus.mode==4)

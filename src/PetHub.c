@@ -40,11 +40,22 @@
  ============================================================================*/
 void main( void )
 {
-	int index=0;
+	int index=0,result=0;
 	systemInitialization();
 
 	oledInit(); // Initialize the OLED display
+
+	displayClear(0);  
+    sprintf(buffer, "PetHub");
+	oledPrintString(7,0,buffer);
+    displayTime();
+    displayTemp();
 	displayMenu();
+	oledPrintSpecialChar(2,6,1);
+	drawProgressBar(6,20,0);
+	oledPrintSpecialChar(10,6,2);
+	drawProgressBar(6,68,0);
+
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
@@ -75,13 +86,20 @@ void main( void )
 		if(currentStatus.statusChange)
 		{
 			// send new status to ESP
-			transmitToESP(1);
+			transmitToESP(1,0);
 
 			currentStatus.statusChange=FALSE;
 		}	
 		if(displayFlag)
 		{
+			displayFlag=FALSE;
 			displayTime();
+			displayTemp();
+			displaylevel();
+			result=calculateAirQuality();
+			transmitToESP(3,result);
+//			sprintf(buffer, "AirQuality =%4i",(int)result);
+//			oledPrintString(2,7,buffer);
 		}	
 		// dispence food at shedules
 		if(dispenseCheckFlag)
@@ -96,7 +114,5 @@ void main( void )
 			}
 			dispenseCheckFlag=FALSE;
 		}
-		
-
 	}// eo while(TRUE)
 } // eo main::

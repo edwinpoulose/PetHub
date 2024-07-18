@@ -37,10 +37,11 @@ void displayClear();
 void lineClear(char i);
 void oledPrintSpecialChar(char column, char page, char c);
 void oledPrintString(char x, char y,char *msg);
-
+void drawProgressBar(char startPage, char startColumn, char filledSegments); 
 
 
 // Font data for 6x8 characters
+// This font is inspired from Adafruid Library
 const rom unsigned char font6x8[][6] = {
     {0x00,0x00,0x00,0x00,0x00,0x00}, // ' '
     {0x00,0x5F,0x00,0x00,0x00,0x00}, // '!'
@@ -142,9 +143,13 @@ const rom unsigned char font6x8[][6] = {
 
 const rom unsigned char special_chars[][6] = {
     // Degree Symbol (°)
-    {0x0E, 0x11, 0x11, 0x0E, 0x00, 0x00}
+    {0x0E, 0x11, 0x11, 0x0E, 0x00, 0x00},
+    {0x34, 0x7A, 0x70, 0x74, 0x7A, 0x30},
+    {0x38, 0x7C, 0x7E, 0x7C, 0x38, 0x00}
+
+
+
+
 };
 
 #endif
-
-

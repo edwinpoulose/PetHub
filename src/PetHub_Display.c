@@ -17,7 +17,9 @@
 
 void displayTemp()
 {
-    sprintf(buffer, "%02i",currentStatus.temp);
+    int result=calculateTemperature();
+    sprintf(buffer, "%02i",result);
+    transmitToESP(2,result);
     oledPrintString(15,1,buffer);
     oledPrintSpecialChar(17,1,0);
     oledPrintChar(18,1,'C');
@@ -70,14 +72,7 @@ void displayTime12Hr(unsigned char x, unsigned char y, char hour)
 
 void displayMenu()
 {
-	displayClear(0);  
-
-    sprintf(buffer, "PetHub");
-	oledPrintString(7,0,buffer);
-
     displayTime();
-    displayTemp();
-
 	sprintf(buffer, "Shedules:%2i",currentStatus.shedule);
 	oledPrintString(4,3,buffer);
 
@@ -87,25 +82,19 @@ void displayMenu()
 
 displayShedule()
 {
-    lineClear(3);
-    lineClear(4);
-    lineClear(5);
-    sprintf(buffer, "Shedule #%2i",newShedule.sheduleIndex+1);
+    sprintf(buffer, "Shedule #%2i    ",newShedule.sheduleIndex+1);
     oledPrintString(4,3,buffer);
 
-        sprintf(buffer, "Set to :");
-        oledPrintString(4,4,buffer);
-    	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
+    sprintf(buffer, "Set to :    ");
+    oledPrintString(4,4,buffer);
+    displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
 }
 
 displayMode()
 {
-    lineClear(3);
-    lineClear(4);
-    lineClear(5);
-    sprintf(buffer, "%s",modeSelect[newStatus.mode-1]);
+    sprintf(buffer, "%s     ",modeSelect[newStatus.mode-1]);
     oledPrintString(4,3,buffer);
-    sprintf(buffer, "Set to :");
+    sprintf(buffer, "Set to :     ");
     oledPrintString(4,4,buffer);
     switch(newStatus.mode)
     {
@@ -133,6 +122,76 @@ displayMode()
             break;
         default:
             break;
+    }
+}
+displaylevel()
+{
+    int result,level;
+    switch (triggerFlag)
+    {
+    case 0:
+        startTrigger(1);
+        triggerFlag++;
+        break;
+    case 1:
+
+        result=checkDistance();
+        if (result<10)
+        {
+            level=4;
+        }
+        else if (result<15)
+        {
+            level=3;
+        }
+        else if (result<20)
+        {
+            level=2;
+        }
+        else if (result<25)
+        {
+            level=1;
+        }
+        else
+        {
+            level=0;
+        }
+        triggerFlag++;
+        drawProgressBar(6,20,(char)level);
+        transmitToESP(5,level);
+        break;	
+    case 2:
+        startTrigger(2);
+        triggerFlag++;
+        break;
+    case 3:
+        result=checkDistance();
+        if (result<10)
+        {
+            level=4;
+        }
+        else if (result<15)
+        {
+            level=3;
+        }
+        else if (result<20)
+        {
+            level=2;
+        }
+        else if (result<25)
+        {
+            level=1;
+        }
+        else
+        {
+            level=0;
+        }
+        drawProgressBar(6,68,(char)level);
+        triggerFlag=0;
+        transmitToESP(4,level);
+        break;						
+    default:
+        break;
     }
 }
 

@@ -35,6 +35,7 @@ file_007=.
 file_008=.
 file_009=.
 file_010=.
+file_011=.
 [GENERATED_FILES]
 file_000=no
 file_001=no
@@ -47,6 +48,7 @@ file_007=no
 file_008=no
 file_009=no
 file_010=no
+file_011=no
 [OTHER_FILES]
 file_000=no
 file_001=no
@@ -59,25 +61,27 @@ file_007=no
 file_008=no
 file_009=no
 file_010=no
+file_011=no
 [FILE_INFO]
 file_000=src\PetHub.c
 file_001=src\PetHub_Interrupts.c
 file_002=src\PetHub_Modules.c
 file_003=src\PetHub_Oled.c
 file_004=src\PetHub_Display.c
-file_005=include\PetHub.h
-file_006=include\PetHub_Defines.h
-file_007=include\PetHub_Interrupts.h
-file_008=include\PetHub_Modules.h
-file_009=include\PetHub_Types.h
-file_010=include\PetHub_Oled.h
+file_005=src\PetHub_Sensors.c
+file_006=include\PetHub.h
+file_007=include\PetHub_Defines.h
+file_008=include\PetHub_Interrupts.h
+file_009=include\PetHub_Modules.h
+file_010=include\PetHub_Types.h
+file_011=include\PetHub_Oled.h
 [SUITE_INFO]
 suite_guid={5B7D72DD-9861-47BD-9F60-2BE967BF8416}
 suite_state=
 [TOOL_SETTINGS]
 TS{DD2213A8-6310-47B1-8376-9430CDFC013F}=
 TS{BFD27FBA-4A02-4C0E-A5E5-B812F3E7707C}=/m"$(BINDIR_)$(TARGETBASE).map" /w /o"$(BINDIR_)$(TARGETBASE).cof"
-TS{C2AF05E7-1416-4625-923D-E114DB6E2B96}=-Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa-
+TS{C2AF05E7-1416-4625-923D-E114DB6E2B96}=-w1 -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa-
 TS{ADE93A55-C7C7-4D4D-A4BA-59305F7D0391}=
 [INSTRUMENTED_TRACE]
 enable=0

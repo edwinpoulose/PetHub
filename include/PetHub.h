@@ -40,8 +40,13 @@ sensor_t minLimits[SENCOUNT]={-50,0,1190};
 sensor_t initHL[SENCOUNT]={35,60,1200};
 sensor_t initLL[SENCOUNT]={15,40,800};
 char displayFlag=FALSE;
+char triggerFlag=FALSE;
 char dispenseCheckFlag=TRUE;
 char buffer[25];
 char modeSelect[6][15]={"SET","Shedules","Portion","Time (Hour)","Time (Min)","Temperature"};
+unsigned long stopTime = 0;
+unsigned char edge = 0;
+unsigned char discalc=0;
+unsigned int overflowCount = 0;
 
 #endif

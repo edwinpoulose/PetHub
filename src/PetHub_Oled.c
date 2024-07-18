@@ -3,18 +3,19 @@
 
 
 // I2C initialization function
-void SPIInit(void) {
-    ANSELBbits.ANSB0 = 0;
-    ANSELBbits.ANSB1 = 0;
-    ANSELBbits.ANSB2 = 0;
+void SPIInit(void) 
+{
+    ANSELDbits.ANSD6 = 0;
+    ANSELDbits.ANSD5 = 0;
+    ANSELDbits.ANSD4 = 0;
 
-    TRISBbits.TRISB0 = 0;
-    TRISBbits.TRISB1 = 0;
-    TRISBbits.TRISB2 = 0;
+    LATDbits.LATD6 = 1; // Chip Select pin 
+    LATDbits.LATD5 = 0; // Data/Command pin
+    LATDbits.LATD4 = 1; // Reset pin 
 
-    LATBbits.LATB0 = 1; // Chip Select pin 33
-    LATBbits.LATB1 = 0; // Data/Command pin 34
-    LATBbits.LATB2 = 1; // Reset pin 35
+    TRISDbits.TRISD6 = 0;
+    TRISDbits.TRISD5 = 0;
+    TRISDbits.TRISD4 = 0;
 
     ANSELCbits.ANSC3 = 0;
     ANSELCbits.ANSC5 = 0;
@@ -26,34 +27,38 @@ void SPIInit(void) {
     OpenSPI(SPI_FOSC_4, MODE_00, SMPEND);
 }
 
-void SPIWrite(unsigned char data) {
-    LATBbits.LATB0 = 0;           // Select the OLED
+void SPIWrite(unsigned char data) 
+{
+    LATDbits.LATD6 = 0;           // Select the OLED
     WriteSPI(data);           // Send data
     while (!SSP1STATbits.BF);    // Wait until the data is sent
-    LATBbits.LATB0 = 1; 
+    LATDbits.LATD6 = 1; 
 }
 
 // OLED command function
-void oledCommand(unsigned char command) {
-    LATBbits.LATB1 = 0; // Command mode
+void oledCommand(unsigned char command) 
+{
+    LATDbits.LATD5 = 0; // Command mode
     SPIWrite(command);
 }
 
 
 // Function to send data to OLED
-void oledData(unsigned char data) {
-    LATBbits.LATB1 = 1; // Data mode
+void oledData(unsigned char data) 
+{
+    LATDbits.LATD5 = 1; // Data mode
     SPIWrite(data);
 }
 
 // OLED initialization function
 void oledInit(void) {
     // Reset the display
-    LATBbits.LATB2 = 0;
+    LATDbits.LATD4 = 0;
     Delay10KTCYx(1);
-    LATBbits.LATB2 = 1;
+    LATDbits.LATD4 = 1;
 
     // Initialization sequence for SSD1309
+	// Settings are optional
     oledCommand(0xAE); // Display Off
     oledCommand(0xA8); // Set Multiplex Ratio
     oledCommand(0x3F); // 1/64 duty
@@ -129,3 +134,30 @@ void oledPrintString(char x, char y,char *msg){
     }
  
 }
+void drawProgressBar(char startPage, char startColumn, char filledSegments) 
+{
+    char j, i;
+    char totalSegments = 4;
+    char segmentWidth = 8; // Width of each segment
+
+    oledSetCursor(startColumn, startPage);
+    oledData(0x7F); // Border segment
+    
+    // Draw filled segments
+    for (i = 0; i < filledSegments; i++) {
+        oledSetCursor(startColumn + 1 + (i * segmentWidth), startPage);
+        for (j = 0; j < segmentWidth; j++) {
+            oledData(0x7F); // Fill the segment
+        }
+    }
+
+    // Draw empty segments
+    for (i = filledSegments; i < totalSegments; i++) {
+        oledSetCursor(startColumn + 1 + (i * segmentWidth), startPage);
+        for (j = 0; j < segmentWidth; j++) {
+            oledData(0x41); // Empty segment
+        }
+    }
+    oledData(0x7F); // Border segment
+}
+

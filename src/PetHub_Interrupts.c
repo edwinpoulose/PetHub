@@ -4,7 +4,7 @@
 	Author:		Edwin Poulose
 	Date:		28/05/2024
 	Modified:	None
-	© Fanshawe College, 2024
+	ï¿½ Fanshawe College, 2024
 
 	Description: A program that handles timer0 interrupts
 =============================================================================*/
@@ -63,5 +63,57 @@ void isr()
 	{
 		// For future updates if serial reception is used
 	}
+	if (PIR1bits.TMR2IF)
+	{
+		PIR1bits.TMR2IF = 0; // Clear Timer2 interrupt flag
+		overflowCount++;     // Increment overflow count
+	}
+
+    if (INTCONbits.INT0IF)
+    {
+        INTCONbits.INT0IF = 0; // Clear INT0 interrupt flag
+
+        if (edge == 0)
+        {
+            // Rising edge detected, start timer
+            overflowCount = 0;     // Reset overflow count
+            TMR2 = 0;              // Clear Timer2 register
+            T2CONbits.TMR2ON = 1;  // Start Timer2
+            INTCON2bits.INTEDG0 = 0; // Switch to falling edge detection
+            edge = 1;
+        }
+        else
+        {
+            // Falling edge detected, stop timer
+            stopTime = ((unsigned long)overflowCount * 256) + (unsigned long)TMR2;
+            T2CONbits.TMR2ON = 0;  // Stop Timer2
+            INTCON2bits.INTEDG0 = 1; // Switch back to rising edge detection
+            edge = 0;
+			discalc=1;
+        }
+    }
+   if (INTCON3bits.INT1IF)
+   {
+       INTCON3bits.INT1IF = 0; // Clear INT1 interrupt flag
+
+       if (edge == 0)
+       {
+           // Rising edge detected, start timer
+           overflowCount = 0;     // Reset overflow count
+           TMR2 = 0;              // Clear Timer2 register
+           T2CONbits.TMR2ON = 1;  // Start Timer2
+           INTCON2bits.INTEDG1 = 0; // Switch to falling edge detection
+           edge = 1;
+       }
+       else
+       {
+           // Falling edge detected, stop timer
+           stopTime = ((unsigned long)overflowCount * 256) + (unsigned long)TMR2;
+           T2CONbits.TMR2ON = 0;  // Stop Timer2
+           INTCON2bits.INTEDG1 = 1; // Switch back to rising edge detection
+           edge = 0;
+           discalc = 1;
+       }
+   }
 	INTCON |=INTGON;
 } //eo isr

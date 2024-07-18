@@ -16,6 +16,17 @@
 
 #ifndef MODULES
 #define MODULES
+
+// Define TRIG pin
+#define TRIG1 LATDbits.LATD0
+
+
+// Define TRIG pin
+#define TRIG2 LATDbits.LATD1
+
+#define TEMP 0
+#define AIR  1
+
 // Extern Global Varibles======================================================
 
 extern sensorCh_t sensors[SENCOUNT];
@@ -33,9 +44,15 @@ extern shedules_t currentShedule;
 extern time_t systemTime;
 extern time_t newSystemTime;
 extern char displayFlag;
+extern char triggerFlag;
 extern char dispenseCheckFlag;
 extern char buffer[25];
 extern char modeSelect[6][15];
+extern unsigned int overflowCount;
+extern unsigned long stopTime;
+extern unsigned char edge;
+extern unsigned char discalc;
+extern unsigned int overflowCount;
 // Functions Prototypes=================================================================
 
 
@@ -47,7 +64,7 @@ void setTimer(int preset);
 void configureADC(void);
 void initSensorCh(sensorCh_t *sen);
 void systemInitialization(void);
-int startADCConversion(char channelID);
+int  startADCConversion(char channelID);
 void displayData();
 void initPbs(pbs_t *button);
 void initStepper(stepper_t *motor);
@@ -58,6 +75,12 @@ void overrideSel();
 void inc();
 void dec();
 void initTime(time_t *time);
-void transmitToESP(char control);
+void transmitToESP(char control,int value);
 void dispenseFood();
+void initSensor();
+void startTrigger(int sensor);
+int checkDistance();
+int calculateTemperature();
+int calculateAirQuality();
+
 #endif
