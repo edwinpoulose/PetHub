@@ -51,7 +51,7 @@ extern char modeSelect[6][15];
 extern unsigned int overflowCount;
 extern unsigned long stopTime;
 extern unsigned char edge;
-extern unsigned char discalc;
+extern unsigned char distanceRdy;
 extern unsigned int overflowCount;
 // Functions Prototypes=================================================================
 

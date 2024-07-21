@@ -46,9 +46,15 @@ void initSensor()
 
 void startTrigger(int sensor)
 {
+	// edge detection, edge 
     edge=0;
+	distanceRdy=0;
+
     if(sensor==1)
     {
+		// it is neccessary to switch back to detecting rising edge 
+		// in case trigger is fired before prevous edge is detected
+		INTCON2bits.INTEDG0 = 1;
         // Trigger the ultrasonic food sensor
         TRIG1 = 1;
         Delay10TCYx(1); // 10 us
@@ -56,12 +62,13 @@ void startTrigger(int sensor)
     }
     if(sensor==2)
     {
+        INTCON2bits.INTEDG1 = 1; // Switch back to rising edge detection
         // Trigger the ultrasonic water sensor
         TRIG2 = 1;
         Delay10TCYx(1); // 10 us
         TRIG2 = 0;
     }
-	discalc=0;
+
 }
 
 
@@ -71,7 +78,7 @@ int checkDistance()
     int distance = 0;
 
     // Check if edge detection is complete
-    if (discalc)
+    if (distanceRdy)
     {
         // Timer tick is (1 / (Fosc / 4)) * Prescaler
         // For 4 MHz internal oscillator, tick is (1 / (4 MHz / 4)) * 16 = 16 us

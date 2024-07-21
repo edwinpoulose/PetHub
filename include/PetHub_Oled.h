@@ -41,7 +41,8 @@ void drawProgressBar(char startPage, char startColumn, char filledSegments);
 
 
 // Font data for 6x8 characters
-// This font is inspired from Adafruid Library
+// This font is inspired from adafruit gfx library
+// https://github.com/adafruit/Adafruit-GFX-Library/blob/master/glcdfont.c
 const rom unsigned char font6x8[][6] = {
     {0x00,0x00,0x00,0x00,0x00,0x00}, // ' '
     {0x00,0x5F,0x00,0x00,0x00,0x00}, // '!'

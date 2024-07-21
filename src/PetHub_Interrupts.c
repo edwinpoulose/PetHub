@@ -87,9 +87,7 @@ void isr()
             // Falling edge detected, stop timer
             stopTime = ((unsigned long)overflowCount * 256) + (unsigned long)TMR2;
             T2CONbits.TMR2ON = 0;  // Stop Timer2
-            INTCON2bits.INTEDG0 = 1; // Switch back to rising edge detection
-            edge = 0;
-			discalc=1;
+			distanceRdy=1;
         }
     }
    if (INTCON3bits.INT1IF)
@@ -110,9 +108,7 @@ void isr()
            // Falling edge detected, stop timer
            stopTime = ((unsigned long)overflowCount * 256) + (unsigned long)TMR2;
            T2CONbits.TMR2ON = 0;  // Stop Timer2
-           INTCON2bits.INTEDG1 = 1; // Switch back to rising edge detection
-           edge = 0;
-           discalc = 1;
+           distanceRdy = 1;
        }
    }
 	INTCON |=INTGON;

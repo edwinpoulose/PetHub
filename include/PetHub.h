@@ -46,7 +46,7 @@ char buffer[25];
 char modeSelect[6][15]={"SET","Shedules","Portion","Time (Hour)","Time (Min)","Temperature"};
 unsigned long stopTime = 0;
 unsigned char edge = 0;
-unsigned char discalc=0;
+unsigned char distanceRdy=0;
 unsigned int overflowCount = 0;
 
 #endif

@@ -1,5 +1,5 @@
 MPLINK 5.00, LINKER
-Linker Map File - Created Wed Jul 17 21:03:49 2024
+Linker Map File - Created Sat Jul 20 20:39:21 2024
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -13,64 +13,64 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
    .code_PetHub_Display.o       code   0x001c08    program   0x000946
       .code_PetHub_Oled.o       code   0x00254e    program   0x000522
                      PROG       code   0x002a70    program   0x0003a4
-   .code_PetHub_Sensors.o       code   0x002e14    program   0x000364
-   .romdata_PetHub_Oled.o    romdata   0x003178    program   0x000252
-.code_PetHub_Interrupts.o       code   0x0033ca    program   0x00021a
-           .code_PetHub.o       code   0x0035e4    program   0x0001e0
-             .stringtable    romdata   0x0037c4    program   0x0001c5
-      .romdata_spi1writ.o    romdata   0x003989    program   0x000000
-      .idata_spi1writ.o_i    romdata   0x003989    program   0x000000
-       .romdata_fxm3232.o    romdata   0x003989    program   0x000000
-       .idata_fxm3232.o_i    romdata   0x003989    program   0x000000
-        .idata___init.o_i    romdata   0x003989    program   0x000000
-        .romdata___init.o    romdata   0x003989    program   0x000000
-        .romdata_stdout.o    romdata   0x003989    program   0x000000
-      .idata_vfprintf.o_i    romdata   0x003989    program   0x000000
-          .idata_putc.o_i    romdata   0x003989    program   0x000000
-.romdata_PetHub_Display.o    romdata   0x003989    program   0x000000
-          .romdata_putc.o    romdata   0x003989    program   0x000000
-         .idata_c018i.o_i    romdata   0x003989    program   0x000000
-   .idata_PetHub_Oled.o_i    romdata   0x003989    program   0x000000
-.romdata_PetHub_Modules.o    romdata   0x003989    program   0x000000
-         .romdata_c018i.o    romdata   0x003989    program   0x000000
-.idata_PetHub_Interrupts.o_i    romdata   0x003989    program   0x000000
-          .code_sprintf.o       code   0x00398a    program   0x0000ac
-           .code_stdout.o       code   0x00398a    program   0x000000
-               _cinit_scn       code   0x003a36    program   0x00009e
-           .code_printf.o       code   0x003ad4    program   0x000098
-             .code_putc.o       code   0x003b6c    program   0x000084
-          .code_fxm3232.o       code   0x003bf0    program   0x000070
-                   STRING       code   0x003c60    program   0x000066
-         .code_spi1open.o       code   0x003cc6    program   0x000064
-         .code_fxd3232u.o       code   0x003d2a    program   0x000048
-         .code_spi1writ.o       code   0x003d72    program   0x00003c
-             D10KTCYXCODE       code   0x003dae    program   0x00002e
-                    CTYPE       code   0x003ddc    program   0x000024
-                    .code       code   0x003e00    program   0x000020
-             _startup_scn       code   0x003e20    program   0x00001c
-                    STDIO       code   0x003e3c    program   0x00001c
-              D10TCYXCODE       code   0x003e58    program   0x000016
-      .romdata_vfprintf.o    romdata   0x003e6e    program   0x000011
-      .romdata_fxd3232u.o    romdata   0x003e7f    program   0x000000
-      .idata_fxd3232u.o_i    romdata   0x003e7f    program   0x000000
-    .idata__user_putc.o_i    romdata   0x003e7f    program   0x000000
-    .romdata__user_putc.o    romdata   0x003e7f    program   0x000000
-        .romdata_PetHub.o    romdata   0x003e7f    program   0x000000
-.idata_PetHub_Display.o_i    romdata   0x003e7f    program   0x000000
-.idata_PetHub_Sensors.o_i    romdata   0x003e7f    program   0x000000
-.romdata_PetHub_Sensors.o    romdata   0x003e7f    program   0x000000
-.idata_PetHub_Modules.o_i    romdata   0x003e7f    program   0x000000
-.romdata_PetHub_Interrupts.o    romdata   0x003e7f    program   0x000000
-      .idata_spi1open.o_i    romdata   0x003e7f    program   0x000000
-      .romdata_spi1open.o    romdata   0x003e7f    program   0x000000
-        .idata_printf.o_i    romdata   0x003e7f    program   0x000000
-        .romdata_printf.o    romdata   0x003e7f    program   0x000000
-       .idata_sprintf.o_i    romdata   0x003e7f    program   0x000000
-       .romdata_sprintf.o    romdata   0x003e7f    program   0x000000
-           .code___init.o       code   0x003e80    program   0x000002
-            .code_c018i.o       code   0x003e80    program   0x000000
-        .idata_stdout.o_i    romdata   0x003e82    program   0x000002
-        .idata_PetHub.o_i    romdata   0x003e84    program   0x000081
+   .code_PetHub_Sensors.o       code   0x002e14    program   0x000368
+   .romdata_PetHub_Oled.o    romdata   0x00317c    program   0x000252
+.code_PetHub_Interrupts.o       code   0x0033ce    program   0x00020e
+           .code_PetHub.o       code   0x0035dc    program   0x0001e0
+             .stringtable    romdata   0x0037bc    program   0x0001c5
+      .romdata_spi1writ.o    romdata   0x003981    program   0x000000
+      .idata_spi1writ.o_i    romdata   0x003981    program   0x000000
+       .romdata_fxm3232.o    romdata   0x003981    program   0x000000
+       .idata_fxm3232.o_i    romdata   0x003981    program   0x000000
+        .idata___init.o_i    romdata   0x003981    program   0x000000
+        .romdata___init.o    romdata   0x003981    program   0x000000
+        .romdata_stdout.o    romdata   0x003981    program   0x000000
+      .idata_vfprintf.o_i    romdata   0x003981    program   0x000000
+          .idata_putc.o_i    romdata   0x003981    program   0x000000
+.romdata_PetHub_Display.o    romdata   0x003981    program   0x000000
+          .romdata_putc.o    romdata   0x003981    program   0x000000
+         .idata_c018i.o_i    romdata   0x003981    program   0x000000
+   .idata_PetHub_Oled.o_i    romdata   0x003981    program   0x000000
+.romdata_PetHub_Modules.o    romdata   0x003981    program   0x000000
+         .romdata_c018i.o    romdata   0x003981    program   0x000000
+.idata_PetHub_Interrupts.o_i    romdata   0x003981    program   0x000000
+          .code_sprintf.o       code   0x003982    program   0x0000ac
+           .code_stdout.o       code   0x003982    program   0x000000
+               _cinit_scn       code   0x003a2e    program   0x00009e
+           .code_printf.o       code   0x003acc    program   0x000098
+             .code_putc.o       code   0x003b64    program   0x000084
+          .code_fxm3232.o       code   0x003be8    program   0x000070
+                   STRING       code   0x003c58    program   0x000066
+         .code_spi1open.o       code   0x003cbe    program   0x000064
+         .code_fxd3232u.o       code   0x003d22    program   0x000048
+         .code_spi1writ.o       code   0x003d6a    program   0x00003c
+             D10KTCYXCODE       code   0x003da6    program   0x00002e
+                    CTYPE       code   0x003dd4    program   0x000024
+                    .code       code   0x003df8    program   0x000020
+             _startup_scn       code   0x003e18    program   0x00001c
+                    STDIO       code   0x003e34    program   0x00001c
+              D10TCYXCODE       code   0x003e50    program   0x000016
+      .romdata_vfprintf.o    romdata   0x003e66    program   0x000011
+      .romdata_fxd3232u.o    romdata   0x003e77    program   0x000000
+      .idata_fxd3232u.o_i    romdata   0x003e77    program   0x000000
+    .idata__user_putc.o_i    romdata   0x003e77    program   0x000000
+    .romdata__user_putc.o    romdata   0x003e77    program   0x000000
+        .romdata_PetHub.o    romdata   0x003e77    program   0x000000
+.idata_PetHub_Display.o_i    romdata   0x003e77    program   0x000000
+.idata_PetHub_Sensors.o_i    romdata   0x003e77    program   0x000000
+.romdata_PetHub_Sensors.o    romdata   0x003e77    program   0x000000
+.idata_PetHub_Modules.o_i    romdata   0x003e77    program   0x000000
+.romdata_PetHub_Interrupts.o    romdata   0x003e77    program   0x000000
+      .idata_spi1open.o_i    romdata   0x003e77    program   0x000000
+      .romdata_spi1open.o    romdata   0x003e77    program   0x000000
+        .idata_printf.o_i    romdata   0x003e77    program   0x000000
+        .romdata_printf.o    romdata   0x003e77    program   0x000000
+       .idata_sprintf.o_i    romdata   0x003e77    program   0x000000
+       .romdata_sprintf.o    romdata   0x003e77    program   0x000000
+           .code___init.o       code   0x003e78    program   0x000002
+            .code_c018i.o       code   0x003e78    program   0x000000
+        .idata_stdout.o_i    romdata   0x003e7a    program   0x000002
+        .idata_PetHub.o_i    romdata   0x003e7c    program   0x000081
   .config_300001_PetHub.o    romdata   0x300001    program   0x000001
   .config_300002_PetHub.o    romdata   0x300002    program   0x000001
   .config_300003_PetHub.o    romdata   0x300003    program   0x000001
@@ -126,46 +126,46 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
                               Program Memory Usage 
                                Start         End      
                            ---------   ---------      
-                            0x000000    0x003988      
-                            0x00398a    0x003e7e      
-                            0x003e80    0x003f04      
+                            0x000000    0x003980      
+                            0x003982    0x003e76      
+                            0x003e78    0x003efc      
                             0x300001    0x300003      
                             0x300005    0x300006      
-            16136 out of 33048 program addresses used, program memory utilization is 48%
+            16128 out of 33048 program addresses used, program memory utilization is 48%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   D10K_1   0x003dba    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                    D10Kl   0x003dc6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                    D10Kx   0x003db8    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                    D10_1   0x003e68    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-                     D10x   0x003e60    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-             Delay10KTCYx   0x003dae    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-              Delay10TCYx   0x003e58    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                   D10K_1   0x003db2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                    D10Kl   0x003dbe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                    D10Kx   0x003db0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                    D10_1   0x003e60    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                     D10x   0x003e58    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+             Delay10KTCYx   0x003da6    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+              Delay10TCYx   0x003e50    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
                  FLO1632S   0x002a74    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast16FP.asm
                  FLO1632U   0x002a70    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast16FP.asm
                  FLO3232S   0x002a9e    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast32FP.asm
                  FLO3232U   0x002a9a    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast32FP.asm
                     FPD32   0x002ad0    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
                     FPM32   0x002b76    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\mulFP.asm
-                 FXD3232U   0x003d2a    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxd3232u.c
+                 FXD3232U   0x003d22    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxd3232u.c
                  FXM1616S   0x002c50    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm1616s.asm
-                  FXM3232   0x003bf0    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm3232.c
+                  FXM3232   0x003be8    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm3232.c
                   INT3216   0x002caa    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
-                 OpenSPI1   0x003cc6    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1open.c
+                 OpenSPI1   0x003cbe    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1open.c
                   SPIInit   0x00254e    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
                  SPIWrite   0x002582    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
                TSIGN1616A   0x002c9c    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm1616s.asm
-                WriteSPI1   0x003d72    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1writ.c
-                   _2jEnd   0x003cb0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
-       _D10KTCYXCODE_0010   0x003dbe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-       _D10KTCYXCODE_001C   0x003dca    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-        _D10TCYXCODE_000A   0x003e62    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-        _D10TCYXCODE_000C   0x003e64    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-        _D10TCYXCODE_000E   0x003e66    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                WriteSPI1   0x003d6a    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1writ.c
+                   _2jEnd   0x003ca8    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+       _D10KTCYXCODE_0010   0x003db6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+       _D10KTCYXCODE_001C   0x003dc2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+        _D10TCYXCODE_000A   0x003e5a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+        _D10TCYXCODE_000C   0x003e5c    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+        _D10TCYXCODE_000E   0x003e5e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
                  __FpExit   0x002d14    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
                  __FpPack   0x002d40    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
             __FpReturnNaN   0x002d08    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
@@ -180,16 +180,16 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
               __FpUnPackB   0x002de8    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\UnpackFP.asm
        ___return_lbl00000   0x00000c    program     static                          
        ___return_lbl00000   0x000004    program     static                          
-       ___return_lbl00000   0x003c5e    program     static                          
-       ___return_lbl00000   0x003d70    program     static                          
-       ___return_lbl00001   0x003e3a    program     static                          
-       ___return_lbl00002   0x003ad2    program     static                          
+       ___return_lbl00000   0x003c56    program     static                          
+       ___return_lbl00000   0x003d68    program     static                          
+       ___return_lbl00001   0x003e32    program     static                          
+       ___return_lbl00002   0x003aca    program     static                          
                __config_0   0x300001    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_1   0x300002    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_2   0x300003    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_3   0x300005    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_4   0x300006    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
-                   __init   0x003e80    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
+                   __init   0x003e78    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
                    __pa_0   0x001926    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
                    __pa_1   0x00192e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
                   __pa_10   0x0019e2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
@@ -237,66 +237,66 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
                    __pa_7   0x001994    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
                    __pa_8   0x0019a0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
                    __pa_9   0x0019c2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
-               __string_0   0x003984    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_0   0x0038d9    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_1   0x0038ba    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_1   0x00397a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_10   0x003866    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_10   0x003928    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_11   0x003854    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_11   0x003917    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_12   0x00390a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_12   0x003847    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_13   0x003902    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_13   0x00383b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_14   0x0038f4    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_14   0x003830    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_15   0x0038f0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_15   0x003824    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_16   0x003814    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_17   0x003811    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_18   0x00380b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_19   0x003807    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_2   0x0038b0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_2   0x003970    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_20   0x0037f9    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_21   0x0037eb    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_22   0x0037dd    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_23   0x0037cf    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_24   0x0037cb    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_3   0x0038a8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_3   0x003964    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_4   0x00389f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_4   0x003958    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_5   0x003897    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_5   0x003953    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_6   0x00394e    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_6   0x0037c4    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
-               __string_6   0x003892    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_7   0x003948    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_7   0x00388b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_8   0x003942    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_8   0x003880    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_9   0x003935    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_9   0x00386f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_0   0x00397c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_0   0x0038d1    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_1   0x0038b2    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_1   0x003972    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_10   0x00385e    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_10   0x003920    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_11   0x00384c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_11   0x00390f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_12   0x003902    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_12   0x00383f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_13   0x0038fa    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_13   0x003833    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_14   0x0038ec    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_14   0x003828    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_15   0x0038e8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_15   0x00381c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_16   0x00380c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_17   0x003809    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_18   0x003803    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_19   0x0037ff    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_2   0x0038a8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_2   0x003968    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_20   0x0037f1    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_21   0x0037e3    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_22   0x0037d5    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_23   0x0037c7    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_24   0x0037c3    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_3   0x0038a0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_3   0x00395c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_4   0x003897    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_4   0x003950    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_5   0x00388f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_5   0x00394b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_6   0x003946    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_6   0x0037bc    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
+               __string_6   0x00388a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_7   0x003940    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_7   0x003883    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_8   0x00393a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_8   0x003878    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_9   0x00392d    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_9   0x003867    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
               __tmplbl_42   0x001abc    program     static                          
               __tmplbl_43   0x001904    program     static                          
               __tmplbl_44   0x0018ea    program     static                          
               __tmplbl_85   0x00103c    program     static                          
-            __zero_memory   0x003e00    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                _do_cinit   0x003a36    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+            __zero_memory   0x003df8    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                _do_cinit   0x003a2e    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
                    _entry   0x000000    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
-                   _false   0x003d6c    program     static                          
-                 _startup   0x003e20    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
-              _usart_putc   0x003e3c    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
+                   _false   0x003d64    program     static                          
+                 _startup   0x003e18    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+              _usart_putc   0x003e34    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
                _user_putc   0x000006    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\_user_putc.c
-      calculateAirQuality   0x0030be    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-     calculateTemperature   0x002fb0    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+      calculateAirQuality   0x0030c2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+     calculateTemperature   0x002fb4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
                changeMode   0x0009a6    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-            checkDistance   0x002eba    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-                compare_l   0x003e16    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                copy_loop   0x003aa8    program     static                          
-            copy_one_byte   0x003aae    program     static                          
+            checkDistance   0x002ebe    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+                compare_l   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                copy_loop   0x003aa0    program     static                          
+            copy_one_byte   0x003aa6    program     static                          
                       dec   0x000d6a    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
              dispenseFood   0x0009a4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
              displayClear   0x002792    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
@@ -308,10 +308,10 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
               displayTime   0x001cc2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
           displayTime12Hr   0x001e1c    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
              displaylevel   0x002318    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-                     done   0x003ad2    program     static                          
-             done_copying   0x003abc    program     static                          
+                     done   0x003aca    program     static                          
+             done_copying   0x003ab4    program     static                          
           drawProgressBar   0x002930    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
-                  font6x8   0x003178    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
+                  font6x8   0x00317c    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
                       inc   0x000ab8    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
                   initPbs   0x0005b2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
                initSensor   0x002e14    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
@@ -321,31 +321,31 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
               initStepper   0x0005e2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
                  initTime   0x0006cc    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
           interruptvector   0x000008    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Interrupts.c
-                  isdigit   0x003ddc    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
-                      isr   0x0033ca    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Interrupts.c
+                  isdigit   0x003dd4    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+                      isr   0x0033ce    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Interrupts.c
                  jANotInf   0x002aee    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
                  jANotInf   0x002b94    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\mulFP.asm
                 jANotZero   0x002b02    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
               jBothFinite   0x002ba2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\mulFP.asm
              jBothNotZero   0x002bae    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\mulFP.asm
-                     jEnd   0x003c7a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
-                     jEnd   0x003cb2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                     jEnd   0x003c72    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                     jEnd   0x003caa    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
                     jExit   0x002d06    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                 jHaveZero   0x002baa    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\mulFP.asm
                 jI2F16Beg   0x002a84    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast16FP.asm
                 jI2F32Beg   0x002ab6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\cast32FP.asm
                     jLoop   0x002b2a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
-                    jLoop   0x003c9a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                    jLoop   0x003c92    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
                     jLoop   0x002ce6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
-                    jLoop   0x003c70    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                    jLoop   0x003c68    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
                 jLoopExit   0x002cf6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
-                   jMatch   0x003dfc    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+                   jMatch   0x003df4    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
                      jMax   0x002cba    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                   jMaxNeg   0x002cc8    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                   jMaxPos   0x002cbe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                     jNext   0x002b50    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
                 jNoAdjust   0x002b4e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\divFP.asm
-                 jNoMatch   0x003dfe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+                 jNoMatch   0x003df6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
                   jNotInf   0x002cd6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                   jPkLoop   0x002d4e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
              jPkRoundDone   0x002d98    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
@@ -363,12 +363,12 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
                     jZero   0x002cd0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\castFP16.asm
                jZero1and2   0x002d28    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\packFP.asm
                 lineClear   0x00280c    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
-                     loop   0x003e4c    program     static E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
-                     loop   0x003d38    program     static                          
-                     loop   0x003e30    program     static                          
-                   loop_h   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                   loop_l   0x003e18    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                     main   0x0035e4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
+                     loop   0x003e44    program     static E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
+                     loop   0x003d30    program     static                          
+                     loop   0x003e28    program     static                          
+                   loop_h   0x003e06    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                   loop_l   0x003e10    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                     main   0x0035dc    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
               oledCommand   0x0025a6    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
                  oledData   0x0025c2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
                  oledInit   0x0025de    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
@@ -376,22 +376,22 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
      oledPrintSpecialChar   0x002852    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
           oledPrintString   0x0028e0    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
             oledSetCursor   0x002684    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Oled.c
-                   printf   0x003ad4    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\printf.c
-                     putc   0x003b6c    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\putc.c
+                   printf   0x003acc    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\printf.c
+                     putc   0x003b64    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\putc.c
                resetTimer   0x000028    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-                 s_digits   0x003e6e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
+                 s_digits   0x003e66    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
             s_put_n_chars   0x000fe6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
-            special_chars   0x0033b8    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
-                  sprintf   0x00398a    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\sprintf.c
+            special_chars   0x0033bc    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
+                  sprintf   0x003982    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\sprintf.c
        startADCConversion   0x000208    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
              startTrigger   0x002e5a    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-                   strlen   0x003c60    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
-                strlenpgm   0x003c7c    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                   strlen   0x003c58    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                strlenpgm   0x003c74    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
      systemInitialization   0x000116    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-                     test   0x003a50    program     static                          
+                     test   0x003a48    program     static                          
             transmitToESP   0x0007a4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
                  vfprintf   0x001012    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
-               zero_block   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+               zero_block   0x003e06    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
                    ADCON0   0x000fc2       data     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
                ADCON0bits   0x000fc2       data     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
                    ADCON1   0x000fc1       data     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
@@ -846,9 +846,9 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
            currentShedule   0x0000d1       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
             currentStatus   0x0000bb       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                  data_ptr   0x000188       data     static E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
-                  discalc   0x00017e       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
         dispenseCheckFlag   0x00011e       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
               displayFlag   0x00011c       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
+              distanceRdy   0x00017e       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                      edge   0x00017d       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                    initHL   0x000110       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                    initLL   0x000116       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
@@ -1022,107 +1022,107 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
                   jUnpkB2   0x002e0a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\math\UnpackFP.asm
                initSensor   0x002e14    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
              startTrigger   0x002e5a    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-            checkDistance   0x002eba    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-     calculateTemperature   0x002fb0    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-      calculateAirQuality   0x0030be    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
-                  font6x8   0x003178    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
-            special_chars   0x0033b8    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
-                      isr   0x0033ca    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Interrupts.c
-                     main   0x0035e4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
-               __string_6   0x0037c4    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
-              __string_24   0x0037cb    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_23   0x0037cf    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_22   0x0037dd    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_21   0x0037eb    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_20   0x0037f9    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_19   0x003807    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_18   0x00380b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_17   0x003811    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_16   0x003814    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_15   0x003824    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_14   0x003830    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_13   0x00383b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_12   0x003847    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_11   0x003854    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_10   0x003866    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_9   0x00386f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_8   0x003880    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_7   0x00388b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_6   0x003892    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_5   0x003897    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_4   0x00389f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_3   0x0038a8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_2   0x0038b0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_1   0x0038ba    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-               __string_0   0x0038d9    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
-              __string_15   0x0038f0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_14   0x0038f4    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_13   0x003902    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_12   0x00390a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_11   0x003917    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-              __string_10   0x003928    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_9   0x003935    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_8   0x003942    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_7   0x003948    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_6   0x00394e    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_5   0x003953    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_4   0x003958    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_3   0x003964    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_2   0x003970    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_1   0x00397a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-               __string_0   0x003984    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
-                  sprintf   0x00398a    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\sprintf.c
-                _do_cinit   0x003a36    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
-                     test   0x003a50    program     static                          
-                copy_loop   0x003aa8    program     static                          
-            copy_one_byte   0x003aae    program     static                          
-             done_copying   0x003abc    program     static                          
-       ___return_lbl00002   0x003ad2    program     static                          
-                     done   0x003ad2    program     static                          
-                   printf   0x003ad4    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\printf.c
-                     putc   0x003b6c    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\putc.c
-                  FXM3232   0x003bf0    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm3232.c
-       ___return_lbl00000   0x003c5e    program     static                          
-                   strlen   0x003c60    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
-                    jLoop   0x003c70    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
-                     jEnd   0x003c7a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
-                strlenpgm   0x003c7c    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
-                    jLoop   0x003c9a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
-                   _2jEnd   0x003cb0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
-                     jEnd   0x003cb2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
-                 OpenSPI1   0x003cc6    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1open.c
-                 FXD3232U   0x003d2a    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxd3232u.c
-                     loop   0x003d38    program     static                          
-                   _false   0x003d6c    program     static                          
-       ___return_lbl00000   0x003d70    program     static                          
-                WriteSPI1   0x003d72    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1writ.c
-             Delay10KTCYx   0x003dae    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                    D10Kx   0x003db8    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                   D10K_1   0x003dba    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-       _D10KTCYXCODE_0010   0x003dbe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                    D10Kl   0x003dc6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-       _D10KTCYXCODE_001C   0x003dca    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
-                  isdigit   0x003ddc    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
-                   jMatch   0x003dfc    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
-                 jNoMatch   0x003dfe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
-            __zero_memory   0x003e00    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-               zero_block   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                   loop_h   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                compare_l   0x003e16    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                   loop_l   0x003e18    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
-                 _startup   0x003e20    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
-                     loop   0x003e30    program     static                          
-       ___return_lbl00001   0x003e3a    program     static                          
-              _usart_putc   0x003e3c    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
-                     loop   0x003e4c    program     static E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
-              Delay10TCYx   0x003e58    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-                     D10x   0x003e60    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-        _D10TCYXCODE_000A   0x003e62    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-        _D10TCYXCODE_000C   0x003e64    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-        _D10TCYXCODE_000E   0x003e66    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-                    D10_1   0x003e68    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
-                 s_digits   0x003e6e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
-                   __init   0x003e80    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
+            checkDistance   0x002ebe    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+     calculateTemperature   0x002fb4    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+      calculateAirQuality   0x0030c2    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Sensors.c
+                  font6x8   0x00317c    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
+            special_chars   0x0033bc    program     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub_Oled.h
+                      isr   0x0033ce    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Interrupts.c
+                     main   0x0035dc    program     extern C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
+               __string_6   0x0037bc    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
+              __string_24   0x0037c3    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_23   0x0037c7    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_22   0x0037d5    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_21   0x0037e3    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_20   0x0037f1    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_19   0x0037ff    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_18   0x003803    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_17   0x003809    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_16   0x00380c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_15   0x00381c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_14   0x003828    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_13   0x003833    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_12   0x00383f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_11   0x00384c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_10   0x00385e    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_9   0x003867    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_8   0x003878    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_7   0x003883    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_6   0x00388a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_5   0x00388f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_4   0x003897    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_3   0x0038a0    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_2   0x0038a8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_1   0x0038b2    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+               __string_0   0x0038d1    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Modules.c
+              __string_15   0x0038e8    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_14   0x0038ec    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_13   0x0038fa    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_12   0x003902    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_11   0x00390f    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+              __string_10   0x003920    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_9   0x00392d    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_8   0x00393a    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_7   0x003940    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_6   0x003946    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_5   0x00394b    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_4   0x003950    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_3   0x00395c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_2   0x003968    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_1   0x003972    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+               __string_0   0x00397c    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub_Display.c
+                  sprintf   0x003982    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\sprintf.c
+                _do_cinit   0x003a2e    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                     test   0x003a48    program     static                          
+                copy_loop   0x003aa0    program     static                          
+            copy_one_byte   0x003aa6    program     static                          
+             done_copying   0x003ab4    program     static                          
+       ___return_lbl00002   0x003aca    program     static                          
+                     done   0x003aca    program     static                          
+                   printf   0x003acc    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\printf.c
+                     putc   0x003b64    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\putc.c
+                  FXM3232   0x003be8    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxm3232.c
+       ___return_lbl00000   0x003c56    program     static                          
+                   strlen   0x003c58    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                    jLoop   0x003c68    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                     jEnd   0x003c72    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                strlenpgm   0x003c74    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                    jLoop   0x003c92    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                   _2jEnd   0x003ca8    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                     jEnd   0x003caa    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\slenpgm.asm
+                 OpenSPI1   0x003cbe    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1open.c
+                 FXD3232U   0x003d22    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\math\fxd3232u.c
+                     loop   0x003d30    program     static                          
+                   _false   0x003d64    program     static                          
+       ___return_lbl00000   0x003d68    program     static                          
+                WriteSPI1   0x003d6a    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\SPI\spi1writ.c
+             Delay10KTCYx   0x003da6    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                    D10Kx   0x003db0    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                   D10K_1   0x003db2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+       _D10KTCYXCODE_0010   0x003db6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                    D10Kl   0x003dbe    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+       _D10KTCYXCODE_001C   0x003dc2    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10ktcyx.asm
+                  isdigit   0x003dd4    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+                   jMatch   0x003df4    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+                 jNoMatch   0x003df6    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\isdigit.asm
+            __zero_memory   0x003df8    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+               zero_block   0x003e06    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                   loop_h   0x003e06    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                compare_l   0x003e0e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                   loop_l   0x003e10    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f45k22.asm
+                 _startup   0x003e18    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                     loop   0x003e28    program     static                          
+       ___return_lbl00001   0x003e32    program     static                          
+              _usart_putc   0x003e34    program     extern E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
+                     loop   0x003e44    program     static E:\3.46\pic18-lt\cxx-framework\src\pmc_common\USART\_usartpc.asm
+              Delay10TCYx   0x003e50    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                     D10x   0x003e58    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+        _D10TCYXCODE_000A   0x003e5a    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+        _D10TCYXCODE_000C   0x003e5c    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+        _D10TCYXCODE_000E   0x003e5e    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                    D10_1   0x003e60    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\delays\d10tcyx.asm
+                 s_digits   0x003e66    program     static E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\vfprintf.c
+                   __init   0x003e78    program     extern E:\3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
                __config_0   0x300001    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_1   0x300002    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
                __config_2   0x300003    program     static C:\Users\edwin\Documents\GitHub\PetHub\src\PetHub.c
@@ -1188,7 +1188,7 @@ Linker Map File - Created Wed Jul 17 21:03:49 2024
                modeSelect   0x00011f       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                  stopTime   0x000179       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                      edge   0x00017d       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
-                  discalc   0x00017e       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
+              distanceRdy   0x00017e       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
             overflowCount   0x00017f       data     extern C:\Users\edwin\Documents\GitHub\PetHub\include\PetHub.h
                      prom   0x000181       data     static E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
                 curr_byte   0x000184       data     static E:\3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
