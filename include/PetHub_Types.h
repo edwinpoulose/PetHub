@@ -36,7 +36,7 @@ typedef struct
 typedef struct
 {
 	char currentPattern;
-	char patternCounter;
+	char patCounter;
 	char currentPosition;
 	char setPosition;
 	char isMoving;

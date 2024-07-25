@@ -48,5 +48,8 @@ unsigned long stopTime = 0;
 unsigned char edge = 0;
 unsigned char distanceRdy=0;
 unsigned int overflowCount = 0;
+int rotationCounter=0;
+int motorStatus=0;
+char portionTimer=0;
 
 #endif

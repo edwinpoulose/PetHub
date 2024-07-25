@@ -240,7 +240,7 @@ Returns:	None
 void initStepper(stepper_t *motor)
 {
 	motor->currentPattern=TRUE;
-	motor->patternCounter=FALSE;
+	motor->patCounter=FALSE;
 	motor->currentPosition=FALSE;
 	motor->setPosition=FALSE;
 	motor->isMoving=FALSE;
@@ -352,8 +352,59 @@ Returns:	None
  ============================================================================*/
 void dispenseFood()
 {
-	// check the current portion size and dispence accordigly
-	
+	switch(motorStatus)
+	{
+		case 0:
+			// Open food dispencer door
+			if(rotationCounter>=512)
+			{
+				vent.patCounter++;
+				if (vent.patCounter >= 4)
+				{
+					vent.patCounter=0;
+				}
+				VENTPORT =  (patternArray[vent.patCounter]<<2);
+				Delay1KTCYx(3);
+				rotationCounter++;
+			}
+			else
+			{
+				motorStatus=1;
+				rotationCounter=0;
+				portionTimer=0;
+				// start timer
+			}
+		case 1:
+			//wait based on portion size
+			if(portionTimer>currentStatus.portion+1)
+			{
+				motorStatus=2;
+			}
+			else
+			{
+				// Do nothing
+			}
+		case 2:
+			// close food dispencer door
+			if(rotationCounter>=512)
+			{
+				vent.patCounter--;
+				if (vent.patCounter < 0)
+				{
+					vent.patCounter=3;
+				}
+				VENTPORT =  (patternArray[vent.patCounter]<<2);
+				Delay1KTCYx(3);
+			}
+			else
+			{
+				motorStatus=0;
+				rotationCounter=0;
+			}
+	}
+
+
+
 } // eo dispenseFood::
 
 

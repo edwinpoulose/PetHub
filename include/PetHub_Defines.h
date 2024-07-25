@@ -41,7 +41,8 @@
 #define CO2M 			  0.00034782
 #define DEGREE			  248
 #define PBMASK			  0xF0
-#define STEPPERMASK		  0x0F
+#define STEPPERMASK		  0xC3
+#define VENTPORT		  PORTB
 #define FANLED			  LATCbits.LATC3
 #define HEATERLED		  LATCbits.LATC2
 #define COOLERLED		  LATCbits.LATC1

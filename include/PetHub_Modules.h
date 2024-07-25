@@ -53,6 +53,9 @@ extern unsigned long stopTime;
 extern unsigned char edge;
 extern unsigned char distanceRdy;
 extern unsigned int overflowCount;
+extern int rotationCounter;
+extern int motorStatus;
+extern char portionTimer;
 // Functions Prototypes=================================================================
 
 

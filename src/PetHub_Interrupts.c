@@ -58,6 +58,12 @@ void isr()
 				}
 			}
 		displayFlag=TRUE;
+		// if motor is in wait mode
+		if(motorStatus)
+		{
+			portionTimer++;
+		}
+
 	}
 	if(RC1FLAG)
 	{
