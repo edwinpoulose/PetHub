@@ -114,9 +114,9 @@ void systemInitialization(void)
 	INTCONbits.TMR0IE=TRUE;
 	
 	// USART1 RECEIVER
-	IPR1bits.RC1IP=FALSE;
-	RC1FLAG=FALSE;
-	PIE1bits.RC1IE=TRUE;
+//	IPR1bits.RC1IP=FALSE;
+//	RC1FLAG=FALSE;
+//	PIE1bits.RC1IE=TRUE;
 	
 	// INTERRUPT PRIORITY LEVEL
 	RCONbits.IPEN=FALSE;
@@ -296,7 +296,7 @@ void initShedule(shedules_t *shedule)
 	shedule->sheduleSelect=FALSE;
 	for(i=0;i<MAXSHEDULES;i++)
 	{
-		shedule->shedules[i]=FALSE;
+		shedule->shedules[i]=i;
 	}
 
 
@@ -354,9 +354,9 @@ void dispenseFood()
 {
 	switch(motorStatus)
 	{
-		case 0:
+		case 0:// motor forward
 			// Open food dispencer door
-			if(rotationCounter>=512)
+			if(rotationCounter<512)
 			{
 				vent.patCounter++;
 				if (vent.patCounter >= 4)
@@ -369,24 +369,26 @@ void dispenseFood()
 			}
 			else
 			{
-				motorStatus=1;
+				motorStatus=1;// motor waits
 				rotationCounter=0;
 				portionTimer=0;
 				// start timer
 			}
+			break;
 		case 1:
 			//wait based on portion size
 			if(portionTimer>currentStatus.portion+1)
 			{
-				motorStatus=2;
+				motorStatus=2;// motor backward
 			}
 			else
 			{
 				// Do nothing
 			}
+			break;
 		case 2:
 			// close food dispencer door
-			if(rotationCounter>=512)
+			if(rotationCounter<512)
 			{
 				vent.patCounter--;
 				if (vent.patCounter < 0)
@@ -395,12 +397,23 @@ void dispenseFood()
 				}
 				VENTPORT =  (patternArray[vent.patCounter]<<2);
 				Delay1KTCYx(3);
+				rotationCounter++;
 			}
 			else
 			{
-				motorStatus=0;
+				motorStatus=0;// motor forward
 				rotationCounter=0;
+				// Once dispencing completed move to next shedule
+				currentShedule.sheduleIndex++;
+				if(currentShedule.sheduleIndex>=currentStatus.shedule)
+				{
+					currentShedule.sheduleIndex=0;
+					dispenseCheckFlag=FALSE;
+				}
 			}
+			break;
+		default:
+			break;
 	}
 
 
@@ -469,11 +482,11 @@ void changeMode()
 			currentStatus.portion=newStatus.portion;
 			currentStatus.temp=newStatus.temp;
 			currentStatus.statusChange=TRUE;
-			for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<newStatus.shedule
-							;currentShedule.sheduleIndex++)
+			for (newShedule.sheduleIndex=0;newShedule.sheduleIndex<newStatus.shedule
+							;newShedule.sheduleIndex++)
 				{
-					currentShedule.shedules[currentShedule.sheduleIndex]=
-								newShedule.shedules[currentShedule.sheduleIndex];
+					currentShedule.shedules[newShedule.sheduleIndex]=
+								newShedule.shedules[newShedule.sheduleIndex];
 				}
 			newShedule.sheduleIndex=-1;
 			systemTime.hour=newSystemTime.hour;

@@ -59,7 +59,7 @@ void isr()
 			}
 		displayFlag=TRUE;
 		// if motor is in wait mode
-		if(motorStatus)
+		if(motorStatus==1)
 		{
 			portionTimer++;
 		}

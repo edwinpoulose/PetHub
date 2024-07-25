@@ -19,7 +19,8 @@
 #pragma config PRICLKEN = ON
 #pragma config FCMEN	= OFF
 #pragma config IESO		= OFF
-#pragma config PWRTEN	= OFF 
+#pragma config PWRTEN	= OFF //DEBUG
+//#pragma config PWRTEN	= ON  //PROGRAM
 #pragma config BOREN	= ON
 #pragma config BORV		= 285 
 #pragma config WDTEN	= OFF
@@ -40,9 +41,9 @@
  ============================================================================*/
 void main( void )
 {
-	int index=0,result=0;
+	int result=0;
 	systemInitialization();
-
+	currentShedule.sheduleIndex=0;
 	oledInit(); // Initialize the OLED display
 
 	displayClear(0);  
@@ -94,25 +95,37 @@ void main( void )
 		{
 			displayFlag=FALSE;
 			displayTime();
-			displayTemp();
-			displaylevel();
-			result=calculateAirQuality();
-			transmitToESP(3,result);
-//			sprintf(buffer, "AirQuality =%4i",(int)result);
-//			oledPrintString(2,7,buffer);
+			if(!dispenseCheckFlag)
+			{
+				// sensor checks disabled when motor is running
+				displayTemp();
+				displaylevel();
+				result=calculateAirQuality();
+				transmitToESP(3,result);
+	//			sprintf(buffer, "AirQuality =%4i",(int)result);
+	//			oledPrintString(2,7,buffer);
+			}
 		}	
 		// dispence food at shedules
 		if(dispenseCheckFlag)
 		{
-			//check if its scheduled to dispence at this hour
-			for(index=0;index<currentStatus.shedule;index++)
+
+			if(currentShedule.shedules[currentShedule.sheduleIndex]==systemTime.hour)
 			{
-				if(currentShedule.shedules[index]==systemTime.hour)
+				dispenseFood();
+			}
+			else
+			{
+				currentShedule.sheduleIndex++;
+				if(currentShedule.sheduleIndex>=currentStatus.shedule)
 				{
-					dispenseFood();
+					// No matches found in the current shedules against current hour
+					// index reset to zero, dispence disabled
+					currentShedule.sheduleIndex=0;
+
+					dispenseCheckFlag=FALSE;
 				}
 			}
-			dispenseCheckFlag=FALSE;
 		}
 	}// eo while(TRUE)
 } // eo main::

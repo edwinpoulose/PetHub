@@ -136,7 +136,11 @@ displaylevel()
     case 1:
 
         result=checkDistance();
-        if (result<10)
+        if (result<0)
+        {
+            level=0;
+        }
+        else if (result<10)
         {
             level=4;
         }
@@ -166,7 +170,11 @@ displaylevel()
         break;
     case 3:
         result=checkDistance();
-        if (result<10)
+        if (result<0)
+        {
+            level=0;
+        }
+        else if (result<10)
         {
             level=4;
         }
