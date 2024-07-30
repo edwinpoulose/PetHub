@@ -18,6 +18,14 @@
 void displayTemp()
 {
     int result=calculateTemperature();
+    if(result>currentStatus.temp)
+    {
+        COOLINGFAN=TRUE;
+    }
+    else
+    {
+         COOLINGFAN=FALSE;       
+    }
     sprintf(buffer, "%02i",result);
     transmitToESP(2,result);
     oledPrintString(15,1,buffer);
@@ -47,6 +55,7 @@ void displayTime()
 
     oledPrintString(2, 1, buffer);
 }
+
 void displayTime12Hr(unsigned char x, unsigned char y, char hour)
 {
     if (hour == 0)

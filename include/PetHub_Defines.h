@@ -29,8 +29,6 @@
 #define BYTESIZE    	  0x08
 #define T0CONSETTING      0x93
 #define ONESEC			  0x0BDC
-#define SAMPSIZE		  10
-#define SENCOUNT		  3
 #define ADCRES 			  5.0/1024
 #define TEMP			  0
 #define HUMID			  1
@@ -43,10 +41,6 @@
 #define PBMASK			  0xF0
 #define STEPPERMASK		  0xC3
 #define VENTPORT		  PORTB
-#define FANLED			  LATCbits.LATC3
-#define HEATERLED		  LATCbits.LATC2
-#define COOLERLED		  LATCbits.LATC1
-#define LIGHTINGLED		  LATCbits.LATC0
 #define PBPORT			  PORTA
 #define MODEPRESS		  0xE0
 #define INCPRESS		  0xD0
@@ -61,5 +55,15 @@
 
 #define TOTALMODES		  6
 #define MAXSHEDULES		  10
+
+#define TEMP 0
+#define AIR  1
+// FOOD US TRIG pin
+#define TRIG1 LATDbits.LATD0
+
+// WATER US TRIG pin
+#define TRIG2 LATDbits.LATD1
+
+#define COOLINGFAN LATDbits.LATD2
 
 #endif

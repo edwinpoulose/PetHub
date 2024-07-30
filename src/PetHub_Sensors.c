@@ -94,19 +94,33 @@ int checkDistance()
     }
 }
 
+/*>>> startADCConversion: ===========================================================
+Author:		Edwin Poulose
+Date:		14/05/2024
+Modified:	None
+Desc:		Select an ADC channel to be sampled, start the sampling process 
+			wait untill it finished and return the result 
+Input: 		channelID, channel number of ADC channel to be sampled	
+Returns: 	ADRES, ADC result value.	
+ ============================================================================*/
+int startADCConversion(char channelID)
+{
+	// Set the channel
+	ADCON0bits.CHS=channelID;
+	// Start the sampling
+	ADCON0bits.GO=TRUE;
+	// Wait till sampling is done
+	while(ADCON0bits.GO);
+	// Return the result
+	return ADRES;
+
+} // eo startADCConversion::
+
 int calculateTemperature()
 {
     float temp;
     int tempi;
-    // Sample temperature
-    // Set the channel
-    ADCON0bits.CHS = TEMP;
-    // Start the sampling
-    ADCON0bits.GO = TRUE;
-    // Wait till sampling is done
-    while (ADCON0bits.GO);
-    // Return the result
-    temp = ADRES * 5000.0 / 1024.0; // Convert to mV
+    temp = startADCConversion(TEMP) * 5000.0 / 1024.0; // Convert to mV
     tempi = temp / 12.0;  // 10mV equals 1 degree, 12 used to account for errors
     return tempi;
 
@@ -116,15 +130,7 @@ int calculateTemperature()
 int calculateAirQuality()
 {
     int air;
-    // Sample air quality
-    // Set the channel
-    ADCON0bits.CHS = AIR;
-    // Start the sampling
-    ADCON0bits.GO = TRUE;
-    // Wait till sampling is done
-    while (ADCON0bits.GO);
-    // Return the result
-    air = ADRES * 5000.0 / 1024.0; // Convert to mV
+    air = startADCConversion(AIR) * 5000.0 / 1024.0; // Convert to mV
     return air;
 
 } 

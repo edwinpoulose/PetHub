@@ -32,27 +32,6 @@ void resetTimer(int preset)
 } // eo resetTimer::
 
 
-/*>>> initSensorCh: ==================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Intialize global sensor values
-Input: 		sen, pointer to sensor data structure
-Returns:	None
- ==============initSensorCh==============================================================*/
-void initSensorCh(sensorCh_t *sen)
-{
-	int index=FALSE;
-	for(index=FALSE;index<SAMPSIZE;index++)
-	{
-		sen->samples[index]=FALSE;
-	}
-	sen->avg=FALSE;
-	sen->insert=FALSE;
-	sen->avgRdy=FALSE;
-
-}// eo initSensorCh::
-
 /*>>> systemInitialization: ==================================================
 Author:		Edwin Poulose
 Date:		14/05/2024
@@ -86,6 +65,11 @@ void systemInitialization(void)
 	ANSELB=0x00;
 	LATB=0x00;
 	TRISB=0xC3;
+
+	// Cooling FAN
+	ANSELDbits.ANSD2 = 0;
+    COOLINGFAN = 0; // Set TRIG pin low
+    TRISDbits.TRISD2 = 0; // Set TRIG pin as output
 		
 		
 
@@ -138,28 +122,6 @@ void systemInitialization(void)
 
 } // eo systemInitialization::
 
-
-/*>>> startADCConversion: ===========================================================
-Author:		Edwin Poulose
-Date:		14/05/2024
-Modified:	None
-Desc:		Select an ADC channel to be sampled, start the sampling process 
-			wait untill it finished and return the result 
-Input: 		channelID, channel number of ADC channel to be sampled	
-Returns: 	ADRES, ADC result value.	
- ============================================================================*/
-int startADCConversion(char channelID)
-{
-	// Set the channel
-	ADCON0bits.CHS=channelID;
-	// Start the sampling
-	ADCON0bits.GO=TRUE;
-	// Wait till sampling is done
-	while(ADCON0bits.GO);
-	// Return the result
-	return ADRES;
-
-} // eo startADCConversion::
 
 /*>>> displayData: ===========================================================
 Author:		Edwin Poulose
@@ -260,7 +222,7 @@ void initStatus(system_t *status)
 	status->mode=TRUE;
 	status->shedule=2;
 	status->portion=3;
-	status->temp=20;
+	status->temp=25;
 	status->statusChange=FALSE;
 
 } // eo initStatus::
@@ -296,7 +258,7 @@ void initShedule(shedules_t *shedule)
 	shedule->sheduleSelect=FALSE;
 	for(i=0;i<MAXSHEDULES;i++)
 	{
-		shedule->shedules[i]=i;
+		shedule->shedules[i]=i+1;
 	}
 
 
@@ -403,13 +365,24 @@ void dispenseFood()
 			{
 				motorStatus=0;// motor forward
 				rotationCounter=0;
-				// Once dispencing completed move to next shedule
-				currentShedule.sheduleIndex++;
-				if(currentShedule.sheduleIndex>=currentStatus.shedule)
-				{
-					currentShedule.sheduleIndex=0;
-					dispenseCheckFlag=FALSE;
+				if(manualOverRideFlag)
+				{	
+					// Dispencing sequence was initiated by ManualOverRide
+					// Disable it
+					manualOverRideFlag=FALSE;
 				}
+				else
+				{	
+					// Dispensing sequence was initiated by scheduling
+					// Once dispencing completed move to next shedule
+					currentShedule.sheduleIndex++;
+					if(currentShedule.sheduleIndex>=currentStatus.shedule)
+					{
+						currentShedule.sheduleIndex=0;
+						dispenseCheckFlag=FALSE;
+					}					
+				}
+
 			}
 			break;
 		default:
@@ -569,7 +542,7 @@ void inc()
 
 			case 6:
 				newStatus.temp++;
-				if(newStatus.temp>25)
+				if(newStatus.temp>30)
 				{
 					newStatus.temp=18;
 				}
@@ -648,7 +621,7 @@ void dec()
 				newStatus.temp--;
 				if(newStatus.temp<18)
 				{
-					newStatus.temp=25;
+					newStatus.temp=30;
 				}
 				sprintf(buffer, "%2i",newStatus.temp);
             	oledPrintString(12,4,buffer);

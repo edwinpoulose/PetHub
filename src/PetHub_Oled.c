@@ -50,6 +50,7 @@ void oledData(unsigned char data)
     SPIWrite(data);
 }
 
+
 // OLED initialization function
 void oledInit(void) {
     // Reset the display
@@ -70,7 +71,7 @@ void oledInit(void) {
     oledCommand(0xDA); // Set COM Pins hardware configuration
     oledCommand(0x12); // Alternative COM pin configuration, disable COM left/right remap
     oledCommand(0x81); // Set Contrast Control
-    oledCommand(0x7F); // Medium brightness
+    oledCommand(0x7F); // 0x00-0xFF, Set HIGH brightness
     oledCommand(0xA4); // Disable Entire Display On
     oledCommand(0xA6); // Set Normal Display
     oledCommand(0xD5); // Set Oscillator Frequency
@@ -79,8 +80,12 @@ void oledInit(void) {
     oledCommand(0x14); // Enable
     oledCommand(0xAF); // Display On
 }
-
-
+void oleddisplayOff(void) {
+    oledCommand(0xAE); // Display Off
+}
+void oleddisplayOn(void) {
+    oledCommand(0xAF); // Display Off
+}
 
 // Function to set cursor position on OLED
 void oledSetCursor(unsigned char column, unsigned char page) {
@@ -134,6 +139,19 @@ void oledPrintString(char x, char y,char *msg){
     }
  
 }
+
+void oledPrintLogo() {
+    unsigned char c,i;
+	for (c = 0; c < 8; c++) 
+	{
+		oledSetCursor(0,c);
+		for (i = 0; i < 128; i++) 
+		{
+	        oledData(logo[c][i]);
+	    }
+	}
+}
+
 void drawProgressBar(char startPage, char startColumn, char filledSegments) 
 {
     char j, i;

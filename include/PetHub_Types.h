@@ -15,18 +15,6 @@
 
 
 // Global Variables  ==========================================================
-typedef int sensor_t;
-
-typedef struct
-{
-	sensor_t samples[SAMPSIZE];
-	sensor_t avg;
-	sensor_t lLimit;
-	sensor_t hLimit;
-	char  	 insert;
-	char 	 avgRdy;
-} sensorCh_t;
-
 typedef struct
 {
 	char pbState;

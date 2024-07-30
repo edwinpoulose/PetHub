@@ -24,19 +24,13 @@
 // Define TRIG pin
 #define TRIG2 LATDbits.LATD1
 
-#define TEMP 0
-#define AIR  1
+
 
 // Extern Global Varibles======================================================
 
-extern sensorCh_t sensors[SENCOUNT];
 extern pbs_t pbs;
 extern stepper_t vent;
 extern char patternArray[4];
-extern sensor_t maxLimits[SENCOUNT];
-extern sensor_t minLimits[SENCOUNT];
-extern sensor_t initHL[SENCOUNT];
-extern sensor_t initLL[SENCOUNT];
 extern system_t currentStatus;
 extern system_t newStatus;
 extern shedules_t newShedule;
@@ -56,6 +50,7 @@ extern unsigned int overflowCount;
 extern int rotationCounter;
 extern int motorStatus;
 extern char portionTimer;
+extern char manualOverRideFlag;
 // Functions Prototypes=================================================================
 
 
@@ -65,7 +60,6 @@ void setSerialPort(void);
 void resetTimer(int preset);
 void setTimer(int preset);
 void configureADC(void);
-void initSensorCh(sensorCh_t *sen);
 void systemInitialization(void);
 int  startADCConversion(char channelID);
 void displayData();

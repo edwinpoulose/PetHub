@@ -45,7 +45,11 @@ void main( void )
 	systemInitialization();
 	currentShedule.sheduleIndex=0;
 	oledInit(); // Initialize the OLED display
-
+	oleddisplayOff();
+	oledPrintLogo();// Display Logo
+	oleddisplayOn();
+	Delay10KTCYx(500);
+	oleddisplayOff();
 	displayClear(0);  
     sprintf(buffer, "PetHub");
 	oledPrintString(7,0,buffer);
@@ -56,7 +60,7 @@ void main( void )
 	drawProgressBar(6,20,0);
 	oledPrintSpecialChar(10,6,2);
 	drawProgressBar(6,68,0);
-
+	oleddisplayOn();
 	while(TRUE)
 	{
 		pbs.pbState=PBPORT&PBMASK;
@@ -75,7 +79,7 @@ void main( void )
 					dec();
 					break;
 				case MANUAL:
-					dispenseFood();
+					manualOverRideFlag=TRUE;
 					break;
 				default:
 					break;
@@ -95,22 +99,23 @@ void main( void )
 		{
 			displayFlag=FALSE;
 			displayTime();
-			if(!dispenseCheckFlag)
+			if( dispenseCheckFlag==0 && manualOverRideFlag==0 )
 			{
 				// sensor checks disabled when motor is running
+				// data transmission over uart takes significant time, it interrupts motor operation
 				displayTemp();
 				displaylevel();
 				result=calculateAirQuality();
 				transmitToESP(3,result);
-	//			sprintf(buffer, "AirQuality =%4i",(int)result);
-	//			oledPrintString(2,7,buffer);
+				//sprintf(buffer, "AirQuality =%4i",(int)result);
+				//oledPrintString(2,7,buffer);
 			}
 		}	
-		// dispence food at shedules
-		if(dispenseCheckFlag)
+		// dispence food at shedules or manualoveride
+		if(dispenseCheckFlag || manualOverRideFlag == TRUE)
 		{
 
-			if(currentShedule.shedules[currentShedule.sheduleIndex]==systemTime.hour)
+			if(currentShedule.shedules[currentShedule.sheduleIndex]==systemTime.hour || manualOverRideFlag == TRUE)
 			{
 				dispenseFood();
 			}
