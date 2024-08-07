@@ -37,7 +37,9 @@ extern shedules_t newShedule;
 extern shedules_t currentShedule;
 extern time_t systemTime;
 extern time_t newSystemTime;
-extern char displayFlag;
+extern char secondFlag;
+extern char minuteFlag;
+extern char hourFlag;
 extern char triggerFlag;
 extern char dispenseCheckFlag;
 extern char buffer[25];
@@ -79,5 +81,6 @@ void startTrigger(int sensor);
 int checkDistance();
 int calculateTemperature();
 int calculateAirQuality();
+
 
 #endif

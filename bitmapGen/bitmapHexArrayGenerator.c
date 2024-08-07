@@ -1,5 +1,5 @@
 // This program generates hex array for picture Bitmap
-// Each value in the array represents the 8bit column in a page, Ex: 128 byte array is a page
+// Each value in the array represents the 8bit column in a page, Ex: 128 byte array is a full page
 // A page is 8 rows in oled (8 in total making 64 lines)
 
 #include <stdio.h>

@@ -40,24 +40,26 @@ void isr()
 	if(TIMERFLAG)
 	{
 		resetTimer(ONESEC);
-			systemTime.second++;
-			if (MINUTE<=systemTime.second)
+		secondFlag=TRUE;
+		systemTime.second++;
+		if (MINUTE<=systemTime.second)
+		{
+			minuteFlag=TRUE;
+			systemTime.second=0;
+			systemTime.min++;
+			if (HOUR<=systemTime.min)
 			{
-				systemTime.second=0;
-				systemTime.min++;
-				if (HOUR<=systemTime.min)
+				hourFlag=TRUE;
+				systemTime.min=0;
+				systemTime.hour++;
+				// check to dispense food
+				dispenseCheckFlag=TRUE;
+				if (DAY<=systemTime.hour)
 				{
-					systemTime.min=0;
-					systemTime.hour++;
-					// check to dispense food
-					dispenseCheckFlag=TRUE;
-					if (DAY<=systemTime.hour)
-					{
-						systemTime.hour=0;
-					}
+					systemTime.hour=0;
 				}
 			}
-		displayFlag=TRUE;
+		}
 		// if motor is in wait mode
 		if(motorStatus==1)
 		{

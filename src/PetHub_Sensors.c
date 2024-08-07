@@ -121,7 +121,7 @@ int calculateTemperature()
     float temp;
     int tempi;
     temp = startADCConversion(TEMP) * 5000.0 / 1024.0; // Convert to mV
-    tempi = temp / 12.0;  // 10mV equals 1 degree, 12 used to account for errors
+    tempi = (temp-500.0) / 10.0;  //500 mv offset and 10mv coeff
     return tempi;
 
 } 

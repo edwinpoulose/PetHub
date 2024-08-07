@@ -49,7 +49,44 @@ void main( void )
 	oledPrintLogo();// Display Logo
 	oleddisplayOn();
 	Delay10KTCYx(500);
+	Delay10KTCYx(50);
+	if(eepromRead(RESETADR))// if its the first time use initialized data
+	{
+   		eepromWrite(RESETADR, 0x00);
+		eepromWrite(SHEDULESADR, newStatus.shedule);
+		eepromWrite(PORTIONADR, newStatus.portion);
+		eepromWrite(TEMPADR, newStatus.temp);
+		eepromWrite(HOURADR, newSystemTime.hour);
+		eepromWrite(MINADR, newSystemTime.min);
+		eepromWrite(SECADR, systemTime.second);
+		for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<MAXSHEDULES
+						;currentShedule.sheduleIndex++)
+		{
+			eepromWrite(SHEDULESTARTADR+currentShedule.sheduleIndex,
+				currentShedule.shedules[currentShedule.sheduleIndex]);
+		}
+	}
+	else
+	{
+		//retrieve saved data
+
+		newStatus.shedule=currentStatus.shedule=eepromRead(SHEDULESADR);
+		newStatus.portion=currentStatus.portion=eepromRead(PORTIONADR);
+		newStatus.temp=currentStatus.temp=eepromRead(TEMPADR);
+		newSystemTime.hour=systemTime.hour=eepromRead(HOURADR);
+		newSystemTime.min=systemTime.min=eepromRead(MINADR);
+		for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<MAXSHEDULES
+						;currentShedule.sheduleIndex++)
+		{
+			currentShedule.shedules[currentShedule.sheduleIndex]=
+					newShedule.shedules[currentShedule.sheduleIndex]=
+						eepromRead(SHEDULESTARTADR+currentShedule.sheduleIndex);
+		}
+		currentShedule.sheduleIndex=0;
+
+	}
 	oleddisplayOff();
+
 	displayClear(0);  
     sprintf(buffer, "PetHub");
 	oledPrintString(7,0,buffer);
@@ -95,9 +132,10 @@ void main( void )
 
 			currentStatus.statusChange=FALSE;
 		}	
-		if(displayFlag)
+		if(secondFlag)
 		{
-			displayFlag=FALSE;
+			eepromWrite(SECADR, systemTime.second);
+			secondFlag=FALSE;
 			displayTime();
 			if( dispenseCheckFlag==0 && manualOverRideFlag==0 )
 			{
@@ -111,6 +149,16 @@ void main( void )
 				//oledPrintString(2,7,buffer);
 			}
 		}	
+		if(minuteFlag)
+		{
+			minuteFlag=FALSE;
+			eepromWrite(MINADR, systemTime.min);
+		}
+		if(hourFlag)
+		{
+			hourFlag=FALSE;
+			eepromWrite(MINADR, systemTime.min);
+		}
 		// dispence food at shedules or manualoveride
 		if(dispenseCheckFlag || manualOverRideFlag == TRUE)
 		{

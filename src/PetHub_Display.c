@@ -146,8 +146,9 @@ displaylevel()
 
         result=checkDistance();
         if (result<0)
-        {
-            level=0;
+        {	
+			// No distance calculated, use previous data
+        	break;
         }
         else if (result<10)
         {
@@ -181,7 +182,8 @@ displaylevel()
         result=checkDistance();
         if (result<0)
         {
-            level=0;
+			// No distance calculated, use previous data
+        	break;
         }
         else if (result<10)
         {

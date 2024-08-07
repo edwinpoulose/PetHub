@@ -33,11 +33,11 @@ typedef struct
 /*Structure to save current status of system*/
 typedef struct
 {
-	char mode;
-	char shedule;
-	char portion;
-	char temp;
-	char statusChange;
+	unsigned char mode;
+	unsigned char shedule;
+	unsigned char portion;
+	unsigned char temp;
+	unsigned char statusChange;
 }system_t;
 
 

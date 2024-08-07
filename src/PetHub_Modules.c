@@ -68,8 +68,8 @@ void systemInitialization(void)
 
 	// Cooling FAN
 	ANSELDbits.ANSD2 = 0;
-    COOLINGFAN = 0; // Set TRIG pin low
-    TRISDbits.TRISD2 = 0; // Set TRIG pin as output
+    COOLINGFAN = 0; 
+    TRISDbits.TRISD2 = 0; 
 		
 		
 
@@ -208,7 +208,33 @@ void initStepper(stepper_t *motor)
 	motor->isMoving=FALSE;
 } // eo initStepper::
 
+void eepromWrite(unsigned char address, unsigned char data) 
+{
+    while (EECON1bits.RD || EECON1bits.WR); // Wait for previous read/write to complete
+    EEADR = address;
+    EEDATA = data;
+    EECON1bits.EEPGD = 0; // Access data memory
+    EECON1bits.CFGS = 0;  // Access EEPROM
+    EECON1bits.WREN = 1;  // Enable writes
+    INTCONbits.GIE = 0;   // Disable interrupts
+    EECON2 = 0x55;        // Required sequence
+    EECON2 = 0xAA;        // Required sequence
+    EECON1bits.WR = 1;    // Start write
+	while (EECON1bits.WR);// Wait for write to complete
+    INTCONbits.GIE = 1;   // Enable interrupts
+    EECON1bits.WREN = 0;  // Disable writes
+}
 
+int eepromRead(unsigned char address) 
+{
+    while (EECON1bits.RD || EECON1bits.WR); // Wait for previous read/write to complete
+    EEADR = address;
+    EECON1bits.EEPGD = 0; // Access data memory
+    EECON1bits.CFGS = 0;  // Access EEPROM
+    EECON1bits.RD = 1;    // Start read
+    while (EECON1bits.RD || EECON1bits.WR);
+	return EEDATA;
+}
 /*>>> initStatus: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
@@ -454,16 +480,26 @@ void changeMode()
 			currentStatus.shedule=newStatus.shedule;
 			currentStatus.portion=newStatus.portion;
 			currentStatus.temp=newStatus.temp;
+			eepromWrite(SHEDULESADR, newStatus.shedule);
+			eepromWrite(PORTIONADR, newStatus.portion);
+			eepromWrite(TEMPADR, newStatus.temp);
+			eepromWrite(HOURADR, newSystemTime.hour);
+			eepromWrite(MINADR, newSystemTime.min);
+
+			// to transmt to esp
 			currentStatus.statusChange=TRUE;
 			for (newShedule.sheduleIndex=0;newShedule.sheduleIndex<newStatus.shedule
 							;newShedule.sheduleIndex++)
-				{
-					currentShedule.shedules[newShedule.sheduleIndex]=
-								newShedule.shedules[newShedule.sheduleIndex];
-				}
+			{
+				currentShedule.shedules[newShedule.sheduleIndex]=
+							newShedule.shedules[newShedule.sheduleIndex];
+				eepromWrite(SHEDULESTARTADR+newShedule.sheduleIndex,
+							newShedule.shedules[newShedule.sheduleIndex]);
+			}
 			newShedule.sheduleIndex=-1;
 			systemTime.hour=newSystemTime.hour;
 			systemTime.min=newSystemTime.min;
+
 			displayMenu();
 		}
 		else
@@ -631,3 +667,5 @@ void dec()
 		}
 	}
 } // eo dec::
+
+

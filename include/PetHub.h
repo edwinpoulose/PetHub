@@ -31,7 +31,9 @@ time_t newSystemTime;
 // Prototypes  ----------------------------------------------------------------
 void isr();
 char patternArray[4]={0x01,0x02,0x04,0x08};
-char displayFlag=FALSE;
+char secondFlag=FALSE;
+char minuteFlag=FALSE;
+char hourFlag=FALSE;
 char triggerFlag=FALSE;
 char dispenseCheckFlag=TRUE;
 char manualOverRideFlag=FALSE;

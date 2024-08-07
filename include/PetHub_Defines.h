@@ -66,4 +66,14 @@
 
 #define COOLINGFAN LATDbits.LATD2
 
+// EEPROM ADDRESSES
+#define RESETADR 0x00
+#define SHEDULESADR 0x01
+#define PORTIONADR	0x02
+#define TEMPADR 0x03
+#define HOURADR 0x04
+#define MINADR 0x05
+#define SECADR 0x06
+#define SHEDULESTARTADR 0x10
+
 #endif
