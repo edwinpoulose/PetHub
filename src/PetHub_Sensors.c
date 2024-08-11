@@ -1,7 +1,24 @@
+/*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
+/*=============================================================================
+	File Name:	ELNC6011EPLab2.c  
+	Author:		Edwin Poulose
+	Date:		20/07/2024
+	Modified:	None
+	� Fanshawe College, 2024
+
+	Description: This program contains all sensor submodiles
+=============================================================================*/
 // Libraries ------------------------------------------------------------------
 #include "PetHub_Modules.h"
 
-
+/*>>> initSensor: ===========================================================
+Author:		Edwin Poulose
+Date:		20/07/2024
+Modified:	None
+Desc:		Initializate all sensor settings
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void initSensor()
 {
     // Configure ADC
@@ -44,9 +61,17 @@ void initSensor()
     INTCON3bits.INT1IE = 1;  // Enable INT1 interrupt
 }
 
+/*>>> startTrigger: ===========================================================
+Author:		Edwin Poulose
+Date:		20/07/2024
+Modified:	None
+Desc:		Sent trigger to respective ultrasonic sensor
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void startTrigger(int sensor)
 {
-	// edge detection, edge 
+	// edge detection and distance check flag set 0 when trigger is sent 
     edge=0;
 	distanceRdy=0;
 
@@ -72,7 +97,14 @@ void startTrigger(int sensor)
 }
 
 
-
+/*>>> checkDistance: ===========================================================
+Author:		Edwin Poulose
+Date:		20/07/2024
+Modified:	None
+Desc:		Returns distance when echo is received, else -1
+Input: 		None
+Returns:	Distance to surface	
+ ============================================================================*/
 int checkDistance()
 {
     int distance = 0;
@@ -96,7 +128,7 @@ int checkDistance()
 
 /*>>> startADCConversion: ===========================================================
 Author:		Edwin Poulose
-Date:		14/05/2024
+Date:		20/07/2024
 Modified:	None
 Desc:		Select an ADC channel to be sampled, start the sampling process 
 			wait untill it finished and return the result 
@@ -116,6 +148,14 @@ int startADCConversion(char channelID)
 
 } // eo startADCConversion::
 
+/*>>> calculateTemperature: ===========================================================
+Author:		Edwin Poulose
+Date:		20/07/2024
+Modified:	None
+Desc:		Calculate temperature using LM35 sensor
+Input: 		None
+Returns:	Distance to surface	
+ ============================================================================*/
 int calculateTemperature()
 {
     float temp;
@@ -126,7 +166,16 @@ int calculateTemperature()
 
 } 
 
-
+/*>>> calculateAirQuality: ===========================================================
+Author:		Edwin Poulose
+Date:		20/07/2024
+Modified:	None
+Desc:		Return raw air quality data.
+            This is processed in the mobile app
+            Only appicable for Cat Owners
+Input: 		None
+Returns:	Distance to surface	
+ ============================================================================*/
 int calculateAirQuality()
 {
     int air;

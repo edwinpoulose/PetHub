@@ -2,7 +2,7 @@
 /*=============================================================================
 	File Name:	ELNC6011EPLab2.c  
 	Author:		Edwin Poulose
-	Date:		28/05/2024
+	Date:		20/07/2024
 	Modified:	None
 	� Fanshawe College, 2024
 
@@ -28,9 +28,9 @@ void interruptvector(void)
 
 /*>>> isr: -------------------------------------------------------------------
 Author:		Edwin Poulose
-Date:		14/11/2023
+Date:		20/07/2024
 Modified:	None
-Desc:		isr to handle timer0 overflow and data received in RCREG1
+Desc:		isr to handle timer0, timer2, INT0, INT1 and RC1 interrupts
 Input: 		None
 Returns:	None
  ----------------------------------------------------------------------------*/

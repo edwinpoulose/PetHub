@@ -1,8 +1,23 @@
+/*=============================================================================
+	File Name:	PetHub.c  
+	Author:		Edwin Poulose
+	Date:		28/05/2024
+	Modified:	None
+	� Fanshawe College, 2024
 
+	Description: Driver for SSD1309 OLED Display
+=============================================================================*/
 #include "PetHub_Oled.h"
 
 
-// I2C initialization function
+/*>>> SPIInit: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		SPI initialization function for OLED
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void SPIInit(void) 
 {
     ANSELDbits.ANSD6 = 0;
@@ -17,6 +32,7 @@ void SPIInit(void)
     TRISDbits.TRISD5 = 0;
     TRISDbits.TRISD4 = 0;
 
+    // SPI CLK and DATA Pins
     ANSELCbits.ANSC3 = 0;
     ANSELCbits.ANSC5 = 0;
     LATCbits.LATC3 = 0;
@@ -27,6 +43,14 @@ void SPIInit(void)
     OpenSPI(SPI_FOSC_4, MODE_00, SMPEND);
 }
 
+/*>>> SPIWrite: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		write data to oled
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void SPIWrite(unsigned char data) 
 {
     LATDbits.LATD6 = 0;           // Select the OLED
@@ -35,15 +59,28 @@ void SPIWrite(unsigned char data)
     LATDbits.LATD6 = 1; 
 }
 
-// OLED command function
+/*>>> oledCommand: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		OLED command function
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledCommand(unsigned char command) 
 {
     LATDbits.LATD5 = 0; // Command mode
     SPIWrite(command);
 }
 
-
-// Function to send data to OLED
+/*>>> oledData: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to send data to OLED
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledData(unsigned char data) 
 {
     LATDbits.LATD5 = 1; // Data mode
@@ -51,8 +88,16 @@ void oledData(unsigned char data)
 }
 
 
-// OLED initialization function
+/*>>> oledInit: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		OLED initialization function
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledInit(void) {
+
     // Reset the display
     LATDbits.LATD4 = 0;
     Delay10KTCYx(1);
@@ -80,22 +125,53 @@ void oledInit(void) {
     oledCommand(0x14); // Enable
     oledCommand(0xAF); // Display On
 }
+
+/*>>> oleddisplayOff: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		OLED off wrapper funcion
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oleddisplayOff(void) {
     oledCommand(0xAE); // Display Off
 }
+
+/*>>> oleddisplayOn: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		OLED on wrapper function
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oleddisplayOn(void) {
     oledCommand(0xAF); // Display Off
 }
 
-// Function to set cursor position on OLED
+/*>>> oledSetCursor: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to set cursor position on OLED
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledSetCursor(unsigned char column, unsigned char page) {
     oledCommand(0xB0 + page); // Set page address
     oledCommand((((column+2)&0xF0)>>4)|0x10);
     oledCommand((column+2)&0x0F);
 }
 
-
-// Function to print a single character on OLED
+/*>>> oledPrintChar: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to print a single character on OLED
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledPrintChar(char column, char page, char c) {
     char i;
 	oledSetCursor(column*6,page );
@@ -105,7 +181,14 @@ void oledPrintChar(char column, char page, char c) {
     }
 }
 
-
+/*>>> displayClear: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to clear display, prints all screen null
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void displayClear(){
 	char i,n,j;
     for(j=0;j<PAGE_SIZE;j++){
@@ -115,6 +198,14 @@ void displayClear(){
     }
 }
 
+/*>>> lineClear: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to clear display, prints all screen null
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void lineClear(char i){
 	char n;
         for(n=0;n<22;n++)
@@ -123,6 +214,14 @@ void lineClear(char i){
         }
 }
 
+/*>>> oledPrintSpecialChar: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to print special charecters and symbols
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledPrintSpecialChar(char column, char page, char c) {
     char i;
 	oledSetCursor(column*6,page );
@@ -131,7 +230,14 @@ void oledPrintSpecialChar(char column, char page, char c) {
     }
 }
 
-// Function to print a string on OLED
+/*>>> oledPrintString: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to print a string on OLED
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledPrintString(char x, char y,char *msg){
 	while(*msg){  
         oledPrintChar(x,y,*msg++);
@@ -140,18 +246,37 @@ void oledPrintString(char x, char y,char *msg){
  
 }
 
+/*>>> oledPrintLogo: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to print splashscreen logo
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void oledPrintLogo() {
-    unsigned char c,i;
-	for (c = 0; c < 8; c++) 
+    unsigned char page,line;
+    // cycles through each page, 8 page make the full display
+	for (page = 0; page < 8; page++) 
 	{
-		oledSetCursor(0,c);
-		for (i = 0; i < 128; i++) 
+		oledSetCursor(0,page);
+        // cycles through each line, 128 lines make the whole page
+		for (line = 0; line < 128; line++) 
 		{
-	        oledData(logo[c][i]);
+	        oledData(logo[page][line]);
 	    }
 	}
 }
 
+
+/*>>> drawProgressBar: ===========================================================
+Author:		Edwin Poulose
+Date:		04/07/2024
+Modified:	None
+Desc:		Function to print a progress bar
+Input: 		None
+Returns:	None
+ ============================================================================*/
 void drawProgressBar(char startPage, char startColumn, char filledSegments) 
 {
     char j, i;

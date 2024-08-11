@@ -6,7 +6,8 @@
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: This program contains all the submodules related to display
+	Description: This program contains all the submodules related to
+                 displaying data in OLED
 =============================================================================*/
 
 // Includes ==================================================================
@@ -14,7 +15,14 @@
 
 // Functions  =================================================================
 
-
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display Temperature data in OLED
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void displayTemp()
 {
     int result=calculateTemperature();
@@ -33,6 +41,14 @@ void displayTemp()
     oledPrintChar(18,1,'C');
 }
 
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display Sytem Time data in OLED
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void displayTime()
 {
 
@@ -56,6 +72,14 @@ void displayTime()
     oledPrintString(2, 1, buffer);
 }
 
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Convert hour data to 12 hr format and display
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void displayTime12Hr(unsigned char x, unsigned char y, char hour)
 {
     if (hour == 0)
@@ -78,7 +102,14 @@ void displayTime12Hr(unsigned char x, unsigned char y, char hour)
     oledPrintString(x, y, buffer);
 }
 
-
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display main menu
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 void displayMenu()
 {
     displayTime();
@@ -89,6 +120,14 @@ void displayMenu()
 	oledPrintString(4,4,buffer);  
 }
 
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display shedule select settings
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 displayShedule()
 {
     sprintf(buffer, "Shedule #%2i    ",newShedule.sheduleIndex+1);
@@ -99,6 +138,14 @@ displayShedule()
     displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
 }
 
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display indivitual mode setting
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 displayMode()
 {
     sprintf(buffer, "%s     ",modeSelect[newStatus.mode-1]);
@@ -133,84 +180,96 @@ displayMode()
             break;
     }
 }
+
+/*>>> dec: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Display water and food level in OLED
+Input: 		None
+Returns:	None	
+ ============================================================================*/
 displaylevel()
 {
     int result,level;
-    switch (triggerFlag)
+    switch (triggerFlag)// switched to next state in every second.
     {
-    case 0:
-        startTrigger(1);
-        triggerFlag++;
-        break;
-    case 1:
-
-        result=checkDistance();
-        if (result<0)
-        {	
-			// No distance calculated, use previous data
-        	break;
-        }
-        else if (result<10)
-        {
-            level=4;
-        }
-        else if (result<15)
-        {
-            level=3;
-        }
-        else if (result<20)
-        {
-            level=2;
-        }
-        else if (result<25)
-        {
-            level=1;
-        }
-        else
-        {
-            level=0;
-        }
-        triggerFlag++;
-        drawProgressBar(6,20,(char)level);
-        transmitToESP(5,level);
-        break;	
-    case 2:
-        startTrigger(2);
-        triggerFlag++;
-        break;
-    case 3:
-        result=checkDistance();
-        if (result<0)
-        {
-			// No distance calculated, use previous data
-        	break;
-        }
-        else if (result<10)
-        {
-            level=4;
-        }
-        else if (result<15)
-        {
-            level=3;
-        }
-        else if (result<20)
-        {
-            level=2;
-        }
-        else if (result<25)
-        {
-            level=1;
-        }
-        else
-        {
-            level=0;
-        }
-        drawProgressBar(6,68,(char)level);
-        triggerFlag=0;
-        transmitToESP(4,level);
-        break;						
-    default:
-        break;
+        case 0:
+            // send trigger pulse to food Ultrasonic
+            startTrigger(1);
+            triggerFlag++;
+            break;
+        case 1:
+            // check distance to food level
+            result=checkDistance();
+            if (result<0)
+            {	
+                // No distance calculated, use previous data
+                break;
+            }
+            else if (result<10)
+            {
+                level=4;
+            }
+            else if (result<15)
+            {
+                level=3;
+            }
+            else if (result<20)
+            {
+                level=2;
+            }
+            else if (result<25)
+            {
+                level=1;
+            }
+            else
+            {
+                level=0;
+            }
+            triggerFlag++;
+            drawProgressBar(6,20,(char)level);
+            transmitToESP(5,level);
+            break;	
+        case 2:
+            // send trigger pulse to water Ultrasonic
+            startTrigger(2);
+            triggerFlag++;
+            break;
+        case 3:
+            // check distance to water level
+            result=checkDistance();
+            if (result<0)
+            {
+                // No distance calculated, use previous data
+                break;
+            }
+            else if (result<10)
+            {
+                level=4;
+            }
+            else if (result<15)
+            {
+                level=3;
+            }
+            else if (result<20)
+            {
+                level=2;
+            }
+            else if (result<25)
+            {
+                level=1;
+            }
+            else
+            {
+                level=0;
+            }
+            drawProgressBar(6,68,(char)level);
+            triggerFlag=0;
+            transmitToESP(4,level);
+            break;						
+        default:
+            break;
     }
 }
 

@@ -49,7 +49,9 @@ void systemInitialization(void)
 	OSCCON = OSCCONSETTING;
 	while(!(OSCCONbits.HFIOFS));
 	
-	//set Port
+	// set Port configurations
+	// sensor and display configurations are 
+	// performed in indivitual initialization functions
 	
 	// Configure PORTA pins for ADC and PBs
 	ANSELA=0x00;
@@ -71,8 +73,6 @@ void systemInitialization(void)
     COOLINGFAN = 0; 
     TRISDbits.TRISD2 = 0; 
 		
-		
-
 	// set Timer
 	resetTimer(ONESEC);
 	T0CON=T0CONSETTING;
@@ -97,18 +97,18 @@ void systemInitialization(void)
 	TIMERFLAG=FALSE;
 	INTCONbits.TMR0IE=TRUE;
 	
-	// USART1 RECEIVER
+	// USART1 RECEIVER : Disabled
 	IPR1bits.RC1IP=FALSE;
 	RC1FLAG=FALSE;
 	PIE1bits.RC1IE=FALSE;
 	
-	// INTERRUPT PRIORITY LEVEL
+	// INTERRUPT PRIORITY LEVEL 0
 	RCONbits.IPEN=FALSE;
 	
 	// GLOBAL INTERRUPT ENABLE
 	INTCON |=INTGON;
 	
-
+	// initialising all system settings to initial status
 	initStepper(&vent);
 	initPbs(&pbs);
 	initStatus(&newStatus);
@@ -117,7 +117,11 @@ void systemInitialization(void)
 	initShedule(&currentShedule);
 	initTime(&systemTime);
 	initTime(&newSystemTime);
-	SPIInit(); 
+
+	// SPI initialization for OLED
+	SPIInit();
+
+	// All sensor module initialization 
 	initSensor();
 
 } // eo systemInitialization::
@@ -127,7 +131,8 @@ void systemInitialization(void)
 Author:		Edwin Poulose
 Date:		14/05/2024
 Modified:	None
-Desc:		Display the sensor readings
+Desc:		This is a test function used to display information on terminal
+			have no significance in production setup
 Input: 		None
 Returns:	None	
  ============================================================================*/
@@ -208,6 +213,15 @@ void initStepper(stepper_t *motor)
 	motor->isMoving=FALSE;
 } // eo initStepper::
 
+/*>>> initStepper: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Write data to EEPROM
+Input: 		address, address to write to
+			data, data to write
+Returns:	None	
+ ============================================================================*/
 void eepromWrite(unsigned char address, unsigned char data) 
 {
     while (EECON1bits.RD || EECON1bits.WR); // Wait for previous read/write to complete
@@ -225,6 +239,14 @@ void eepromWrite(unsigned char address, unsigned char data)
     EECON1bits.WREN = 0;  // Disable writes
 }
 
+/*>>> initStepper: ===========================================================
+Author:		Edwin Poulose
+Date:		27/05/2024
+Modified:	None
+Desc:		Read data FROM EEPROM
+Input: 		address, address to read from
+Returns:	data, data from address	
+ ============================================================================*/
 int eepromRead(unsigned char address) 
 {
     while (EECON1bits.RD || EECON1bits.WR); // Wait for previous read/write to complete
@@ -232,9 +254,10 @@ int eepromRead(unsigned char address)
     EECON1bits.EEPGD = 0; // Access data memory
     EECON1bits.CFGS = 0;  // Access EEPROM
     EECON1bits.RD = 1;    // Start read
-    while (EECON1bits.RD || EECON1bits.WR);
+    while (EECON1bits.RD || EECON1bits.WR); // Wait for previous read/write to complete
 	return EEDATA;
 }
+
 /*>>> initStatus: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
@@ -294,8 +317,8 @@ void initShedule(shedules_t *shedule)
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		Transmit data to ESP module over USART
-Input: 		control, control variabl that specify kind of message is transmitted.
+Desc:		Transmit data to ESP module over UART
+Input: 		control, control variable what specify kind of message is transmitted.
 Returns:	None	
  ============================================================================*/
 void transmitToESP(char control,int value)
@@ -335,6 +358,7 @@ Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
 Desc:		Dispense food according to set portion size
+			The motor status variable motorStatus has 3 states
 Input: 		None
 Returns:	None	
  ============================================================================*/
@@ -356,18 +380,20 @@ void dispenseFood()
 				rotationCounter++;
 			}
 			else
-			{
+			{	
+				// after motor reaches 90 degrees, motor waits 
 				motorStatus=1;// motor waits
 				rotationCounter=0;
 				portionTimer=0;
-				// start timer
+				// portionTimer is incremented in timer0 at every second
+				// meaning it waits until it reached the specified time
 			}
 			break;
 		case 1:
 			//wait based on portion size
 			if(portionTimer>currentStatus.portion+1)
 			{
-				motorStatus=2;// motor backward
+				motorStatus=2;// set to backward when specified time is reached
 			}
 			else
 			{
@@ -389,7 +415,7 @@ void dispenseFood()
 			}
 			else
 			{
-				motorStatus=0;// motor forward
+				motorStatus=0;// motor set to forward
 				rotationCounter=0;
 				if(manualOverRideFlag)
 				{	
@@ -401,6 +427,7 @@ void dispenseFood()
 				{	
 					// Dispensing sequence was initiated by scheduling
 					// Once dispencing completed move to next shedule
+					// and repeat the process
 					currentShedule.sheduleIndex++;
 					if(currentShedule.sheduleIndex>=currentStatus.shedule)
 					{
@@ -414,9 +441,6 @@ void dispenseFood()
 		default:
 			break;
 	}
-
-
-
 } // eo dispenseFood::
 
 
@@ -452,6 +476,7 @@ void changeMode()
 	}
 	else
 	{
+
 		if(newStatus.mode==TRUE)
 		{
 		    // on first entry to menu, clear all lines
@@ -459,7 +484,11 @@ void changeMode()
 			lineClear(4);
 			lineClear(5);	
 		}
+		/*
+			if in any other mode it cycles through the modes
+		*/
 		newStatus.mode++;
+		// in time changing mode copy the system time to update
 		if(newStatus.mode==4)
 		{
 			// time changing
@@ -474,12 +503,14 @@ void changeMode()
 		{
 			newStatus.mode=TRUE;
 		}
+		// once cycled through all the modes, save the new settings
 		if(newStatus.mode==TRUE)
 		{
 			currentStatus.mode=newStatus.mode;
 			currentStatus.shedule=newStatus.shedule;
 			currentStatus.portion=newStatus.portion;
 			currentStatus.temp=newStatus.temp;
+			// save the new settings to EEPROM
 			eepromWrite(SHEDULESADR, newStatus.shedule);
 			eepromWrite(PORTIONADR, newStatus.portion);
 			eepromWrite(TEMPADR, newStatus.temp);
@@ -488,6 +519,7 @@ void changeMode()
 
 			// to transmt to esp
 			currentStatus.statusChange=TRUE;
+
 			for (newShedule.sheduleIndex=0;newShedule.sheduleIndex<newStatus.shedule
 							;newShedule.sheduleIndex++)
 			{
@@ -500,10 +532,15 @@ void changeMode()
 			systemTime.hour=newSystemTime.hour;
 			systemTime.min=newSystemTime.min;
 
+			// A settings saved message can be displayed in future here
+
+			// Display the menu
+			// show number of shedules and portions
 			displayMenu();
 		}
 		else
-		{
+		{	
+			// display the current mode to OLED
 			displayMode();
 		}
 	}
@@ -521,7 +558,7 @@ Returns:	None
  ============================================================================*/
 void inc()
 {
-
+	// if in shedule select change the current selected shedule
 	if(newShedule.sheduleSelect)
 	{
 		newShedule.shedules[newShedule.sheduleIndex]++;
@@ -530,15 +567,17 @@ void inc()
 			newShedule.shedules[newShedule.sheduleIndex]=0;
 
 		}
+		// display change in OLED
     	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
 
 
 	}
 	else
 	{
+		// if not in shedule select change the current mode value
 		switch(newStatus.mode)
 		{
-			case 2:
+			case 2: // shedule size
 				newStatus.shedule++;
 				if(newStatus.shedule>MAXSHEDULES)
 				{
@@ -548,7 +587,7 @@ void inc()
 				oledPrintString(12,4,buffer);
 				break;
 
-			case 3:
+			case 3: //portion size
 				newStatus.portion++;
 				if(newStatus.portion>5)
 				{
@@ -558,7 +597,7 @@ void inc()
 				oledPrintString(12,4,buffer);
 				break;
 
-			case 4:
+			case 4: // Time hour
 				newSystemTime.hour++;
 				if(newSystemTime.hour>23)
 				{
@@ -566,7 +605,7 @@ void inc()
 				}
 				displayTime12Hr(12,4,newSystemTime.hour);
 				break;
-			case 5:
+			case 5: // Time minute
 				newSystemTime.min++;
 				if(newSystemTime.min>59)
 				{
@@ -576,7 +615,7 @@ void inc()
             	oledPrintString(12,4,buffer);
 				break;
 
-			case 6:
+			case 6: // temp setting
 				newStatus.temp++;
 				if(newStatus.temp>30)
 				{
@@ -604,6 +643,7 @@ void dec()
 {
 	if(newShedule.sheduleSelect)
 	{
+		// if in shedule select change the current selected shedule
 		newShedule.shedules[newShedule.sheduleIndex]--;
 		if(newShedule.shedules[newShedule.sheduleIndex]<0)
 		{
@@ -613,6 +653,7 @@ void dec()
 	}
 	else
 	{
+		// if not in shedule select change the current mode value
 		switch(newStatus.mode)
 		{
 			case 2:

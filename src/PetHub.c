@@ -7,8 +7,8 @@
 	� Fanshawe College, 2024
 
 	Description: A program that updates the system status through pushbuttons
-				 dispense food as per shedule, sample sensor data and send 
-				 critical informations to ESP module.
+				 dispense food as per shedule, sample sensor data, display 
+				 information and send critical informations to ESP module.
 =============================================================================*/
 
 
@@ -49,7 +49,7 @@ void main( void )
 	oledPrintLogo();// Display Logo
 	oleddisplayOn();
 	Delay10KTCYx(500);
-	Delay10KTCYx(50);
+
 	if(eepromRead(RESETADR))// if its the first time use initialized data
 	{
    		eepromWrite(RESETADR, 0x00);
@@ -87,6 +87,7 @@ void main( void )
 	}
 	oleddisplayOff();
 
+	// Print basic data on display
 	displayClear(0);  
     sprintf(buffer, "PetHub");
 	oledPrintString(7,0,buffer);
@@ -98,8 +99,11 @@ void main( void )
 	oledPrintSpecialChar(10,6,2);
 	drawProgressBar(6,68,0);
 	oleddisplayOn();
+
+	// infinite loop
 	while(TRUE)
-	{
+	{	
+		//check for push button press
 		pbs.pbState=PBPORT&PBMASK;
 		if(pbs.pbState!=pbs.pbLastState)
 		{
@@ -122,7 +126,7 @@ void main( void )
 					break;
 			}
 			Delay10KTCYx(2);//10ms
-		}
+		}// eo if(pbs.pbState!=pbs.pbLastState)
 
 		// if any status has changed 
 		if(currentStatus.statusChange)
@@ -132,6 +136,9 @@ void main( void )
 
 			currentStatus.statusChange=FALSE;
 		}	
+		// on every second 
+		// pull the sensor data
+		// save time on eeprom
 		if(secondFlag)
 		{
 			eepromWrite(SECADR, systemTime.second);
@@ -139,7 +146,7 @@ void main( void )
 			displayTime();
 			if( dispenseCheckFlag==0 && manualOverRideFlag==0 )
 			{
-				// sensor checks disabled when motor is running
+				// sensor checks disabled when motor is running(food dispensing)
 				// data transmission over uart takes significant time, it interrupts motor operation
 				displayTemp();
 				displaylevel();
@@ -148,21 +155,27 @@ void main( void )
 				//sprintf(buffer, "AirQuality =%4i",(int)result);
 				//oledPrintString(2,7,buffer);
 			}
-		}	
+		}// eo if(secondFlag)
+		// on every minute 
+		// save time on eeprom	
 		if(minuteFlag)
 		{
 			minuteFlag=FALSE;
 			eepromWrite(MINADR, systemTime.min);
 		}
+		// on every hour 
+		// save time on eeprom	
 		if(hourFlag)
 		{
 			hourFlag=FALSE;
 			eepromWrite(MINADR, systemTime.min);
 		}
-		// dispence food at shedules or manualoveride
+		// dispence food at shedules or manualoveride pressed
 		if(dispenseCheckFlag || manualOverRideFlag == TRUE)
 		{
-
+			// check if this hour is in shedule
+			// currentShedule.sheduleIndex is incremented at every iteration of while(TRUE) infinite loop
+			// which loop through all set shedules
 			if(currentShedule.shedules[currentShedule.sheduleIndex]==systemTime.hour || manualOverRideFlag == TRUE)
 			{
 				dispenseFood();
@@ -172,13 +185,13 @@ void main( void )
 				currentShedule.sheduleIndex++;
 				if(currentShedule.sheduleIndex>=currentStatus.shedule)
 				{
-					// No matches found in the current shedules against current hour
+					// No matches found in the current shedules against this hour
 					// index reset to zero, dispence disabled
 					currentShedule.sheduleIndex=0;
 
 					dispenseCheckFlag=FALSE;
 				}
 			}
-		}
+		}// eo if(dispenseCheckFlag || manualOverRideFlag == TRUE)
 	}// eo while(TRUE)
 } // eo main::
