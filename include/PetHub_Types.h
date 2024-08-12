@@ -34,7 +34,7 @@ typedef struct
 typedef struct
 {
 	unsigned char mode;
-	unsigned char shedule;
+	unsigned char schedule;
 	unsigned char portion;
 	unsigned char temp;
 	unsigned char statusChange;
@@ -51,11 +51,11 @@ typedef struct
 
 typedef struct
 {
-	char shedules[MAXSHEDULES];
-	char sheduleSelect;
-	char sheduleIndex;
+	char schedules[MAXSHEDULES];
+	char scheduleSelect;
+	char scheduleIndex;
 
-}shedules_t;
+}schedules_t;
 
 
 

@@ -113,8 +113,8 @@ void systemInitialization(void)
 	initPbs(&pbs);
 	initStatus(&newStatus);
 	initStatus(&currentStatus);
-	initShedule(&newShedule);
-	initShedule(&currentShedule);
+	initSchedule(&newSchedule);
+	initSchedule(&currentSchedule);
 	initTime(&systemTime);
 	initTime(&newSystemTime);
 
@@ -167,14 +167,14 @@ void displayData()
 			default:
 				break;
 		}
-	printf("\n\rShedule: %3i\n\r",newStatus.shedule);
-	for (i=0;i<newStatus.shedule;i++)
+	printf("\n\rSchedule: %3i\n\r",newStatus.schedule);
+	for (i=0;i<newStatus.schedule;i++)
 	{
-		if(newShedule.sheduleSelect && newShedule.sheduleIndex==i)
+		if(newSchedule.scheduleSelect && newSchedule.scheduleIndex==i)
 		{
 			printf("Setting ");
 		}
-		printf("Shedule_%i: %3i\n\r",i+1,newShedule.shedules[i]);
+		printf("Schedule_%i: %3i\n\r",i+1,newSchedule.schedules[i]);
 	}
 	printf("Portion: %3i",newStatus.portion);
 	printf("\n\rHour: %3i",systemTime.hour);
@@ -269,7 +269,7 @@ Returns:	None
 void initStatus(system_t *status)
 {
 	status->mode=TRUE;
-	status->shedule=2;
+	status->schedule=2;
 	status->portion=3;
 	status->temp=25;
 	status->statusChange=FALSE;
@@ -292,26 +292,26 @@ void initTime(time_t *time)
 
 } // eo initStepper::
 
-/*>>> initShedule: ===========================================================
+/*>>> initSchedule: ===========================================================
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		Initialize shedule data stucture
-Input: 		motor, pointer to shedule data structure
+Desc:		Initialize schedule data stucture
+Input: 		motor, pointer to schedule data structure
 Returns:	None	
  ============================================================================*/
-void initShedule(shedules_t *shedule)
+void initSchedule(schedules_t *schedule)
 {
 	int i;
-	shedule->sheduleIndex=-1;
-	shedule->sheduleSelect=FALSE;
+	schedule->scheduleIndex=-1;
+	schedule->scheduleSelect=FALSE;
 	for(i=0;i<MAXSHEDULES;i++)
 	{
-		shedule->shedules[i]=i+1;
+		schedule->schedules[i]=i+1;
 	}
 
 
-} // eo initShedule::
+} // eo initSchedule::
 
 /*>>> transmitToESP: ===========================================================
 Author:		Edwin Poulose
@@ -328,9 +328,9 @@ void transmitToESP(char control,int value)
 	{
 		printf("$1,%02i,%02i#\r\n",currentStatus.portion,currentStatus.temp);
 		printf("$2");
-		for (i=0;i<newStatus.shedule;i++)
+		for (i=0;i<newStatus.schedule;i++)
 		{
-			printf(",%02i",currentShedule.shedules[i]);
+			printf(",%02i",currentSchedule.schedules[i]);
 		}
 		printf("#\r\n");
 	}
@@ -351,7 +351,7 @@ void transmitToESP(char control,int value)
 	{
 		printf("$3,04,%02i#\r\n",value);
 	}
-} // eo initShedule::
+} // eo initSchedule::
 
 /*>>> dispenseFood: ===========================================================
 Author:		Edwin Poulose
@@ -367,7 +367,7 @@ void dispenseFood()
 	switch(motorStatus)
 	{
 		case 0:// motor forward
-			// Open food dispencer door
+			// Open food dispenser door
 			if(rotationCounter<512)
 			{
 				vent.patCounter++;
@@ -401,7 +401,7 @@ void dispenseFood()
 			}
 			break;
 		case 2:
-			// close food dispencer door
+			// close food dispenser door
 			if(rotationCounter<512)
 			{
 				vent.patCounter--;
@@ -426,12 +426,12 @@ void dispenseFood()
 				else
 				{	
 					// Dispensing sequence was initiated by scheduling
-					// Once dispencing completed move to next shedule
+					// Once dispencing completed move to next schedule
 					// and repeat the process
-					currentShedule.sheduleIndex++;
-					if(currentShedule.sheduleIndex>=currentStatus.shedule)
+					currentSchedule.scheduleIndex++;
+					if(currentSchedule.scheduleIndex>=currentStatus.schedule)
 					{
-						currentShedule.sheduleIndex=0;
+						currentSchedule.scheduleIndex=0;
 						dispenseCheckFlag=FALSE;
 					}					
 				}
@@ -455,21 +455,21 @@ Returns:	None
 void changeMode()
 {
 	/*
-	 if in schedule mode,when change mode pressed, it runs through each shedule
-	 setting incrementing schedule index until it reaches max shedule limit 
+	 if in schedule mode,when change mode pressed, it runs through each schedule
+	 setting incrementing schedule index until it reaches max schedule limit 
 	 previously set.
 	 */
 	if(newStatus.mode==2)
 	{
-		newShedule.sheduleIndex++;
-		if(newShedule.sheduleIndex<newStatus.shedule)
+		newSchedule.scheduleIndex++;
+		if(newSchedule.scheduleIndex<newStatus.schedule)
 		{
-			newShedule.sheduleSelect=TRUE;
-			displayShedule();
+			newSchedule.scheduleSelect=TRUE;
+			displaySchedule();
 		}
 		else
 		{
-			newShedule.sheduleSelect=FALSE;
+			newSchedule.scheduleSelect=FALSE;
 			newStatus.mode++;
 			displayMode();
 		}
@@ -507,11 +507,11 @@ void changeMode()
 		if(newStatus.mode==TRUE)
 		{
 			currentStatus.mode=newStatus.mode;
-			currentStatus.shedule=newStatus.shedule;
+			currentStatus.schedule=newStatus.schedule;
 			currentStatus.portion=newStatus.portion;
 			currentStatus.temp=newStatus.temp;
 			// save the new settings to EEPROM
-			eepromWrite(SHEDULESADR, newStatus.shedule);
+			eepromWrite(SHEDULESADR, newStatus.schedule);
 			eepromWrite(PORTIONADR, newStatus.portion);
 			eepromWrite(TEMPADR, newStatus.temp);
 			eepromWrite(HOURADR, newSystemTime.hour);
@@ -520,22 +520,22 @@ void changeMode()
 			// to transmt to esp
 			currentStatus.statusChange=TRUE;
 
-			for (newShedule.sheduleIndex=0;newShedule.sheduleIndex<newStatus.shedule
-							;newShedule.sheduleIndex++)
+			for (newSchedule.scheduleIndex=0;newSchedule.scheduleIndex<newStatus.schedule
+							;newSchedule.scheduleIndex++)
 			{
-				currentShedule.shedules[newShedule.sheduleIndex]=
-							newShedule.shedules[newShedule.sheduleIndex];
-				eepromWrite(SHEDULESTARTADR+newShedule.sheduleIndex,
-							newShedule.shedules[newShedule.sheduleIndex]);
+				currentSchedule.schedules[newSchedule.scheduleIndex]=
+							newSchedule.schedules[newSchedule.scheduleIndex];
+				eepromWrite(SHEDULESTARTADR+newSchedule.scheduleIndex,
+							newSchedule.schedules[newSchedule.scheduleIndex]);
 			}
-			newShedule.sheduleIndex=-1;
+			newSchedule.scheduleIndex=-1;
 			systemTime.hour=newSystemTime.hour;
 			systemTime.min=newSystemTime.min;
 
 			// A settings saved message can be displayed in future here
 
 			// Display the menu
-			// show number of shedules and portions
+			// show number of schedules and portions
 			displayMenu();
 		}
 		else
@@ -558,32 +558,32 @@ Returns:	None
  ============================================================================*/
 void inc()
 {
-	// if in shedule select change the current selected shedule
-	if(newShedule.sheduleSelect)
+	// if in schedule select change the current selected schedule
+	if(newSchedule.scheduleSelect)
 	{
-		newShedule.shedules[newShedule.sheduleIndex]++;
-		if(newShedule.shedules[newShedule.sheduleIndex]>23)
+		newSchedule.schedules[newSchedule.scheduleIndex]++;
+		if(newSchedule.schedules[newSchedule.scheduleIndex]>23)
 		{
-			newShedule.shedules[newShedule.sheduleIndex]=0;
+			newSchedule.schedules[newSchedule.scheduleIndex]=0;
 
 		}
 		// display change in OLED
-    	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
+    	displayTime12Hr(12,4,newSchedule.schedules[newSchedule.scheduleIndex]);
 
 
 	}
 	else
 	{
-		// if not in shedule select change the current mode value
+		// if not in schedule select change the current mode value
 		switch(newStatus.mode)
 		{
-			case 2: // shedule size
-				newStatus.shedule++;
-				if(newStatus.shedule>MAXSHEDULES)
+			case 2: // schedule size
+				newStatus.schedule++;
+				if(newStatus.schedule>MAXSHEDULES)
 				{
-					newStatus.shedule=1;
+					newStatus.schedule=1;
 				}
-				sprintf(buffer, "%2i",newStatus.shedule);
+				sprintf(buffer, "%2i",newStatus.schedule);
 				oledPrintString(12,4,buffer);
 				break;
 
@@ -641,28 +641,28 @@ Returns:	None
  ============================================================================*/
 void dec()
 {
-	if(newShedule.sheduleSelect)
+	if(newSchedule.scheduleSelect)
 	{
-		// if in shedule select change the current selected shedule
-		newShedule.shedules[newShedule.sheduleIndex]--;
-		if(newShedule.shedules[newShedule.sheduleIndex]<0)
+		// if in schedule select change the current selected schedule
+		newSchedule.schedules[newSchedule.scheduleIndex]--;
+		if(newSchedule.schedules[newSchedule.scheduleIndex]<0)
 		{
-			newShedule.shedules[newShedule.sheduleIndex]=23;
+			newSchedule.schedules[newSchedule.scheduleIndex]=23;
 		}
-    	displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
+    	displayTime12Hr(12,4,newSchedule.schedules[newSchedule.scheduleIndex]);
 	}
 	else
 	{
-		// if not in shedule select change the current mode value
+		// if not in schedule select change the current mode value
 		switch(newStatus.mode)
 		{
 			case 2:
-				newStatus.shedule--;
-				if(newStatus.shedule<1)
+				newStatus.schedule--;
+				if(newStatus.schedule<1)
 				{
-					newStatus.shedule=MAXSHEDULES;
+					newStatus.schedule=MAXSHEDULES;
 				}
-				sprintf(buffer, "%2i",newStatus.shedule);
+				sprintf(buffer, "%2i",newStatus.schedule);
 				oledPrintString(12,4,buffer);
 				break;
 

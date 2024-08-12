@@ -113,10 +113,10 @@ Returns:	None
 void displayMenu()
 {
     displayTime();
-	sprintf(buffer, "Shedules:%2i",currentStatus.shedule);
+	sprintf(buffer, "Schedules:%2i",currentStatus.schedule);
 	oledPrintString(4,3,buffer);
 
-	sprintf(buffer, "Portions:%2i",currentStatus.portion);
+	sprintf(buffer, "Portions :%2i",currentStatus.portion);
 	oledPrintString(4,4,buffer);  
 }
 
@@ -124,18 +124,18 @@ void displayMenu()
 Author:		Edwin Poulose
 Date:		27/05/2024
 Modified:	None
-Desc:		Display shedule select settings
+Desc:		Display schedule select settings
 Input: 		None
 Returns:	None	
  ============================================================================*/
-displayShedule()
+displaySchedule()
 {
-    sprintf(buffer, "Shedule #%2i    ",newShedule.sheduleIndex+1);
+    sprintf(buffer, "Schedule #%2i    ",newSchedule.scheduleIndex+1);
     oledPrintString(4,3,buffer);
 
     sprintf(buffer, "Set to :    ");
     oledPrintString(4,4,buffer);
-    displayTime12Hr(12,4,newShedule.shedules[newShedule.sheduleIndex]);
+    displayTime12Hr(12,4,newSchedule.schedules[newSchedule.scheduleIndex]);
 }
 
 /*>>> dec: ===========================================================
@@ -155,7 +155,7 @@ displayMode()
     switch(newStatus.mode)
     {
         case 2:
-            sprintf(buffer, "%2i",newStatus.shedule);
+            sprintf(buffer, "%2i",newStatus.schedule);
             oledPrintString(12,4,buffer);
             break;
 

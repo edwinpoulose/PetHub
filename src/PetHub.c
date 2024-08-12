@@ -2,12 +2,12 @@
 /*=============================================================================
 	File Name:	PetHub.c  
 	Author:		Edwin Poulose
-	Date:		28/05/2024
+	Date:		09/08/2024
 	Modified:	None
 	� Fanshawe College, 2024
 
-	Description: A program that updates the system status through pushbuttons
-				 dispense food as per shedule, sample sensor data, display 
+	Description: A program that updates the system status through push-buttons
+				 dispense food as per schedule, sample sensor data, display 
 				 information and send critical informations to ESP module.
 =============================================================================*/
 
@@ -19,8 +19,7 @@
 #pragma config PRICLKEN = ON
 #pragma config FCMEN	= OFF
 #pragma config IESO		= OFF
-#pragma config PWRTEN	= OFF //DEBUG
-//#pragma config PWRTEN	= ON  //PROGRAM
+#pragma config PWRTEN	= OFF 
 #pragma config BOREN	= ON
 #pragma config BORV		= 285 
 #pragma config WDTEN	= OFF
@@ -42,8 +41,9 @@
 void main( void )
 {
 	int result=0;
+	// initialize all system settings
 	systemInitialization();
-	currentShedule.sheduleIndex=0;
+	currentSchedule.scheduleIndex=0;
 	oledInit(); // Initialize the OLED display
 	oleddisplayOff();
 	oledPrintLogo();// Display Logo
@@ -53,36 +53,36 @@ void main( void )
 	if(eepromRead(RESETADR))// if its the first time use initialized data
 	{
    		eepromWrite(RESETADR, 0x00);
-		eepromWrite(SHEDULESADR, newStatus.shedule);
+		eepromWrite(SHEDULESADR, newStatus.schedule);
 		eepromWrite(PORTIONADR, newStatus.portion);
 		eepromWrite(TEMPADR, newStatus.temp);
 		eepromWrite(HOURADR, newSystemTime.hour);
 		eepromWrite(MINADR, newSystemTime.min);
 		eepromWrite(SECADR, systemTime.second);
-		for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<MAXSHEDULES
-						;currentShedule.sheduleIndex++)
+		for (currentSchedule.scheduleIndex=0;currentSchedule.scheduleIndex<MAXSHEDULES
+						;currentSchedule.scheduleIndex++)
 		{
-			eepromWrite(SHEDULESTARTADR+currentShedule.sheduleIndex,
-				currentShedule.shedules[currentShedule.sheduleIndex]);
+			eepromWrite(SHEDULESTARTADR+currentSchedule.scheduleIndex,
+				currentSchedule.schedules[currentSchedule.scheduleIndex]);
 		}
 	}
 	else
 	{
 		//retrieve saved data
 
-		newStatus.shedule=currentStatus.shedule=eepromRead(SHEDULESADR);
+		newStatus.schedule=currentStatus.schedule=eepromRead(SHEDULESADR);
 		newStatus.portion=currentStatus.portion=eepromRead(PORTIONADR);
 		newStatus.temp=currentStatus.temp=eepromRead(TEMPADR);
 		newSystemTime.hour=systemTime.hour=eepromRead(HOURADR);
 		newSystemTime.min=systemTime.min=eepromRead(MINADR);
-		for (currentShedule.sheduleIndex=0;currentShedule.sheduleIndex<MAXSHEDULES
-						;currentShedule.sheduleIndex++)
+		for (currentSchedule.scheduleIndex=0;currentSchedule.scheduleIndex<MAXSHEDULES
+						;currentSchedule.scheduleIndex++)
 		{
-			currentShedule.shedules[currentShedule.sheduleIndex]=
-					newShedule.shedules[currentShedule.sheduleIndex]=
-						eepromRead(SHEDULESTARTADR+currentShedule.sheduleIndex);
+			currentSchedule.schedules[currentSchedule.scheduleIndex]=
+					newSchedule.schedules[currentSchedule.scheduleIndex]=
+						eepromRead(SHEDULESTARTADR+currentSchedule.scheduleIndex);
 		}
-		currentShedule.sheduleIndex=0;
+		currentSchedule.scheduleIndex=0;
 
 	}
 	oleddisplayOff();
@@ -94,8 +94,10 @@ void main( void )
     displayTime();
     displayTemp();
 	displayMenu();
+	// display food symbol and level 0
 	oledPrintSpecialChar(2,6,1);
 	drawProgressBar(6,20,0);
+	// display water symbol and level 0
 	oledPrintSpecialChar(10,6,2);
 	drawProgressBar(6,68,0);
 	oleddisplayOn();
@@ -137,8 +139,8 @@ void main( void )
 			currentStatus.statusChange=FALSE;
 		}	
 		// on every second 
-		// pull the sensor data
-		// save time on eeprom
+		// pull ,process and send sensor data to esp
+		// save time on EEPROM
 		if(secondFlag)
 		{
 			eepromWrite(SECADR, systemTime.second);
@@ -147,48 +149,46 @@ void main( void )
 			if( dispenseCheckFlag==0 && manualOverRideFlag==0 )
 			{
 				// sensor checks disabled when motor is running(food dispensing)
-				// data transmission over uart takes significant time, it interrupts motor operation
+				// data transmission over UART takes significant time, it interrupts stepper motor operation
 				displayTemp();
 				displaylevel();
+				// air quality is not displayed, but transferred to ESP
 				result=calculateAirQuality();
 				transmitToESP(3,result);
-				//sprintf(buffer, "AirQuality =%4i",(int)result);
-				//oledPrintString(2,7,buffer);
 			}
 		}// eo if(secondFlag)
 		// on every minute 
-		// save time on eeprom	
+		// save time on EEPROM	
 		if(minuteFlag)
 		{
 			minuteFlag=FALSE;
 			eepromWrite(MINADR, systemTime.min);
 		}
 		// on every hour 
-		// save time on eeprom	
+		// save time on EEPROM	
 		if(hourFlag)
 		{
 			hourFlag=FALSE;
 			eepromWrite(MINADR, systemTime.min);
 		}
-		// dispence food at shedules or manualoveride pressed
+		// dispense food at schedules or manual override pressed
 		if(dispenseCheckFlag || manualOverRideFlag == TRUE)
 		{
-			// check if this hour is in shedule
-			// currentShedule.sheduleIndex is incremented at every iteration of while(TRUE) infinite loop
-			// which loop through all set shedules
-			if(currentShedule.shedules[currentShedule.sheduleIndex]==systemTime.hour || manualOverRideFlag == TRUE)
+			// check if this hour is in schedule
+			// currentSchedule.scheduleIndex is incremented at every iteration of while(TRUE) infinite loop
+			// which loop through all set schedules
+			if(currentSchedule.schedules[currentSchedule.scheduleIndex]==systemTime.hour || manualOverRideFlag == TRUE)
 			{
 				dispenseFood();
 			}
 			else
 			{
-				currentShedule.sheduleIndex++;
-				if(currentShedule.sheduleIndex>=currentStatus.shedule)
+				currentSchedule.scheduleIndex++;
+				if(currentSchedule.scheduleIndex>=currentStatus.schedule)
 				{
-					// No matches found in the current shedules against this hour
-					// index reset to zero, dispence disabled
-					currentShedule.sheduleIndex=0;
-
+					// No matches found in the schedules against this hour
+					// index reset to zero, dispense disabled
+					currentSchedule.scheduleIndex=0;
 					dispenseCheckFlag=FALSE;
 				}
 			}
