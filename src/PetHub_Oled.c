@@ -154,14 +154,14 @@ void oleddisplayOn(void) {
 Author:		Edwin Poulose
 Date:		04/07/2024
 Modified:	None
-Desc:		Function to set cursor position on OLED
+Desc:		Function to set cursor position on OLED on page addressing mode
 Input: 		None
 Returns:	None
  ============================================================================*/
 void oledSetCursor(unsigned char column, unsigned char page) {
     oledCommand(0xB0 + page); // Set page address
-    oledCommand((((column+2)&0xF0)>>4)|0x10);
-    oledCommand((column+2)&0x0F);
+    oledCommand((((column+2)&0xF0)>>4)|0x10);// mask lower nibble and right
+    oledCommand((column+2)&0x0F);//mask upper nibble and write
 }
 
 /*>>> oledPrintChar: ===========================================================
@@ -193,7 +193,7 @@ void displayClear(){
 	char i,n,j;
     for(j=0;j<PAGE_SIZE;j++){
         for(n=0;n<22;n++){
-		oledPrintChar(n, j, 0);     
+			oledPrintChar(n, j, 0);     
         }
     }
 }

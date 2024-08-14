@@ -8,7 +8,7 @@
 
 	Description: A program that updates the system status through push-buttons
 				 dispense food as per schedule, sample sensor data, display 
-				 information and send critical informations to ESP module.
+				 information and send critical information to ESP module.
 =============================================================================*/
 
 

@@ -128,7 +128,7 @@ Desc:		Display schedule select settings
 Input: 		None
 Returns:	None	
  ============================================================================*/
-displaySchedule()
+void displaySchedule()
 {
     sprintf(buffer, "Schedule #%2i    ",newSchedule.scheduleIndex+1);
     oledPrintString(4,3,buffer);
@@ -146,7 +146,7 @@ Desc:		Display indivitual mode setting
 Input: 		None
 Returns:	None	
  ============================================================================*/
-displayMode()
+void displayMode()
 {
     sprintf(buffer, "%s     ",modeSelect[newStatus.mode-1]);
     oledPrintString(4,3,buffer);
@@ -189,9 +189,10 @@ Desc:		Display water and food level in OLED
 Input: 		None
 Returns:	None	
  ============================================================================*/
-displaylevel()
+void displaylevel()
 {
-    int result,level;
+    unsigned long result=0;
+	char level=0;
     switch (triggerFlag)// switched to next state in every second.
     {
         case 0:
@@ -204,22 +205,22 @@ displaylevel()
             result=checkDistance();
             if (result<0)
             {	
-                // No distance calculated, use previous data
+                level=4;
                 break;
             }
-            else if (result<10)
+            else if (result<3)
             {
                 level=4;
             }
-            else if (result<15)
+            else if (result<6)
             {
                 level=3;
             }
-            else if (result<20)
+            else if (result<9)
             {
                 level=2;
             }
-            else if (result<25)
+            else if (result<13)
             {
                 level=1;
             }
@@ -241,22 +242,22 @@ displaylevel()
             result=checkDistance();
             if (result<0)
             {
-                // No distance calculated, use previous data
+                level=4;
                 break;
             }
-            else if (result<10)
+            else if (result<3)
             {
                 level=4;
             }
-            else if (result<15)
+            else if (result<6)
             {
                 level=3;
             }
-            else if (result<20)
+            else if (result<9)
             {
                 level=2;
             }
-            else if (result<25)
+            else if (result<13)
             {
                 level=1;
             }

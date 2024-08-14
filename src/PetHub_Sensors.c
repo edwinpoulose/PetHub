@@ -105,9 +105,9 @@ Desc:		Returns distance when echo is received, else -1
 Input: 		None
 Returns:	Distance to surface	
  ============================================================================*/
-int checkDistance()
+unsigned long checkDistance()
 {
-    int distance = 0;
+    unsigned long distance = 0;
 
     // Check if edge detection is complete
     if (distanceRdy)

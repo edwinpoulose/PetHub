@@ -78,7 +78,7 @@ void transmitToESP(char control,int value);
 void dispenseFood();
 void initSensor();
 void startTrigger(int sensor);
-int checkDistance();
+unsigned long checkDistance();
 int calculateTemperature();
 int calculateAirQuality();
 
