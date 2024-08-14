@@ -30,15 +30,15 @@ time_t newSystemTime;
 
 // Prototypes  ----------------------------------------------------------------
 void isr();
-rom char patternArray[4]={0x01,0x02,0x04,0x08};
+char patternArray[4]={0x01,0x02,0x04,0x08};
 char secondFlag=FALSE;
 char minuteFlag=FALSE;
 char hourFlag=FALSE;
-volatile char triggerFlag=FALSE;
+char triggerFlag=FALSE;
 char dispenseCheckFlag=TRUE;
 char manualOverRideFlag=FALSE;
 char buffer[25];
-rom char modeSelect[6][15]={"SET","Schedules","Portion","Time (Hour)","Time (Min)","Temperature"};
+char modeSelect[6][15]={"SET","Schedules","Portion","Time (Hour)","Time (Min)","Temperature"};
 unsigned long stopTime = 0;
 unsigned char edge = 0;
 unsigned char distanceRdy=0;

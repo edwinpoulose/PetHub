@@ -74,6 +74,7 @@
 #define HOURADR 0x04
 #define MINADR 0x05
 #define SECADR 0x06
+#define DISADR 0x07
 #define SHEDULESTARTADR 0x10
 
 #endif

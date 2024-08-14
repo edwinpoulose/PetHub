@@ -69,7 +69,8 @@ void main( void )
 	else
 	{
 		//retrieve saved data
-
+		
+		dispenseCheckFlag=eepromRead(DISADR);
 		newStatus.schedule=currentStatus.schedule=eepromRead(SHEDULESADR);
 		newStatus.portion=currentStatus.portion=eepromRead(PORTIONADR);
 		newStatus.temp=currentStatus.temp=eepromRead(TEMPADR);
@@ -169,10 +170,11 @@ void main( void )
 		if(hourFlag)
 		{
 			hourFlag=FALSE;
-			eepromWrite(MINADR, systemTime.min);
+			eepromWrite(HOURADR, systemTime.hour);
+			eepromWrite(DISADR, dispenseCheckFlag);
 		}
 		// dispense food at schedules or manual override pressed
-		if(dispenseCheckFlag || manualOverRideFlag == TRUE)
+		if(dispenseCheckFlag == TRUE || manualOverRideFlag == TRUE)
 		{
 			// check if this hour is in schedule
 			// currentSchedule.scheduleIndex is incremented at every iteration of while(TRUE) infinite loop
@@ -190,6 +192,7 @@ void main( void )
 					// index reset to zero, dispense disabled
 					currentSchedule.scheduleIndex=0;
 					dispenseCheckFlag=FALSE;
+					eepromWrite(DISADR, dispenseCheckFlag);
 				}
 			}
 		}// eo if(dispenseCheckFlag || manualOverRideFlag == TRUE)

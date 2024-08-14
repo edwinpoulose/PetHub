@@ -433,6 +433,7 @@ void dispenseFood()
 					{
 						currentSchedule.scheduleIndex=0;
 						dispenseCheckFlag=FALSE;
+						eepromWrite(DISADR, dispenseCheckFlag);
 					}					
 				}
 
