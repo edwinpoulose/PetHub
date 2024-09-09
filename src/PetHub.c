@@ -59,6 +59,7 @@ void main( void )
 		eepromWrite(HOURADR, newSystemTime.hour);
 		eepromWrite(MINADR, newSystemTime.min);
 		eepromWrite(SECADR, systemTime.second);
+		eepromWrite(DISADR, dispenseCheckFlag);
 		for (currentSchedule.scheduleIndex=0;currentSchedule.scheduleIndex<MAXSHEDULES
 						;currentSchedule.scheduleIndex++)
 		{
