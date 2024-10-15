@@ -1,22 +1,20 @@
 
 
-Mode	|Increment|Decrement|Manual
---------------------------------------------------
-Run 	|-		  |-		|Active
-Schedule|+1		  |-1		|Inactive
-
-Shedules[MAXSHEDULES]
-Portion	|+1		  |-1		|Inactive
-Time(h)	|+1	to 24 |-1		|Inactive
-Time(m)	|+1	to 60 |-1		|Inactive
-Temp	|+1		  |-1		|Inactive
+Mode	  |Increment  |Decrement|Manual
+--------------------------------------
+Run 	  |-		      |-		    |Active
+Schedule|+1		      |-1		    |Active
+Portion	|+1		      |-1		    |Active
+Time(h)	|+1	to 24   |-1		    |Active
+Time(m)	|+1	to 60   |-1		    |Active
+Temp	  |+1		      |-1		    |Active
 
 Pinout
 
-RA0 AN0 TEMP
-RA1 AN1 AIR
+RA0 AN0 TEMP ADC
+RA1 AN1 AIR ADC
 
-pbs
+Push Buttons
 RA4 MODE
 RA5 INCPRESS
 RA6 DECPRESS
@@ -31,19 +29,20 @@ RB3
 RB4
 RB5
 
-RC3 SPI CLK
-RC5 SPI SDO
+RC3 OLED SPI CLK
+RC5 OLED SPI SDO
 RC6	TX 25
 RC7 RX 26
 
-RD0 TRIG1
-RD1 TRIG2
-RD2 COOLING FAN
+RD0 DIO TRIG1
+RD1 DIO TRIG2
+RD2 DIO COOLING FAN
 
-RD4 RESET
-RD5 DATA
-RD6 CMD
+RD4 OLED RESET
+RD5 OLED DATA
+RD6 OLED CMD
 
+Logo Bitmap
 ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙██████∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙
 ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙███∙∙∙∙∙∙███∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙
 ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙█∙∙∙∙∙∙∙∙∙∙∙██∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙
