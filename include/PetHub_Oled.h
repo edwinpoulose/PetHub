@@ -1,12 +1,12 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
-	Author:		Edwin Poulose
-	Date:		28/05/2024
-	Modified:	None
-	� Fanshawe College, 2024
+    File Name:  ELNC6011EPLab2.c  
+    Author:     Edwin Poulose
+    Date:       28/05/2024
+    Modified:   None
+    � Fanshawe College, 2024
 
-	Description: This File holds all the prototypes used by interrupts.
+    Description: This File holds all the prototypes used by interrupts.
 =============================================================================*/
 
 
@@ -18,12 +18,12 @@
 #ifndef OLED
 #define OLED
 
-#define WIDTH       128
-#define HEIGHT      64
-#define PAGE_SIZE    8
-#define XLevelL		 0x02
-#define XLevelH		 0x10
-#define YLevel       0xB0
+#define WIDTH      128
+#define HEIGHT     64
+#define PAGE_SIZE  8
+#define XLevelL    0x02
+#define XLevelH    0x10
+#define YLevel     0xB0
 
 
 // OLED function prototypes

@@ -1,12 +1,12 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
-	Author:		Edwin Poulose
-	Date:		28/05/2024
-	Modified:	None
-	� Fanshawe College, 2024
+    File Name:  ELNC6011EPLab2.c  
+    Author:     Edwin Poulose
+    Date:       28/05/2024
+    Modified:   None
+    � Fanshawe College, 2024
 
-	Description: This File defines all the types.
+    Description: This File defines all the types.
 =============================================================================*/
 
 #ifndef TYPES
@@ -17,43 +17,43 @@
 // Global Variables  ==========================================================
 typedef struct
 {
-	char pbState;
-	char pbLastState;
+    char pbState;
+    char pbLastState;
 }pbs_t;
 
 typedef struct
 {
-	char currentPattern;
-	char patCounter;
-	char currentPosition;
-	char setPosition;
-	char isMoving;
+    char currentPattern;
+    char patCounter;
+    char currentPosition;
+    char setPosition;
+    char isMoving;
 }stepper_t;
 
 /*Structure to save current status of system*/
 typedef struct
 {
-	unsigned char mode;
-	unsigned char schedule;
-	unsigned char portion;
-	unsigned char temp;
-	unsigned char statusChange;
+    unsigned char mode;
+    unsigned char schedule;
+    unsigned char portion;
+    unsigned char temp;
+    unsigned char statusChange;
 }system_t;
 
 
 /*Structure to save current status of system*/
 typedef struct
 {
-	char hour;
-	char min;
-	char second;
+    char hour;
+    char min;
+    char second;
 }time_t;
 
 typedef struct
 {
-	char schedules[MAXSHEDULES];
-	char scheduleSelect;
-	char scheduleIndex;
+    char schedules[MAXSHEDULES];
+    char scheduleSelect;
+    char scheduleIndex;
 
 }schedules_t;
 

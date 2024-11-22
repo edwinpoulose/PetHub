@@ -1,12 +1,12 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
-	Author:		Edwin Poulose
-	Date:		28/05/2024
-	Modified:	None
-	� Fanshawe College, 2024
+    File Name:  ELNC6011EPLab2.c  
+    Author:     Edwin Poulose
+    Date:       28/05/2024
+    Modified:   None
+    � Fanshawe College, 2024
 
-	Description: This program contains all the submodules related to
+    Description: This program contains all the sub modules related to
                  displaying data in OLED
 =============================================================================*/
 
@@ -16,12 +16,12 @@
 // Functions  =================================================================
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display Temperature data in OLED
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display Temperature data in OLED
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displayTemp()
 {
@@ -32,7 +32,7 @@ void displayTemp()
     }
     else
     {
-         COOLINGFAN=FALSE;       
+         COOLINGFAN=FALSE;     
     }
     sprintf(buffer, "%02i",result);
     transmitToESP(2,result);
@@ -42,12 +42,12 @@ void displayTemp()
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display Sytem Time data in OLED
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display Sytem Time data in OLED
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displayTime()
 {
@@ -73,12 +73,12 @@ void displayTime()
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Convert hour data to 12 hr format and display
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Convert hour data to 12 hr format and display
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displayTime12Hr(unsigned char x, unsigned char y, char hour)
 {
@@ -103,54 +103,54 @@ void displayTime12Hr(unsigned char x, unsigned char y, char hour)
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display main menu
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display main menu
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displayMenu()
 {
     displayTime();
-	sprintf(buffer, "Schedules:%2i",currentStatus.schedule);
-	oledPrintString(4,3,buffer);
+    sprintf(buffer, "Schedules:%2i",currentStatus.schedule);
+    oledPrintString(4,3,buffer);
 
-	sprintf(buffer, "Portions :%2i",currentStatus.portion);
-	oledPrintString(4,4,buffer);  
+    sprintf(buffer, "Portions :%2i",currentStatus.portion);
+    oledPrintString(4,4,buffer);  
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display schedule select settings
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display schedule select settings
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displaySchedule()
 {
-    sprintf(buffer, "Schedule #%2i    ",newSchedule.scheduleIndex+1);
+    sprintf(buffer, "Schedule #%2i  ",newSchedule.scheduleIndex+1);
     oledPrintString(4,3,buffer);
 
-    sprintf(buffer, "Set to :    ");
+    sprintf(buffer, "Set to :   ");
     oledPrintString(4,4,buffer);
     displayTime12Hr(12,4,newSchedule.schedules[newSchedule.scheduleIndex]);
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display indivitual mode setting
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display individual mode setting
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displayMode()
 {
-    sprintf(buffer, "%s     ",modeSelect[newStatus.mode-1]);
+    sprintf(buffer, "%s  ",modeSelect[newStatus.mode-1]);
     oledPrintString(4,3,buffer);
-    sprintf(buffer, "Set to :     ");
+    sprintf(buffer, "Set to :    ");
     oledPrintString(4,4,buffer);
     switch(newStatus.mode)
     {
@@ -182,17 +182,17 @@ void displayMode()
 }
 
 /*>>> dec: ===========================================================
-Author:		Edwin Poulose
-Date:		27/05/2024
-Modified:	None
-Desc:		Display water and food level in OLED
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       27/05/2024
+Modified:   None
+Desc:       Display water and food level in OLED
+Input:      None
+Returns:    None    
  ============================================================================*/
 void displaylevel()
 {
     unsigned long result=0;
-	char level=0;
+    char level=0;
     switch (triggerFlag)// switched to next state in every second.
     {
         case 0:
@@ -204,7 +204,7 @@ void displaylevel()
             // check distance to food level
             result=checkDistance();
             if (result<0)
-            {	
+            {   
                 level=4;
                 break;
             }
@@ -231,7 +231,7 @@ void displaylevel()
             triggerFlag++;
             drawProgressBar(6,20,(char)level);
             transmitToESP(5,level);
-            break;	
+            break;  
         case 2:
             // send trigger pulse to water Ultrasonic
             startTrigger(2);
@@ -268,7 +268,7 @@ void displaylevel()
             drawProgressBar(6,68,(char)level);
             triggerFlag=0;
             transmitToESP(4,level);
-            break;						
+            break;                      
         default:
             break;
     }

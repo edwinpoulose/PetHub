@@ -1,39 +1,39 @@
 /*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-	File Name:	ELNC6011EPLab2.c  
-	Author:		Edwin Poulose
-	Date:		20/07/2024
-	Modified:	None
-	� Fanshawe College, 2024
+    File Name:  ELNC6011EPLab2.c  
+    Author:     Edwin Poulose
+    Date:       20/07/2024
+    Modified:   None
+    � Fanshawe College, 2024
 
-	Description: This program contains all sensor submodiles
+    Description: This program contains all sensor sub modules
 =============================================================================*/
 // Libraries ------------------------------------------------------------------
 #include "PetHub_Modules.h"
 
 /*>>> initSensor: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Initializate all sensor settings
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Initialize all sensor settings
+Input:      None
+Returns:    None    
  ============================================================================*/
 void initSensor()
 {
     // Configure ADC
     ADCON0=ADCON0SETTING;
-	ADCON1=ADCON1SETTING;
-	ADCON2=ADCON2SETTING;
+    ADCON1=ADCON1SETTING;
+    ADCON2=ADCON2SETTING;
     // Initialize Timer2
-    T2CON = 0x00;            // Clear Timer2 configuration
+    T2CON = 0x00;           // Clear Timer2 configuration
     T2CONbits.T2CKPS = 0b10; // Prescaler is 16
     T2CONbits.T2OUTPS = 0;   // Postscaler is 1:1
-    PR2 = 255;               // Load the period register with maximum value
-    TMR2 = 0;                // Clear Timer2 register
+    PR2 = 255;             // Load the period register with maximum value
+    TMR2 = 0;               // Clear Timer2 register
     PIR1bits.TMR2IF = 0;     // Clear Timer2 interrupt flag
     PIE1bits.TMR2IE = 1;     // Enable Timer2 interrupt
-    T2CONbits.TMR2ON = 0;    // Turn off Timer2
+    T2CONbits.TMR2ON = 0;   // Turn off Timer2
 
     // Initialize Trigger pin
     ANSELDbits.ANSD0 = 0;
@@ -62,24 +62,24 @@ void initSensor()
 }
 
 /*>>> startTrigger: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Sent trigger to respective ultrasonic sensor
-Input: 		None
-Returns:	None	
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Sent trigger to respective ultrasonic sensor
+Input:      None
+Returns:    None    
  ============================================================================*/
 void startTrigger(int sensor)
 {
-	// edge detection and distance check flag set 0 when trigger is sent 
+    // edge detection and distance check flag set 0 when trigger is sent 
     edge=0;
-	distanceRdy=0;
+    distanceRdy=0;
 
     if(sensor==1)
     {
-		// it is neccessary to switch back to detecting rising edge 
-		// in case trigger is fired before prevous edge is detected
-		INTCON2bits.INTEDG0 = 1;
+        // it is neccessary to switch back to detecting rising edge 
+        // in case trigger is fired before prevous edge is detected
+        INTCON2bits.INTEDG0 = 1;
         // Trigger the ultrasonic food sensor
         TRIG1 = 1;
         Delay10TCYx(1); // 10 us
@@ -98,12 +98,12 @@ void startTrigger(int sensor)
 
 
 /*>>> checkDistance: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Returns distance when echo is received, else -1
-Input: 		None
-Returns:	Distance to surface	
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Returns distance when echo is received, else -1
+Input:      None
+Returns:    Distance to surface 
  ============================================================================*/
 unsigned long checkDistance()
 {
@@ -127,34 +127,34 @@ unsigned long checkDistance()
 }
 
 /*>>> startADCConversion: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Select an ADC channel to be sampled, start the sampling process 
-			wait untill it finished and return the result 
-Input: 		channelID, channel number of ADC channel to be sampled	
-Returns: 	ADRES, ADC result value.	
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Select an ADC channel to be sampled, start the sampling process 
+            wait untill it finished and return the result 
+Input:      channelID, channel number of ADC channel to be sampled  
+Returns:    ADRES, ADC result value.    
  ============================================================================*/
 int startADCConversion(char channelID)
 {
-	// Set the channel
-	ADCON0bits.CHS=channelID;
-	// Start the sampling
-	ADCON0bits.GO=TRUE;
-	// Wait till sampling is done
-	while(ADCON0bits.GO);
-	// Return the result
-	return ADRES;
+    // Set the channel
+    ADCON0bits.CHS=channelID;
+    // Start the sampling
+    ADCON0bits.GO=TRUE;
+    // Wait till sampling is done
+    while(ADCON0bits.GO);
+    // Return the result
+    return ADRES;
 
 } // eo startADCConversion::
 
 /*>>> calculateTemperature: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Calculate temperature using LM35 sensor
-Input: 		None
-Returns:	Distance to surface	
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Calculate temperature using LM35 sensor
+Input:      None
+Returns:    Distance to surface 
  ============================================================================*/
 int calculateTemperature()
 {
@@ -167,14 +167,14 @@ int calculateTemperature()
 } 
 
 /*>>> calculateAirQuality: ===========================================================
-Author:		Edwin Poulose
-Date:		20/07/2024
-Modified:	None
-Desc:		Return raw air quality data.
+Author:     Edwin Poulose
+Date:       20/07/2024
+Modified:   None
+Desc:       Return raw air quality data.
             This is processed in the mobile app
             Only appicable for Cat Owners
-Input: 		None
-Returns:	Distance to surface	
+Input:      None
+Returns:    Distance to surface 
  ============================================================================*/
 int calculateAirQuality()
 {
