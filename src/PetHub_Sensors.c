@@ -1,6 +1,5 @@
-/*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-    File Name:  ELNC6011EPLab2.c  
+    File Name:  PetHub_Sensors.c  
     Author:     Edwin Poulose
     Date:       20/07/2024
     Modified:   None

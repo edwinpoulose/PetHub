@@ -1,6 +1,5 @@
-/*Use of AI / Cognitive Assistance Software is not allowed in any evaluation, assessment or exercise.*/
 /*=============================================================================
-    File Name:  PetHub_Defines.c  
+    File Name:  PetHub_Defines.h  
     Author:     Edwin Poulose
     Date:       28/05/2024
     Modified:   None
